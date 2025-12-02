@@ -9,3 +9,15 @@ html *
     font_family: Arial;
     color: pink;
 }
+.idea_list{
+    align: left;
+}
+.project_list{
+    align: centre;
+}
+.user_dashboard{
+    align: left;
+}
+.user_projects{
+    align: left;
+}
