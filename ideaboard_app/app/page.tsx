@@ -35,7 +35,7 @@ const Sidebar = ({username}) => (
 )
 
 const Footer = () => (
-  <footer className="site_footer">
+  <footer className="sticky top-full p-[8px] px-18 mt-18 text-center border-t-2 border-solid border-inherit">
     <h3>Impressum und so yay</h3>
   </footer>
 )

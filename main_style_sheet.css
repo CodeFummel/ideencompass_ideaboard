@@ -14,7 +14,7 @@ html, body {
 }
 
 /* Header */
-.site-header {
+.site_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,7 +23,7 @@ html, body {
   background: #fafafa;
 }
 
-.site-header h1 {
+.site_header h1 {
   font-size: 1.5rem;
   text-align: center;
 }
@@ -35,7 +35,7 @@ html, body {
   object-fit: cover;
 }
 
-.main-body {
+.main_body {
   display: grid;
   grid-template-columns: 1fr 300px;
   gap: 18px;
@@ -44,15 +44,13 @@ html, body {
   min-height: calc(100vh - 180px);
 }
 
-/* Idea-Window */
-.idea_window {
+.idea_list {
   border: 1px solid #ddd;
   padding: 14px;
   border-radius: 8px;
   text-align: left;
 }
 
-/* Sidebar with Dashboard */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -66,8 +64,7 @@ html, body {
   text-align: right;
 }
 
-/* Footer */
-.site-footer {
+.site_footer {
   border-top: 2px solid #ccc;
   padding: 12px 18px;
   text-align: center;
