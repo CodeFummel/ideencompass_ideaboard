@@ -1,23 +1,86 @@
-html *
-{
-   font_size: 30 !important;
-   color: #000 !important;
-   font_family: Roboto !important;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.h1{
-    font_family: Arial;
-    color: pink;
+/* Global */
+html, body {
+  height: 100%;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 16px; /* Basisgröße */
+  color: #000;
+  background: #fff;
 }
-.idea_list{
-    align: left;
+
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border: 2px solid #ccc;
+  background: #fafafa;
 }
-.project_list{
-    align: centre;
+
+.site-header h1 {
+  font-size: 1.5rem;
+  text-align: center;
 }
-.user_dashboard{
-    align: left;
+
+/* Benutzerbild */
+.user_account_header img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-.user_projects{
-    align: left;
+
+/* Main Layout: Inhalt links, Sidebar rechts */
+.main-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 18px;
+  padding: 18px;
+  align-items: start;
+  min-height: calc(100vh - 180px);
 }
+
+/* Idee-Fenster */
+.idea_window {
+  border: 1px solid #ddd;
+  padding: 14px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+/* Sidebar mit Dashboard + Projects */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.user_dashboard, .user_projects {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: right;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 2px solid #ccc;
+  padding: 12px 18px;
+  text-align: center;
+  margin-top: 18px;
+}
+
+/* Responsive: Auf kleinen Bildschirmen untereinander */
+@media (max-width: 800px) {
+  .main-body {
+    grid-template-columns: 1fr;
+  }
+  .user_dashboard, .user_projects {
+    text-align: left; /* auf Mobil links ist meist schöner */
+  }
