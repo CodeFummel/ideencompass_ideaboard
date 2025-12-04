@@ -8,7 +8,7 @@
 html, body {
   height: 100%;
   font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  font-size: 16px; /* Basisgröße */
+  font-size: 16px;
   color: #000;
   background: #fff;
 }
@@ -28,7 +28,6 @@ html, body {
   text-align: center;
 }
 
-/* Benutzerbild */
 .user_account_header img {
   width: 48px;
   height: 48px;
@@ -36,7 +35,6 @@ html, body {
   object-fit: cover;
 }
 
-/* Main Layout: Inhalt links, Sidebar rechts */
 .main-body {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -46,7 +44,7 @@ html, body {
   min-height: calc(100vh - 180px);
 }
 
-/* Idee-Fenster */
+/* Idea-Window */
 .idea_window {
   border: 1px solid #ddd;
   padding: 14px;
@@ -54,7 +52,7 @@ html, body {
   text-align: left;
 }
 
-/* Sidebar mit Dashboard + Projects */
+/* Sidebar with Dashboard */
 .sidebar {
   display: flex;
   flex-direction: column;
