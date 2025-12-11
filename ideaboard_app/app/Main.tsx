@@ -11,7 +11,7 @@ export const Main = () => {
     const newIdea = (idea) => {
         setIdeas((ideas) => [...ideas, idea])
     };
-    const items = [
+    const mainTabs = [
         {
             label: "Ideen",
             key: "ideas-tab",
@@ -45,7 +45,7 @@ export const Main = () => {
             className="min-h-[0] p-[8px] m-[8px] text-left flex flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
             <div className="flex justify-between">
                 <nav className="flex flex-1">
-                    <Tabs type={"card"} items={items} defaultActiveKey={"ideas-tab"}
+                    <Tabs type={"card"} items={mainTabs} defaultActiveKey={"ideas-tab"}
                           tabBarExtraContent={{left: filterButton, right: createIdeaButton}}/>
                 </nav>
             </div>

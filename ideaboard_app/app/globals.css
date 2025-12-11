@@ -16,8 +16,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-roboto-sans);
+  --font-mono: var(--font-roboto-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,34 +35,4 @@ html, body {
   font-size: 16px;
   border: var(--border);
   border-radius: var(--border-radius);
-}
-
-/** {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}*/
-
-.user_dashboard, .user_projects {
-  border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 8px;
-  position: right;
-}
-
-.site_footer {
-  border-top: 2px solid #ccc;
-  padding: 12px 18px;
-  text-align: center;
-  margin-top: 18px;
-  position: sticky;
-  bottom: 0;
-}
-
-.navButton {
-  border: 2px solid grey;
-  border-radius: 10px;
-  padding: 4px;
-  margin: 4px;
-  text-align: center;
 }
