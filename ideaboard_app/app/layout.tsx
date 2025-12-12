@@ -24,7 +24,7 @@ const robotoMono = Roboto_Mono({
 
 export const metadata: Metadata = {
   title: "Ideenboard",
-  description: "Ein Board zum organieren und verwalten von Ideen",
+  description: "Ein Board zum organiesieren und verwalten von Ideen",
 };
 
 export default function RootLayout({

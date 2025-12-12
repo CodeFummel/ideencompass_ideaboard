@@ -1,8 +1,8 @@
 import Image from "next/image";
 import {Main} from "./Main";
-import {Footer} from "./Footer"
-import {Header} from "./Header"
-import {Sidebar} from "./Sidebar"
+import {Footer} from "./Footer";
+import {Header} from "./Header";
+import {Sidebar} from "./Sidebar";
 
 export default function Home() {
 
