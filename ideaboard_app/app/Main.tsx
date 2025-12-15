@@ -41,7 +41,7 @@ export const Main: React.FC = () => {
         // @ts-ignore
         setItems([...items, {
             label: 'New Idea',
-            children:<div>IdeaCreator</div>,
+            children:<IdeaCreator/>,
             key: newActiveKey}]);
         setActiveKey(newActiveKey);
     };
