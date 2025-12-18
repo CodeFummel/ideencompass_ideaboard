@@ -1,8 +1,9 @@
 "use client"
 
 import {InboxOutlined} from '@ant-design/icons';
-import type {SelectProps, UploadProps} from 'antd';
-import {Form, Input, message, Select, Upload} from 'antd';
+import type {FormInstance, SelectProps, UploadProps} from 'antd';
+import {Form, Input, message, Select, Upload, Button} from 'antd';
+import {Ref, useImperativeHandle, useRef} from "react";
 
 // Title
 
@@ -65,11 +66,34 @@ const props: UploadProps = {
     },
 };
 
-export const IdeaCreator: React.FC = () => {
+export interface IdeaCreatorRef {
+    submit: () => void
+};
+
+export const IdeaCreator = ({ref}: {
+    ref?: Ref<IdeaCreatorRef>
+}) => {
+    const formRef = useRef<FormInstance>(null)
+
+    useImperativeHandle(ref, () => ({
+        submit: () => {
+            formRef.current?.submit()
+        }
+    }), [formRef]);
+
+    const finish = (values) => {
+        fetch("/idea",{
+            method: "POST",
+            body: JSON.stringify(values),
+        });
+    };
+
     return (
         //<div className="flex">
             <Form className="flex-1 overflow-y-auto"
                   labelCol={{span: 4}}
+                  onFinish={finish}
+                  ref={formRef}
             >
                 <Form.Item name={"title"} label="Titel:" rules={[{required: false}]}>
                     <Input/>
@@ -115,6 +139,11 @@ export const IdeaCreator: React.FC = () => {
                             <p className="ant-upload-text align-center">Klicken oder ziehen Sie Dateien in diesen Bereich</p>
                         </Upload.Dragger>
                     </div>
+                </Form.Item>
+                <Form.Item label={null}>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
                 </Form.Item>
             </Form>
         //</div>

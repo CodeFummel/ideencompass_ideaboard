@@ -3,7 +3,7 @@
 import React, {useRef, useState} from 'react';
 import {Button, Dropdown, MenuProps, Tabs} from 'antd';
 import {FilterOutlined} from "@ant-design/icons";
-import {IdeaCreator} from "./IdeaCreator";
+import {IdeaCreator, IdeaCreatorRef} from "./IdeaCreator";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -13,7 +13,6 @@ export const DashboardTabs: React.FC = () => {
     const newIdea = (idea) => {
         setIdeas((ideas) => [...ideas, idea])
     };
-
 
     const defaultPanes = [
         {
@@ -32,6 +31,7 @@ export const DashboardTabs: React.FC = () => {
     const [items, setItems] = useState(defaultPanes);
     const [activeKey, setActiveKey] = useState("ideas-tab");
     const newTabIndex = useRef(0);
+    const ref = useRef<IdeaCreatorRef>(null);
 
     const onChange = (key: string) => {
         setActiveKey(key);
@@ -42,9 +42,13 @@ export const DashboardTabs: React.FC = () => {
         // @ts-ignore
         setItems([...items, {
             label: 'Neue Idee',
-            children:<IdeaCreator/>,
+            children:<IdeaCreator ref={ref}/>,
             key: newActiveKey}]);
         setActiveKey(newActiveKey);
+    };
+
+    const save = () => {
+        ref.current?.submit();
     };
 
     const remove = (targetKey: TargetKey) => {
@@ -65,9 +69,6 @@ export const DashboardTabs: React.FC = () => {
         }
     };
 
-
-    const createIdeaButton = <Button type={"primary"} onClick={add}>Idee erstellen</Button>
-
     const filterOptions: MenuProps["items"] = [
         {
             label: "Best",
@@ -82,7 +83,9 @@ export const DashboardTabs: React.FC = () => {
             key: "3",
         },
     ];
+
     const filterButton = <Dropdown trigger={["click"]} menu={{items: filterOptions}}><FilterOutlined/></Dropdown>
+    const saveIdeaButton = <Button type={"primary"} onClick={save}>Idee speichern</Button>
 
     return (
         <main
@@ -90,8 +93,7 @@ export const DashboardTabs: React.FC = () => {
             <nav className="flex">
                 <Tabs
                     className="flex flex-1"
-                    tabBarExtraContent={{left: filterButton, right: createIdeaButton}}
-                    hideAdd
+                    tabBarExtraContent={{left: filterButton, right: saveIdeaButton}}
                     onChange={onChange}
                     activeKey={activeKey}
                     type={"editable-card"}
@@ -103,5 +105,3 @@ export const DashboardTabs: React.FC = () => {
         </main>
     );
 };
-
-//export default DashboardTabs;

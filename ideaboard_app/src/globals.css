@@ -10,7 +10,8 @@
   --foreground: var(--foreground_lightmode);
   --border: #b9b9b9;
   --border-radius: 8px;
-  --flex-gap:16px
+  --flex-gap: 16px;
+  --title-font-size: 30px;
 }
 
 @theme inline {
@@ -43,7 +44,9 @@ html, body {
 }
 .stat-box-title{
   border-bottom: var(--border);
+  border-color: var(--border);
   padding: 2rem;
+  font-size: var(--title-font-size);
 }
 
 .ant-tabs-content, .ant-tabs-content-holder, .ant-tabs-tabpane {
