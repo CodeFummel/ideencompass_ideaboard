@@ -2,11 +2,12 @@
 
 import React from 'react'
 import { Tabs } from 'antd'
-import type {TabsProps } from 'antd'
+import type { TabsProps } from 'antd'
 
+import { Footer } from "@/app/src/Footer";
+import { Header } from "@/app/src/Header";
 import { Dashboard } from "@/app/src/dashboard/Dashboard";
-import {Footer} from "@/app/src/Footer";
-import {Header} from "@/app/src/Header";
+import { Statistics } from "@/app/src/statistics/Statistics";
 
 const onChange = (key: string) => {
     console.log(key);
@@ -25,9 +26,14 @@ const items: TabsProps["items"] = [
     },
     {
         key: "3",
-        label: "Settings",
-        children: "Setting Site",
-    }
+        label: "Statisken",
+        children: <Statistics/>,
+    },
+    {
+        key: "4",
+        label: "Einstellungen",
+        children: "Einstellungen Site",
+    },
 ]
 
 export const Main: React.FC = () => {

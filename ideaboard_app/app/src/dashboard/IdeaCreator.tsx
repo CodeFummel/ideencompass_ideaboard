@@ -18,10 +18,14 @@ const categoryOptions = [
     },
     {
         value: "3",
-        label: "Teamfeier"
+        label: "HR"
     },
     {
-        value: "4",
+        value:"4",
+        label:"Pausen"
+    },
+    {
+        value: "5",
         label: "Sonstiges"
     },
 ];

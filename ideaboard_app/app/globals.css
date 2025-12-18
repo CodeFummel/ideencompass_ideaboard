@@ -41,6 +41,10 @@ html, body {
   border: var(--border);
   border-radius: var(--border-radius);
 }
+.stat-box-title{
+  border-bottom: var(--border);
+  padding: 2rem;
+}
 
 .ant-tabs-content, .ant-tabs-content-holder, .ant-tabs-tabpane {
   display: flex;

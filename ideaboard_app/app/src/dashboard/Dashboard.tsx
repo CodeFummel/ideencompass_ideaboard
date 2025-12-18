@@ -8,7 +8,7 @@ export const Dashboard = () => {
     const username = "Lynette";
 
     return(
-        <div className="flex flex-row flex-1 gap-(--flex-gap)">
+        <div className="flex flex-row flex-1 gap-(--flex-gap) m-4 mt-0">
             <DashboardTabs />
             <Sidebar username={username}/>
         </div>
