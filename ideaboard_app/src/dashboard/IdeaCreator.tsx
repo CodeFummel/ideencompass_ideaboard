@@ -140,11 +140,6 @@ export const IdeaCreator = ({ref}: {
                         </Upload.Dragger>
                     </div>
                 </Form.Item>
-                <Form.Item label={null}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
             </Form>
         //</div>
     );

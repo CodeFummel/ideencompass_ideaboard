@@ -6,6 +6,7 @@ import type { TabsProps } from 'antd'
 
 import { Footer } from "@/src/Footer";
 import { Header } from "@/src/Header";
+import { Home } from "@/src/home/Home";
 import { Dashboard } from "@/src/dashboard/Dashboard";
 import { Statistics } from "@/src/statistics/Statistics";
 
@@ -17,7 +18,7 @@ const items: TabsProps["items"] = [
     {
         key: "1",
         label: "Home",
-        children: "Home Site",
+        children: <Home/>,
     },
     {
         key: "2",
@@ -28,11 +29,6 @@ const items: TabsProps["items"] = [
         key: "3",
         label: "Statisken",
         children: <Statistics/>,
-    },
-    {
-        key: "4",
-        label: "Einstellungen",
-        children: "Einstellungen Site",
     },
 ]
 
