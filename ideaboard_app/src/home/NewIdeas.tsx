@@ -8,6 +8,9 @@ export const NewIdeas = () => {
             <div className={"border-b-2 border-(--border) p-2"}>
                 <p>Neue Ideen</p>
             </div>
+            <div>
+
+            </div>
         </div>
     );
 };

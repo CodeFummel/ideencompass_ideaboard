@@ -8,6 +8,9 @@ export const TopThreeIdeas = () => {
             <div className={"border-b-2 border-(--border) p-2"}>
                 <p>Top-3 Ideen der Woche</p>
             </div>
+            <div>
+
+            </div>
         </div>
     );
 };

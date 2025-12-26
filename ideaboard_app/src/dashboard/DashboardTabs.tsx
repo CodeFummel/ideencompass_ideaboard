@@ -89,7 +89,7 @@ export const DashboardTabs: React.FC = () => {
 
     return (
         <main
-            className="flex p-[8px] m-[8px] text-left flex flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
+            className="flex text-left flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
             <nav className="flex">
                 <Tabs
                     className="flex flex-1"

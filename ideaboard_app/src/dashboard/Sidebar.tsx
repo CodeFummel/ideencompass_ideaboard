@@ -1,18 +1,25 @@
 "use client"
 
+import React from "react";
+
 export const Sidebar = ({username}) => {
     return (
-        <aside className="flex flex-col flex-1 justify-end gap-(--flex-gap) items-stretch">
-            <div
-                className="p-[8px] m-[8px] flex flex-2 text-left border-2 border-solid rounded-(--border-radius) border-(--border)">
-                <h2>Benutzername:</h2>
-                <p>{username}</p>
+        <aside className="flex flex-col flex-1 justify-end gap-4 items-stretch">
+            <div className={"flex-2  h-full border-2 rounded-(--border-radius) border-(--border)"}>
+                <div className={"border-b-2 border-(--border) p-2"}>
+                    <p>Benutzerdaten</p>
+                </div>
+                <div>
+                    <p>Benutzername: {username}</p>
+                </div>
             </div>
-
-            <div
-                className="p-[8px] m-[8px] flex flex-3 text-left border-2 border-solid rounded-(--border-radius) border-(--border)">
-                <h2>Projekte:</h2>
-                <p>Halloo das ist mein Projekt und so</p>
+            <div className={"flex-2  h-full border-2 rounded-(--border-radius) border-(--border)"}>
+                <div className={"border-b-2 border-(--border) p-2"}>
+                    <p>Meine Projekte</p>
+                </div>
+                <div>
+                    <p>Ich bin ein Projekt vertrau</p>
+                </div>
             </div>
         </aside>
     );

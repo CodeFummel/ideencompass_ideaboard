@@ -10,7 +10,6 @@
   --foreground: var(--foreground_lightmode);
   --border: #b9b9b9;
   --border-radius: 8px;
-  --flex-gap: 16px;
   --title-font-size: 30px;
 }
 
