@@ -1,8 +1,8 @@
 "use client"
 
 import {InboxOutlined} from '@ant-design/icons';
-import type {FormInstance, SelectProps, UploadProps} from 'antd';
-import {Form, Input, message, Select, Upload, Button} from 'antd';
+import type {FormInstance, UploadProps} from 'antd';
+import {Form, Input, message, Select, Upload} from 'antd';
 import {Ref, useImperativeHandle, useRef} from "react";
 
 // Title
@@ -10,41 +10,49 @@ import {Ref, useImperativeHandle, useRef} from "react";
 // Categories
 const categoryOptions = [
     {
-        value: "1",
+        value: "Ausstattung",
+        label: "Ausstattung"
+    },
+    {
+        value: "Büro",
         label: "Büro"
     },
     {
-        value: "2",
+        value: "Cafe",
         label: "Cafe"
     },
     {
-        value: "3",
+        value: "HR",
         label: "HR"
     },
     {
-        value:"4",
-        label:"Pausen"
+        value: "IT",
+        label: "IT"
     },
     {
-        value: "5",
+        value: "Pausen",
+        label: "Pausen"
+    },
+    {
+        value: "Produkte",
+        label: "Produkte"
+    },
+    {
+        value: "Sonstiges",
         label: "Sonstiges"
     },
 ];
 // Tags
-const tagOptions: SelectProps['options'] = [];
-
-for (let i = 10; i < 36; i++) {
-    tagOptions.push({
-        value: i.toString(36) + i,
-        label: i.toString(36) + i,
-    });
-}
-
-const handleChange = (value: string[]) => {
-    console.log(`selected ${value}`);
-};
-// Description
-
+const tagOptions = [
+    {
+        value: "Dringend",
+        label: "Dringend"
+    },
+    {
+        values: "Schnell erledigt",
+        label: "Schnell erledigt"
+    }
+];
 // Files
 const props: UploadProps = {
     name: 'file',
@@ -68,7 +76,7 @@ const props: UploadProps = {
 
 export interface IdeaCreatorRef {
     submit: () => void
-};
+}
 
 export const IdeaCreator = ({ref}: {
     ref?: Ref<IdeaCreatorRef>
@@ -82,65 +90,70 @@ export const IdeaCreator = ({ref}: {
     }), [formRef]);
 
     const finish = (values) => {
-        fetch("/idea",{
+        console.info({values})
+        fetch("/idea", {
             method: "POST",
-            body: JSON.stringify(values),
+            body: JSON.stringify({
+                title: values.title,
+                category: values.category,
+                body: values.body
+            }),
         });
     };
 
     return (
-        //<div className="flex">
-            <Form className="flex-1 overflow-y-auto"
-                  labelCol={{span: 4}}
-                  onFinish={finish}
-                  ref={formRef}
-            >
-                <Form.Item name={"title"} label="Titel:" rules={[{required: false}]}>
-                    <Input/>
-                </Form.Item>
-                <Form.Item label={"Kategorie:"}>
-                    <div className="flex flex-1 gap-4">
-                        <Form.Item className="flex-3" noStyle name={"category"}>
+        <Form className="flex-1 overflow-y-auto"
+              labelCol={{span: 4}}
+              onFinish={finish}
+              ref={formRef}
+        >
+            <Form.Item name={"title"} label="Titel:" rules={[{required: false}]}>
+                <Input/>
+            </Form.Item>
+            <Form.Item label={"Kategorie:"}>
+                <div className="flex flex-1 gap-4">
+                    <Form.Item className="flex-3" noStyle name={"category"}>
+                        <Select className={"flex-1"}
+                                showSearch={{
+                                    optionFilterProp: 'label',
+                                    filterSort: (optionA, optionB) =>
+                                        (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase()),
+                                }}
+                                placeholder="Kategorie Auswählen"
+                                options={categoryOptions}
+                        />
+                    </Form.Item>
+                    <div className={"flex flex-2 items-center gap-2"}>
+                        <label>
+                            Tags:
+                        </label>
+                        <Form.Item name={"tags"} noStyle>
                             <Select className={"flex-1"}
-                                    showSearch={{
-                                        optionFilterProp: 'label',
-                                        filterSort: (optionA, optionB) =>
-                                            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase()),
-                                    }}
-                                    placeholder="Kategorie Auswählen"
-                                    options={categoryOptions}
-                            />
+                                    mode="tags"
+                                    placeholder="#tags"
+                                //prefix={"#"}
+                                //onChange={handleChange}
+                                    options={tagOptions}/>
                         </Form.Item>
-                        <div className={"flex flex-2 items-center gap-2"}>
-                            <label>
-                                Tags:
-                            </label>
-                            <Form.Item name={"tags"} noStyle>
-                                <Select className={"flex-1"}
-                                        mode="tags"
-                                        placeholder="#tags"
-                                    //prefix={"#"}
-                                        onChange={handleChange}
-                                        options={tagOptions}/>
-                            </Form.Item>
-                        </div>
                     </div>
-                </Form.Item>
-                <Form.Item name={"body"} label={"Beschreibung:"}>
-                    <Input.TextArea autoSize={{minRows: 9, maxRows: 9}}/>
-                </Form.Item>
-                <Form.Item name={"files"} label={"Anhänge:"}>
-                    <div
-                        className=" flex content-center  align-center border-(--border) border-2 border-inherited border-dotted rounded-(--border-radius) text-center h-30">
-                        <Upload.Dragger {...props} className="flex flex-1 justify-center align-center">
-                            <p className="ant-upload-drag-icon flex justify-center">
-                                <InboxOutlined className="flex self-center justify-center"/>
-                            </p>
-                            <p className="ant-upload-text align-center">Klicken oder ziehen Sie Dateien in diesen Bereich</p>
-                        </Upload.Dragger>
-                    </div>
-                </Form.Item>
-            </Form>
-        //</div>
+                </div>
+            </Form.Item>
+            <Form.Item name={"body"} label={"Beschreibung:"}>
+                <Input.TextArea autoSize={{minRows: 9, maxRows: 9}}/>
+            </Form.Item>
+            <Form.Item name={"files"} label={"Anhänge:"}>
+                <div
+                    className=" flex content-center  align-center border-(--border) border-2 border-inherited border-dotted rounded-(--border-radius) text-center h-30">
+                    <Upload.Dragger {...props} className="flex flex-1 justify-center align-center">
+                        <p className="ant-upload-drag-icon flex justify-center">
+                            <InboxOutlined className="flex self-center justify-center"/>
+                        </p>
+                        <p className="ant-upload-text align-center">Klicken oder ziehen Sie Dateien in diesen
+                            Bereich</p>
+                    </Upload.Dragger>
+                </div>
+            </Form.Item>
+        </Form>
+
     );
 };

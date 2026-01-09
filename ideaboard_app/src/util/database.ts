@@ -1,4 +1,12 @@
-import { Pool } from "pg";
+import {Pool} from "pg";
+import {PrismaPg} from "@prisma/adapter-pg";
+import {PrismaClient} from "@/src/app/generated/prisma/client";
+
+const adapter = new PrismaPg({
+    connectionString: process.env.DATABASE_URL!,
+});
+
+export const prisma = new PrismaClient({adapter});
 
 const pool = new Pool({
     user: process.env.DB_USER || "root",
@@ -8,4 +16,4 @@ const pool = new Pool({
     database: process.env.DB_NAME || "idea",
 });
 
-export { pool };
+export {pool};
