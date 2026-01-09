@@ -1,7 +1,7 @@
 # ideaboard_masterplan
-All the files for the GFOS 2025 Innovation award project. :) 
+GFOS 2025 Innovation award project by CodeFummel and Kali.exe.
 
 Project uses:  
-Framework: Next.js with yarn/npm  
+Framework: Next.js with npm  
 Database: postgreSQL  
-Libraries: Ant Design,  
+Libraries: Ant Design, Prisma,  
