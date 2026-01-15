@@ -1,7 +1,5 @@
 "use client"
 
-import React from "react";
-
 export const Sidebar = ({username}) => {
     return (
         <aside className="flex flex-col flex-1 justify-end gap-4 items-stretch">

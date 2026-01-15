@@ -4,12 +4,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, Dropdown, MenuProps, Tabs } from 'antd';
 import { FilterOutlined } from "@ant-design/icons";
 import { IdeaCreator, IdeaCreatorRef } from "./IdeaCreator";
+import { IdeaComponent } from "./IdeaComponent";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 type Idea = {
-    id: string,
+    id: number,
     title: string,
+    category: string,
+    tags: string,
+    body: string,
 }
 
 const IdeaList: React.FC = () => {
@@ -24,9 +28,8 @@ const IdeaList: React.FC = () => {
         })
     }, []);
 
-    return <div
-        className="h-max p-[8px] m-[8px] text-left justify-start border-2 border-solid rounded-(--border-radius) border-(--border)\">
-        {ideas.map((idea) => <p key={idea.id}>{idea.title}</p>)}
+    return <div className={"overflow-auto"}>
+        {ideas.map((idea) => <IdeaComponent key={idea.id} id={idea.id} title={idea.title} category={idea.category} tags={idea.tags} body={idea.body}/>)}
     </div>;
 }
 
