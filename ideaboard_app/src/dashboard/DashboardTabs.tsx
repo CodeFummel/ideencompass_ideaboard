@@ -1,28 +1,44 @@
 "use client"
 
-import React, {useRef, useState} from 'react';
-import {Button, Dropdown, MenuProps, Tabs} from 'antd';
-import {FilterOutlined} from "@ant-design/icons";
-import {IdeaCreator, IdeaCreatorRef} from "./IdeaCreator";
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Dropdown, MenuProps, Tabs } from 'antd';
+import { FilterOutlined } from "@ant-design/icons";
+import { IdeaCreator, IdeaCreatorRef } from "./IdeaCreator";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-export const DashboardTabs: React.FC = () => {
+type Idea = {
+    id: string,
+    title: string,
+}
 
-    const [ideas, setIdeas] = useState(["Idea 1", "Idea 2", "Idea 3"]);
-    const newIdea = (idea) => {
-        setIdeas((ideas) => [...ideas, idea])
-    };
+const IdeaList: React.FC = () => {
+    const [ideas, setIdeas] = useState<Idea[]>([]);
+
+    useEffect(() => {
+        fetch("/ideas").then((response) => {
+            response.json().then((x) => {
+                console.info(x);
+                setIdeas(x);
+            })
+        })
+    }, []);
+
+    return <div
+        className="h-max p-[8px] m-[8px] text-left justify-start border-2 border-solid rounded-(--border-radius) border-(--border)\">
+        {ideas.map((idea) => <p key={idea.id}>{idea.title}</p>)}
+    </div>;
+}
+
+export const DashboardTabs: React.FC = () => {
 
     const defaultPanes = [
         {
             label: "Ideen",
             key: "ideas-tab",
             closable: false,
-            children: <div
-                className="h-max p-[8px] m-[8px] text-left justify-start border-2 border-solid rounded-(--border-radius) border-(--border)\">
-                {ideas.map((idea, i) => <p key={i}>{idea}</p>)}
-            </div>
+            forceRender: true,
+            children: <IdeaList/>,
         },
         {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
         {label: "Umfragen", key: "polls-tab", closable: false, children: "Umfragen yippie"},
@@ -39,15 +55,17 @@ export const DashboardTabs: React.FC = () => {
 
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
-        // @ts-ignore
         setItems([...items, {
             label: 'Neue Idee',
-            children:<IdeaCreator ref={ref}/>,
-            key: newActiveKey}]);
+            children: <IdeaCreator ref={ref}/>,
+            key: newActiveKey,
+            closable: true,
+            forceRender: false,
+        }]);
         setActiveKey(newActiveKey);
     };
 
-    const save = () => {
+    const handleSubmit = () => {
         ref.current?.submit();
     };
 
@@ -85,11 +103,11 @@ export const DashboardTabs: React.FC = () => {
     ];
 
     const filterButton = <Dropdown trigger={["click"]} menu={{items: filterOptions}}><FilterOutlined/></Dropdown>
-    const saveIdeaButton = <Button type={"primary"} onClick={save}>Idee speichern</Button>
+    const saveIdeaButton = <Button type={"primary"} onClick={handleSubmit}>Idee speichern</Button>
 
     return (
         <main
-            className="flex text-left flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
+            className="flex text-left p-[6px] flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
             <nav className="flex">
                 <Tabs
                     className="flex flex-1"

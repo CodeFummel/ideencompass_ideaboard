@@ -1,9 +1,9 @@
 "use client"
 
-import {InboxOutlined} from '@ant-design/icons';
-import type {FormInstance, UploadProps} from 'antd';
-import {Form, Input, message, Select, Upload} from 'antd';
-import {Ref, useImperativeHandle, useRef} from "react";
+import { InboxOutlined } from '@ant-design/icons';
+import type { FormInstance, UploadProps } from 'antd';
+import { Form, Input, message, Select, Upload, notification } from 'antd';
+import {Ref, useImperativeHandle, useRef, useState} from "react";
 
 // Title
 
@@ -81,6 +81,8 @@ export interface IdeaCreatorRef {
 export const IdeaCreator = ({ref}: {
     ref?: Ref<IdeaCreatorRef>
 }) => {
+    const [isOK, setIsOK] = useState<null|boolean>(null);
+
     const formRef = useRef<FormInstance>(null)
 
     useImperativeHandle(ref, () => ({
@@ -89,9 +91,11 @@ export const IdeaCreator = ({ref}: {
         }
     }), [formRef]);
 
-    const finish = (values) => {
+    const [api, contextHolder] = notification.useNotification();
+
+    const finish = async (values) => {
         console.info({values})
-        fetch("/idea", {
+        const result = await fetch("/idea", {
             method: "POST",
             body: JSON.stringify({
                 title: values.title,
@@ -99,20 +103,54 @@ export const IdeaCreator = ({ref}: {
                 body: values.body
             }),
         });
+        const x = await result.json();
+        console.info({x});
+        if (x.ok){
+            setIsOK(true);
+            console.info("IdeaCreator successfull idea creation")
+            api.open({
+                title: 'Idee gespeichert!',
+                description: 'Sie haben ihre Idee erfolgreich abgeschickt.',
+                duration: 5,
+                showProgress: true,
+                pauseOnHover: true,
+                placement: "top",
+            });
+        }
+        else{
+            console.error("Server IdeaCreator Input Error")
+        }
     };
+
+    const onFormError = () => {
+        console.error("IdeaCreator Input Error")
+        api.error({
+            title: 'Eingabefehler!',
+            description: 'Füllen sie alle benötigten Felder aus, bevor sie die Idee abschicken.',
+            duration: 5,
+            showProgress: true,
+            pauseOnHover: true,
+            placement: "top",
+        });
+    }
 
     return (
         <Form className="flex-1 overflow-y-auto"
               labelCol={{span: 4}}
               onFinish={finish}
+              onFinishFailed={onFormError}
               ref={formRef}
         >
-            <Form.Item name={"title"} label="Titel:" rules={[{required: false}]}>
+            {contextHolder}
+            {isOK?
+                (":3")
+                :null}
+            <Form.Item name={"title"} label="Titel:" rules={[{required: true}]}>
                 <Input/>
             </Form.Item>
-            <Form.Item label={"Kategorie:"}>
+            <Form.Item label={"Kategorie:"} >
                 <div className="flex flex-1 gap-4">
-                    <Form.Item className="flex-3" noStyle name={"category"}>
+                    <Form.Item className="flex-3" noStyle name={"category"} rules={[{required: true}]}>
                         <Select className={"flex-1"}
                                 showSearch={{
                                     optionFilterProp: 'label',
@@ -127,7 +165,7 @@ export const IdeaCreator = ({ref}: {
                         <label>
                             Tags:
                         </label>
-                        <Form.Item name={"tags"} noStyle>
+                        <Form.Item name={"tags"} noStyle rules={[{required: true}]}>
                             <Select className={"flex-1"}
                                     mode="tags"
                                     placeholder="#tags"
@@ -138,7 +176,7 @@ export const IdeaCreator = ({ref}: {
                     </div>
                 </div>
             </Form.Item>
-            <Form.Item name={"body"} label={"Beschreibung:"}>
+            <Form.Item name={"body"} label={"Beschreibung:"} rules={[{required: true}]}>
                 <Input.TextArea autoSize={{minRows: 9, maxRows: 9}}/>
             </Form.Item>
             <Form.Item name={"files"} label={"Anhänge:"}>

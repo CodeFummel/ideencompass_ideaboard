@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const {title, category, body} = data;
 
     if (!title || !category || !body) {
-        return new Response("Fill all blanks", {status: 400})
+        return new Response("Fill all blanks", {status: 400});
     }
 
     console.log({data})
@@ -26,5 +26,5 @@ export async function POST(request: Request) {
 
     console.log("Log 2")
 
-    return NextResponse.json({Idea: "successfully uploaded"})
+    return NextResponse.json({ok: true, message: "Idea successfully uploaded"})
 }
