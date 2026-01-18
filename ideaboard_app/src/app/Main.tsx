@@ -4,11 +4,11 @@ import React from 'react'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 
-import { Footer } from "@/src/Footer";
+import { Footer } from "@/src/components/Footer";
 import { Header } from "@/src/app/Head/Header";
-import { Home } from "@/src/home/Home";
-import { Dashboard } from "@/src/dashboard/Dashboard";
-import { Statistics } from "@/src/statistics/Statistics";
+import { Home } from "@/src/components/home/Home";
+import { Dashboard } from "@/src/components/dashboard/Dashboard";
+import { Statistics } from "@/src/components/statistics/Statistics";
 
 const onChange = (key: string) => {
     console.log(key);

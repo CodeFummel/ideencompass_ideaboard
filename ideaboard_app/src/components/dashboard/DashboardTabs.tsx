@@ -109,7 +109,7 @@ export const DashboardTabs: React.FC = () => {
     const saveIdeaButton = <Button type={"primary"} onClick={handleSubmit}>Idee speichern</Button>
 
     return (
-        <main
+        <div
             className="flex text-left p-[6px] flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
             <nav className="flex">
                 <Tabs
@@ -123,6 +123,6 @@ export const DashboardTabs: React.FC = () => {
                     items={items}
                 />
             </nav>
-        </main>
+        </div>
     );
 };

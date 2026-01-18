@@ -11,6 +11,8 @@
   --border: #b9b9b9;
   --border-radius: 8px;
   --title-font-size: 30px;
+  --standard-padding-in: 4px;
+  --standard-padding-out: 4px;
 }
 
 @theme inline {

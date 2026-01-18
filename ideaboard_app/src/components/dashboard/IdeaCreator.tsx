@@ -143,14 +143,14 @@ export const IdeaCreator = ({ref}: {
         >
             {contextHolder}
             {isOK?
-                (":3")
+                ("Placeholder")
                 :null}
-            <Form.Item name={"title"} label="Titel:" rules={[{required: true}]}>
+            <Form.Item name={"title"} label="Titel:" rules={[{required: true, message: ""}]}>
                 <Input/>
             </Form.Item>
             <Form.Item label={"Kategorie:"} >
                 <div className="flex flex-1 gap-4">
-                    <Form.Item className="flex-3" noStyle name={"category"} rules={[{required: true}]}>
+                    <Form.Item className="flex-3" noStyle name={"category"} rules={[{required: true, message: ""}]}>
                         <Select className={"flex-1"}
                                 showSearch={{
                                     optionFilterProp: 'label',
@@ -165,7 +165,7 @@ export const IdeaCreator = ({ref}: {
                         <label>
                             Tags:
                         </label>
-                        <Form.Item name={"tags"} noStyle rules={[{required: true}]}>
+                        <Form.Item name={"tags"} noStyle rules={[{required: true, message: ""}]}>
                             <Select className={"flex-1"}
                                     mode="tags"
                                     placeholder="#tags"
@@ -176,7 +176,7 @@ export const IdeaCreator = ({ref}: {
                     </div>
                 </div>
             </Form.Item>
-            <Form.Item name={"body"} label={"Beschreibung:"} rules={[{required: true}]}>
+            <Form.Item name={"body"} label={"Beschreibung:"} rules={[{required: true, message: ""}]}>
                 <Input.TextArea autoSize={{minRows: 9, maxRows: 9}}/>
             </Form.Item>
             <Form.Item name={"files"} label={"Anhänge:"}>
