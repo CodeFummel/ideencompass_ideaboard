@@ -110,7 +110,7 @@ export const DashboardTabs: React.FC = () => {
 
     return (
         <div
-            className="flex text-left p-[6px] flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
+            className="flex h-full text-left p-[6px] flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
             <nav className="flex">
                 <Tabs
                     className="flex flex-1"
