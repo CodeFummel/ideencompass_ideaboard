@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Dropdown, MenuProps, Tabs } from 'antd';
-import { FilterOutlined } from "@ant-design/icons";
-import { IdeaCreator, IdeaCreatorRef } from "./IdeaCreator";
-import { IdeaComponent } from "./IdeaComponent";
+import React, {useEffect, useRef, useState} from 'react';
+import {Button, Collapse, Dropdown, MenuProps, Tabs} from 'antd';
+import {FilterOutlined} from "@ant-design/icons";
+import {IdeaCreator, IdeaCreatorRef} from "./IdeaCreator";
+import {IdeaComponent} from "./IdeaComponent";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -28,8 +28,20 @@ const IdeaList: React.FC = () => {
         })
     }, []);
 
+
+    const items = ideas.map((idea) => (
+        {
+            key: idea.id,
+            label:<div className={"flex justify-between"}>
+                <h4 className={"text-[1.2rem] font-medium"}>{idea.title}</h4>
+                <span className={"place-self-center text-[1rem] "}>von User</span>
+            </div>,
+            children: <IdeaComponent category={idea.category} tags={idea.tags} body={idea.body}/>
+        }
+    ));
+
     return <div className={"overflow-auto"}>
-        {ideas.map((idea) => <IdeaComponent key={idea.id} id={idea.id} title={idea.title} category={idea.category} tags={idea.tags} body={idea.body}/>)}
+        <Collapse items={items}></Collapse>
     </div>;
 }
 
