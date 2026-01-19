@@ -118,7 +118,7 @@ export const IdeaCreator = ({ref}: {
             });
         }
         else{
-            console.error("Server IdeaCreator Input Error")
+            console.info("Server IdeaCreator Input Error")
         }
     };
 

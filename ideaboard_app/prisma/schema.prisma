@@ -14,39 +14,40 @@ datasource db {
 }
 
 model Idea {
-  id Int @id @default(autoincrement())
-  title String
+  id       Int      @id @default(autoincrement())
+  title    String
   category String
-  tags String[]
-  body String
+  tags     String[]
+  body     String
   //comments Comment @relation()
   //author User @relation()
   //createdAt DateTime @default(now())
   //updatedAt DateTime @updatedAt
 }
-/*
+
 model User {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  name String
-  role Role
-  ideas Idea[]
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
 }
 
-model Comment {
-  id Int @id @default(autoincrement())
-  content String
-  reactions String[]
-  author User @relation()
-}
-
-model Category {
-  id Int @id @default(autoincrement())
-  category String
-}
-
+/**
+ * model Comment {
+ * id Int @id @default(autoincrement())
+ * content String
+ * reactions String[]
+ * author User @relation()
+ * }
+ * model Category {
+ * id Int @id @default(autoincrement())
+ * category String
+ * }
+ */
 enum Role {
   USER
+  LEAD
   ADMIN
 }
-*/

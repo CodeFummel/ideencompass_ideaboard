@@ -41,7 +41,7 @@ const IdeaList: React.FC = () => {
     ));
 
     return <div className={"overflow-auto"}>
-        <Collapse items={items}></Collapse>
+        <Collapse size={"small"} items={items}></Collapse>
     </div>;
 }
 
