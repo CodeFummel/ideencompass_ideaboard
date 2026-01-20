@@ -95,7 +95,7 @@ export const IdeaCreator = ({ref}: {
 
     const finish = async (values) => {
         console.info({values})
-        const result = await fetch("/idea", {
+        const result = await fetch("/ideas", {
             method: "POST",
             body: JSON.stringify({
                 title: values.title,

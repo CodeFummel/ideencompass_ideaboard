@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from "next";
-import {pool, prisma} from "@/src/util/database";
+import {pool, prisma} from "@/src/utils/database";
 
 
 type Data = {

@@ -5,11 +5,12 @@ import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 
 import { Footer } from "@/src/components/Footer";
-import { Header } from "@/src/app/Head/Header";
+import { Header } from "@/src/components/head/Header";
 import { Home } from "@/src/components/home/Home";
 import { Dashboard } from "@/src/components/dashboard/Dashboard";
 import { Statistics } from "@/src/components/statistics/Statistics";
-import LoginPage from "@/src/components/LoginPage";
+import { LoginPage } from "@/src/components/LoginPage";
+import { UserPage } from "@/src/components/UserPage";
 
 const onChange = (key: string) => {
     console.log(key);

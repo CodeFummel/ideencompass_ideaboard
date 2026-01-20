@@ -37,5 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 DATABASE_URL=postgresql://root:root@127.0.0.1:5432/idea npx prisma migrate dev --name init
-psql postgresql://root:root@127.0.0.1:5432/idea
+npx prisma generate
+
+psql postgresql://root:root@127.0.0.1:5432/`idea`
 TABLE "Idea";

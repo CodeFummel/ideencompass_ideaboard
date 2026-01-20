@@ -1,6 +1,6 @@
 "use client"
 
-import {UserButton} from "@/src/app/Head/UserButton";
+import {UserButton} from "@/src/components/head/UserButton";
 
 export const Header = () => {
     return (

@@ -3,17 +3,24 @@
 import React, {FormEvent, useState} from "react";
 import {Button, Checkbox, Form, FormProps, Input, Tabs, TabsProps} from "antd";
 import {useRouter} from 'next/navigation'
+import {authClient} from "@/src/utils/auth-client";
 
-const LoginForm = () => {
+
+const LoginForm =  () => {
 
     const router = useRouter()
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
 
         const formData = new FormData(event.currentTarget)
-        const email = formData.get('email')
-        const password = formData.get('password')
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+
+        const {data, error} = await authClient.signIn.email({
+                email,
+                password,
+            },
+        );
 
         const response = await fetch('/api/auth/login', {
             method: 'POST',
@@ -23,7 +30,7 @@ const LoginForm = () => {
 
         if (response.ok) {
             console.log('Login success');
-            router.push('/profile')
+            router.push('/home')
         } else {
             // Handle errors
         }
@@ -40,9 +47,10 @@ const LoginForm = () => {
     };
 
     return (
-        <div>
+        <div className={"flex flex-row relative"}>
             <Form
                 name="loginForm"
+                className={"flex-1 absolute left-1/2 -translate-x-[65%] w-full justify-center align-items-middle"}
                 labelCol={{span: 8}}
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
@@ -103,22 +111,6 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
             }),
         });
         console.info({result});
-        /*const x = await result.json();
-        console.info({x});
-        if (x.ok) {
-            //setIsOK(true);
-            console.info("Registration successfull")
-            /*api.open({
-                title: 'Idee gespeichert!',
-                description: 'Sie haben ihre Idee erfolgreich abgeschickt.',
-                duration: 5,
-                showProgress: true,
-                pauseOnHover: true,
-                placement: "top",
-            });
-        } else {
-            console.error("Server Registration Input Error")
-        }*/
     }
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -126,8 +118,9 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
     };
 
     return (
-        <div>
+        <div className={"flex flex-row relative"}>
             <Form
+                className={"flex-1 absolute left-1/2 -translate-x-[65%] w-full justify-center align-items-middle"}
                 name="registerForm"
                 labelCol={{span: 8}}
                 wrapperCol={{span: 16}}
@@ -144,7 +137,6 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
                 >
                     <Input/>
                 </Form.Item>
-
                 <Form.Item<FieldType>
                     label="Email"
                     name="email"
@@ -152,7 +144,6 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
                 >
                     <Input/>
                 </Form.Item>
-
                 <Form.Item<FieldType>
                     label="Passwort"
                     name="password"
@@ -160,7 +151,6 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
                 >
                     <Input.Password/>
                 </Form.Item>
-
                 <Form.Item label={null}>
                     <Button type="primary" htmlType="submit">
                         Registrieren
@@ -171,7 +161,7 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
     )
 }
 
-export default function LoginPage() {
+export function LoginPage() {
     const [activeKey, setActiveKey] = useState<string>("1");
 
     const onFinish = () => {
@@ -198,6 +188,7 @@ export default function LoginPage() {
 
     return (
         <Tabs
+            className={"h-full"}
             defaultActiveKey="1"
             activeKey={activeKey}
             centered
