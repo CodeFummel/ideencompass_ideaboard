@@ -10,7 +10,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     const data = await request.json();
 
-    const {title, category, body} = data;
+    const {title, category, tags, body, authorId, authorName} = data;
 
     if (!title || !category || !body) {
         return new Response("Fill all blanks", {status: 400});
@@ -22,7 +22,10 @@ export async function POST(request: Request) {
         data: {
             title,
             category,
-            body
+            tags,
+            body,
+            authorId,
+            authorName
         }
     });
 

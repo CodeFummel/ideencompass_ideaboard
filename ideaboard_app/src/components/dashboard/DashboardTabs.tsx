@@ -12,8 +12,9 @@ type Idea = {
     id: number,
     title: string,
     category: string,
-    tags: string,
+    tags: string[],
     body: string,
+    authorName: string,
 }
 
 const IdeaList: React.FC = () => {
@@ -34,14 +35,14 @@ const IdeaList: React.FC = () => {
             key: idea.id,
             label:<div className={"flex justify-between"}>
                 <h4 className={"text-[1.2rem] font-medium"}>{idea.title}</h4>
-                <span className={"place-self-center text-[1rem] "}>von User</span>
+                <span className={"place-self-center text-[1rem] "}>Von {idea.authorName}</span>
             </div>,
             children: <IdeaComponent category={idea.category} tags={idea.tags} body={idea.body}/>
         }
     ));
 
     return <div className={"overflow-auto"}>
-        <Collapse size={"small"} items={items}></Collapse>
+        <Collapse className={"p-0"} size={"small"} items={items}></Collapse>
     </div>;
 }
 

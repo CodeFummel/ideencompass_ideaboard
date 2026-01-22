@@ -39,6 +39,8 @@ export type IdeaMinAggregateOutputType = {
   title: string | null
   category: string | null
   body: string | null
+  authorId: string | null
+  authorName: string | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -49,6 +51,8 @@ export type IdeaMaxAggregateOutputType = {
   title: string | null
   category: string | null
   body: string | null
+  authorId: string | null
+  authorName: string | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -60,6 +64,8 @@ export type IdeaCountAggregateOutputType = {
   category: number
   tags: number
   body: number
+  authorId: number
+  authorName: number
   createdAt: number
   updatedAt: number
   userId: number
@@ -80,6 +86,8 @@ export type IdeaMinAggregateInputType = {
   title?: true
   category?: true
   body?: true
+  authorId?: true
+  authorName?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -90,6 +98,8 @@ export type IdeaMaxAggregateInputType = {
   title?: true
   category?: true
   body?: true
+  authorId?: true
+  authorName?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -101,6 +111,8 @@ export type IdeaCountAggregateInputType = {
   category?: true
   tags?: true
   body?: true
+  authorId?: true
+  authorName?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -199,6 +211,8 @@ export type IdeaGroupByOutputType = {
   category: string
   tags: string[]
   body: string
+  authorId: string
+  authorName: string
   createdAt: Date
   updatedAt: Date
   userId: string | null
@@ -233,10 +247,14 @@ export type IdeaWhereInput = {
   category?: Prisma.StringFilter<"Idea"> | string
   tags?: Prisma.StringNullableListFilter<"Idea">
   body?: Prisma.StringFilter<"Idea"> | string
+  authorId?: Prisma.StringFilter<"Idea"> | string
+  authorName?: Prisma.StringFilter<"Idea"> | string
   createdAt?: Prisma.DateTimeFilter<"Idea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Idea"> | Date | string
   userId?: Prisma.StringNullableFilter<"Idea"> | string | null
+  author?: Prisma.XOR<Prisma.SessionScalarRelationFilter, Prisma.SessionWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  files?: Prisma.FileListRelationFilter
 }
 
 export type IdeaOrderByWithRelationInput = {
@@ -245,10 +263,14 @@ export type IdeaOrderByWithRelationInput = {
   category?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  author?: Prisma.SessionOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
+  files?: Prisma.FileOrderByRelationAggregateInput
 }
 
 export type IdeaWhereUniqueInput = Prisma.AtLeast<{
@@ -260,10 +282,14 @@ export type IdeaWhereUniqueInput = Prisma.AtLeast<{
   category?: Prisma.StringFilter<"Idea"> | string
   tags?: Prisma.StringNullableListFilter<"Idea">
   body?: Prisma.StringFilter<"Idea"> | string
+  authorId?: Prisma.StringFilter<"Idea"> | string
+  authorName?: Prisma.StringFilter<"Idea"> | string
   createdAt?: Prisma.DateTimeFilter<"Idea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Idea"> | Date | string
   userId?: Prisma.StringNullableFilter<"Idea"> | string | null
+  author?: Prisma.XOR<Prisma.SessionScalarRelationFilter, Prisma.SessionWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  files?: Prisma.FileListRelationFilter
 }, "id">
 
 export type IdeaOrderByWithAggregationInput = {
@@ -272,6 +298,8 @@ export type IdeaOrderByWithAggregationInput = {
   category?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -291,6 +319,8 @@ export type IdeaScalarWhereWithAggregatesInput = {
   category?: Prisma.StringWithAggregatesFilter<"Idea"> | string
   tags?: Prisma.StringNullableListFilter<"Idea">
   body?: Prisma.StringWithAggregatesFilter<"Idea"> | string
+  authorId?: Prisma.StringWithAggregatesFilter<"Idea"> | string
+  authorName?: Prisma.StringWithAggregatesFilter<"Idea"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Idea"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Idea"> | Date | string
   userId?: Prisma.StringNullableWithAggregatesFilter<"Idea"> | string | null
@@ -301,9 +331,12 @@ export type IdeaCreateInput = {
   category: string
   tags?: Prisma.IdeaCreatetagsInput | string[]
   body: string
+  authorName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  author: Prisma.SessionCreateNestedOneWithoutIdeasInput
   user?: Prisma.UserCreateNestedOneWithoutIdeasInput
+  files?: Prisma.FileCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUncheckedCreateInput = {
@@ -312,9 +345,12 @@ export type IdeaUncheckedCreateInput = {
   category: string
   tags?: Prisma.IdeaCreatetagsInput | string[]
   body: string
+  authorId: string
+  authorName: string
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUpdateInput = {
@@ -322,9 +358,12 @@ export type IdeaUpdateInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.IdeaUpdatetagsInput | string[]
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
   user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
+  files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateInput = {
@@ -333,9 +372,12 @@ export type IdeaUncheckedUpdateInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.IdeaUpdatetagsInput | string[]
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaCreateManyInput = {
@@ -344,6 +386,8 @@ export type IdeaCreateManyInput = {
   category: string
   tags?: Prisma.IdeaCreatetagsInput | string[]
   body: string
+  authorId: string
+  authorName: string
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -354,6 +398,7 @@ export type IdeaUpdateManyMutationInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.IdeaUpdatetagsInput | string[]
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -364,6 +409,8 @@ export type IdeaUncheckedUpdateManyInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.IdeaUpdatetagsInput | string[]
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -383,6 +430,8 @@ export type IdeaCountOrderByAggregateInput = {
   category?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -397,6 +446,8 @@ export type IdeaMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   category?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -407,6 +458,8 @@ export type IdeaMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   category?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -414,6 +467,11 @@ export type IdeaMinOrderByAggregateInput = {
 
 export type IdeaSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+}
+
+export type IdeaScalarRelationFilter = {
+  is?: Prisma.IdeaWhereInput
+  isNot?: Prisma.IdeaWhereInput
 }
 
 export type IdeaListRelationFilter = {
@@ -453,6 +511,20 @@ export type IntFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type IdeaCreateNestedOneWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutFilesInput, Prisma.IdeaUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutFilesInput
+  connect?: Prisma.IdeaWhereUniqueInput
+}
+
+export type IdeaUpdateOneRequiredWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutFilesInput, Prisma.IdeaUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutFilesInput
+  upsert?: Prisma.IdeaUpsertWithoutFilesInput
+  connect?: Prisma.IdeaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IdeaUpdateToOneWithWhereWithoutFilesInput, Prisma.IdeaUpdateWithoutFilesInput>, Prisma.IdeaUncheckedUpdateWithoutFilesInput>
 }
 
 export type IdeaCreateNestedManyWithoutUserInput = {
@@ -497,13 +569,124 @@ export type IdeaUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.IdeaScalarWhereInput | Prisma.IdeaScalarWhereInput[]
 }
 
+export type IdeaCreateNestedManyWithoutAuthorInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutAuthorInput, Prisma.IdeaUncheckedCreateWithoutAuthorInput> | Prisma.IdeaCreateWithoutAuthorInput[] | Prisma.IdeaUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutAuthorInput | Prisma.IdeaCreateOrConnectWithoutAuthorInput[]
+  createMany?: Prisma.IdeaCreateManyAuthorInputEnvelope
+  connect?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+}
+
+export type IdeaUncheckedCreateNestedManyWithoutAuthorInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutAuthorInput, Prisma.IdeaUncheckedCreateWithoutAuthorInput> | Prisma.IdeaCreateWithoutAuthorInput[] | Prisma.IdeaUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutAuthorInput | Prisma.IdeaCreateOrConnectWithoutAuthorInput[]
+  createMany?: Prisma.IdeaCreateManyAuthorInputEnvelope
+  connect?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+}
+
+export type IdeaUpdateManyWithoutAuthorNestedInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutAuthorInput, Prisma.IdeaUncheckedCreateWithoutAuthorInput> | Prisma.IdeaCreateWithoutAuthorInput[] | Prisma.IdeaUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutAuthorInput | Prisma.IdeaCreateOrConnectWithoutAuthorInput[]
+  upsert?: Prisma.IdeaUpsertWithWhereUniqueWithoutAuthorInput | Prisma.IdeaUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: Prisma.IdeaCreateManyAuthorInputEnvelope
+  set?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  disconnect?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  delete?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  connect?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  update?: Prisma.IdeaUpdateWithWhereUniqueWithoutAuthorInput | Prisma.IdeaUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: Prisma.IdeaUpdateManyWithWhereWithoutAuthorInput | Prisma.IdeaUpdateManyWithWhereWithoutAuthorInput[]
+  deleteMany?: Prisma.IdeaScalarWhereInput | Prisma.IdeaScalarWhereInput[]
+}
+
+export type IdeaUncheckedUpdateManyWithoutAuthorNestedInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutAuthorInput, Prisma.IdeaUncheckedCreateWithoutAuthorInput> | Prisma.IdeaCreateWithoutAuthorInput[] | Prisma.IdeaUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutAuthorInput | Prisma.IdeaCreateOrConnectWithoutAuthorInput[]
+  upsert?: Prisma.IdeaUpsertWithWhereUniqueWithoutAuthorInput | Prisma.IdeaUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: Prisma.IdeaCreateManyAuthorInputEnvelope
+  set?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  disconnect?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  delete?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  connect?: Prisma.IdeaWhereUniqueInput | Prisma.IdeaWhereUniqueInput[]
+  update?: Prisma.IdeaUpdateWithWhereUniqueWithoutAuthorInput | Prisma.IdeaUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: Prisma.IdeaUpdateManyWithWhereWithoutAuthorInput | Prisma.IdeaUpdateManyWithWhereWithoutAuthorInput[]
+  deleteMany?: Prisma.IdeaScalarWhereInput | Prisma.IdeaScalarWhereInput[]
+}
+
+export type IdeaCreateWithoutFilesInput = {
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.SessionCreateNestedOneWithoutIdeasInput
+  user?: Prisma.UserCreateNestedOneWithoutIdeasInput
+}
+
+export type IdeaUncheckedCreateWithoutFilesInput = {
+  id?: number
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorId: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId?: string | null
+}
+
+export type IdeaCreateOrConnectWithoutFilesInput = {
+  where: Prisma.IdeaWhereUniqueInput
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutFilesInput, Prisma.IdeaUncheckedCreateWithoutFilesInput>
+}
+
+export type IdeaUpsertWithoutFilesInput = {
+  update: Prisma.XOR<Prisma.IdeaUpdateWithoutFilesInput, Prisma.IdeaUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutFilesInput, Prisma.IdeaUncheckedCreateWithoutFilesInput>
+  where?: Prisma.IdeaWhereInput
+}
+
+export type IdeaUpdateToOneWithWhereWithoutFilesInput = {
+  where?: Prisma.IdeaWhereInput
+  data: Prisma.XOR<Prisma.IdeaUpdateWithoutFilesInput, Prisma.IdeaUncheckedUpdateWithoutFilesInput>
+}
+
+export type IdeaUpdateWithoutFilesInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
+  user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
+}
+
+export type IdeaUncheckedUpdateWithoutFilesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type IdeaCreateWithoutUserInput = {
   title: string
   category: string
   tags?: Prisma.IdeaCreatetagsInput | string[]
   body: string
+  authorName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  author: Prisma.SessionCreateNestedOneWithoutIdeasInput
+  files?: Prisma.FileCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUncheckedCreateWithoutUserInput = {
@@ -512,8 +695,11 @@ export type IdeaUncheckedCreateWithoutUserInput = {
   category: string
   tags?: Prisma.IdeaCreatetagsInput | string[]
   body: string
+  authorId: string
+  authorName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaCreateOrConnectWithoutUserInput = {
@@ -551,9 +737,62 @@ export type IdeaScalarWhereInput = {
   category?: Prisma.StringFilter<"Idea"> | string
   tags?: Prisma.StringNullableListFilter<"Idea">
   body?: Prisma.StringFilter<"Idea"> | string
+  authorId?: Prisma.StringFilter<"Idea"> | string
+  authorName?: Prisma.StringFilter<"Idea"> | string
   createdAt?: Prisma.DateTimeFilter<"Idea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Idea"> | Date | string
   userId?: Prisma.StringNullableFilter<"Idea"> | string | null
+}
+
+export type IdeaCreateWithoutAuthorInput = {
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutIdeasInput
+  files?: Prisma.FileCreateNestedManyWithoutIdeaInput
+}
+
+export type IdeaUncheckedCreateWithoutAuthorInput = {
+  id?: number
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId?: string | null
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
+}
+
+export type IdeaCreateOrConnectWithoutAuthorInput = {
+  where: Prisma.IdeaWhereUniqueInput
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutAuthorInput, Prisma.IdeaUncheckedCreateWithoutAuthorInput>
+}
+
+export type IdeaCreateManyAuthorInputEnvelope = {
+  data: Prisma.IdeaCreateManyAuthorInput | Prisma.IdeaCreateManyAuthorInput[]
+  skipDuplicates?: boolean
+}
+
+export type IdeaUpsertWithWhereUniqueWithoutAuthorInput = {
+  where: Prisma.IdeaWhereUniqueInput
+  update: Prisma.XOR<Prisma.IdeaUpdateWithoutAuthorInput, Prisma.IdeaUncheckedUpdateWithoutAuthorInput>
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutAuthorInput, Prisma.IdeaUncheckedCreateWithoutAuthorInput>
+}
+
+export type IdeaUpdateWithWhereUniqueWithoutAuthorInput = {
+  where: Prisma.IdeaWhereUniqueInput
+  data: Prisma.XOR<Prisma.IdeaUpdateWithoutAuthorInput, Prisma.IdeaUncheckedUpdateWithoutAuthorInput>
+}
+
+export type IdeaUpdateManyWithWhereWithoutAuthorInput = {
+  where: Prisma.IdeaScalarWhereInput
+  data: Prisma.XOR<Prisma.IdeaUpdateManyMutationInput, Prisma.IdeaUncheckedUpdateManyWithoutAuthorInput>
 }
 
 export type IdeaCreateManyUserInput = {
@@ -562,6 +801,8 @@ export type IdeaCreateManyUserInput = {
   category: string
   tags?: Prisma.IdeaCreatetagsInput | string[]
   body: string
+  authorId: string
+  authorName: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -571,8 +812,11 @@ export type IdeaUpdateWithoutUserInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.IdeaUpdatetagsInput | string[]
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
+  files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateWithoutUserInput = {
@@ -581,8 +825,11 @@ export type IdeaUncheckedUpdateWithoutUserInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.IdeaUpdatetagsInput | string[]
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateManyWithoutUserInput = {
@@ -591,10 +838,90 @@ export type IdeaUncheckedUpdateManyWithoutUserInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.IdeaUpdatetagsInput | string[]
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type IdeaCreateManyAuthorInput = {
+  id?: number
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId?: string | null
+}
+
+export type IdeaUpdateWithoutAuthorInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
+  files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
+}
+
+export type IdeaUncheckedUpdateWithoutAuthorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
+}
+
+export type IdeaUncheckedUpdateManyWithoutAuthorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+
+/**
+ * Count Type IdeaCountOutputType
+ */
+
+export type IdeaCountOutputType = {
+  files: number
+}
+
+export type IdeaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  files?: boolean | IdeaCountOutputTypeCountFilesArgs
+}
+
+/**
+ * IdeaCountOutputType without action
+ */
+export type IdeaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IdeaCountOutputType
+   */
+  select?: Prisma.IdeaCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * IdeaCountOutputType without action
+ */
+export type IdeaCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
 
 
 export type IdeaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -603,10 +930,15 @@ export type IdeaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   category?: boolean
   tags?: boolean
   body?: boolean
+  authorId?: boolean
+  authorName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
+  author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
+  files?: boolean | Prisma.Idea$filesArgs<ExtArgs>
+  _count?: boolean | Prisma.IdeaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["idea"]>
 
 export type IdeaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -615,9 +947,12 @@ export type IdeaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   category?: boolean
   tags?: boolean
   body?: boolean
+  authorId?: boolean
+  authorName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
+  author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
 }, ExtArgs["result"]["idea"]>
 
@@ -627,9 +962,12 @@ export type IdeaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   category?: boolean
   tags?: boolean
   body?: boolean
+  authorId?: boolean
+  authorName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
+  author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
 }, ExtArgs["result"]["idea"]>
 
@@ -639,26 +977,35 @@ export type IdeaSelectScalar = {
   category?: boolean
   tags?: boolean
   body?: boolean
+  authorId?: boolean
+  authorName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type IdeaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "category" | "tags" | "body" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["idea"]>
+export type IdeaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "category" | "tags" | "body" | "authorId" | "authorName" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["idea"]>
 export type IdeaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
+  files?: boolean | Prisma.Idea$filesArgs<ExtArgs>
+  _count?: boolean | Prisma.IdeaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IdeaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
 }
 export type IdeaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
 }
 
 export type $IdeaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Idea"
   objects: {
+    author: Prisma.$SessionPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs> | null
+    files: Prisma.$FilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -666,6 +1013,8 @@ export type $IdeaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     category: string
     tags: string[]
     body: string
+    authorId: string
+    authorName: string
     createdAt: Date
     updatedAt: Date
     userId: string | null
@@ -1063,7 +1412,9 @@ readonly fields: IdeaFieldRefs;
  */
 export interface Prisma__IdeaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  author<T extends Prisma.SessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SessionDefaultArgs<ExtArgs>>): Prisma.Prisma__SessionClient<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.Idea$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Idea$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  files<T extends Prisma.Idea$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Idea$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1098,6 +1449,8 @@ export interface IdeaFieldRefs {
   readonly category: Prisma.FieldRef<"Idea", 'String'>
   readonly tags: Prisma.FieldRef<"Idea", 'String[]'>
   readonly body: Prisma.FieldRef<"Idea", 'String'>
+  readonly authorId: Prisma.FieldRef<"Idea", 'String'>
+  readonly authorName: Prisma.FieldRef<"Idea", 'String'>
   readonly createdAt: Prisma.FieldRef<"Idea", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Idea", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Idea", 'String'>
@@ -1513,6 +1866,30 @@ export type Idea$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * Idea.files
+ */
+export type Idea$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**

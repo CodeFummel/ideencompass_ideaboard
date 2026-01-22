@@ -1,8 +1,7 @@
 "use client"
 
-import React, {FormEvent, useState} from "react";
+import React, {useState} from "react";
 import {Button, Checkbox, Form, FormProps, Input, notification, Tabs, TabsProps} from "antd";
-import {useRouter} from 'next/navigation'
 import {authClient} from "@/src/utils/auth-client";
 
 type LoginFieldType = {
@@ -11,17 +10,17 @@ type LoginFieldType = {
     remember?: string;
 };
 
-const LoginForm =  ({onSubmit}: {
-    onSubmit:  FormProps<LoginFieldType>["onFinish"]
+const LoginForm = ({onSubmit}: {
+    onSubmit: FormProps<LoginFieldType>["onFinish"]
 }) => {
 
     const [api, contextHolder] = notification.useNotification();
 
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    const onFinishFailed: FormProps<LoginFieldType>['onFinishFailed'] = (errorInfo) => {
         console.log('(Client) Login failed:', errorInfo);
         api.error({
-            title: 'Email oder Passwort falsch!',
-            description: 'Geben Sie Ihre richtige Email oder Ihr richtges Passwort ein.',
+            title: 'Füllen Sie alle Felder aus!',
+            description: 'Geben Sie Ihre richtige Email und Ihr richtges Passwort ein.',
             duration: 3,
             showProgress: true,
             pauseOnHover: true,
@@ -43,7 +42,7 @@ const LoginForm =  ({onSubmit}: {
                 autoComplete="off"
             >
                 {contextHolder}
-                <Form.Item<FieldType>
+                <Form.Item<LoginFieldType>
                     label="Email"
                     name="email"
                     rules={[{required: true, message: 'Bitte geben Sie Ihre Email ein!'}]}
@@ -51,7 +50,7 @@ const LoginForm =  ({onSubmit}: {
                     <Input/>
                 </Form.Item>
 
-                <Form.Item<FieldType>
+                <Form.Item<LoginFieldType>
                     label="Passwort"
                     name="password"
                     rules={[{required: true, message: 'Bitte geben Sie Ihr Passwort ein!'}]}
@@ -59,7 +58,7 @@ const LoginForm =  ({onSubmit}: {
                     <Input.Password/>
                 </Form.Item>
 
-                <Form.Item<FieldType> name="remember" valuePropName="checked" label={null}>
+                <Form.Item<LoginFieldType> name="remember" valuePropName="checked" label={null}>
                     <Checkbox>Eingeloggt bleiben</Checkbox>
                 </Form.Item>
 
@@ -80,10 +79,10 @@ type RegisterFieldType = {
 };
 
 const RegisterForm = ({onSubmit}: {
-    onSubmit:  FormProps<LoginFieldType>["onFinish"]
-}) =>{
+    onSubmit: FormProps<LoginFieldType>["onFinish"]
+}) => {
 
-    const router = useRouter()
+    const [api, contextHolder] = notification.useNotification();
 
     async function onFinishForm(values) {
         console.info({values})
@@ -116,6 +115,7 @@ const RegisterForm = ({onSubmit}: {
                 onFinishFailed={onFinishFailed as any}
                 autoComplete="off"
             >
+                {contextHolder}
                 <Form.Item<RegisterFieldType>
                     label="Vor- und Nachname"
                     name="name"
@@ -150,6 +150,9 @@ const RegisterForm = ({onSubmit}: {
 export function LoginPage({onLoggedIn}: {
     onLoggedIn: () => void,
 }) {
+
+    const [api, contextHolder] = notification.useNotification();
+
     const [activeKey, setActiveKey] = useState<string>("1");
 
     const handleLoginSubmit: FormProps<LoginFieldType>["onFinish"] = async (fields) => {
@@ -160,21 +163,27 @@ export function LoginPage({onLoggedIn}: {
             },
         );
 
+        if (error) {
+            api.error({
+                title: 'Email oder Passwort falsch!',
+                description: 'Geben Sie Ihre richtige Email und/oder Ihr richtges Passwort ein.',
+                duration: 3,
+                showProgress: true,
+                pauseOnHover: true,
+                placement: "top",
+            });
+        }
+
         if (data) {
             onLoggedIn();
         }
     }
 
-    const onFinish = () => {
+    /*const onFinish = () => {
         setActiveKey("1");
-    }
-
+    }*/
 
     const handleRegisterSubmit: FormProps<RegisterFieldType>["onFinish"] = async (fields) => {
-
-        console.log(fields.name);
-        console.log(fields.email);
-        console.log(fields.password);
 
         const {data, error} = await authClient.signUp.email({
                 name: fields.name!,
@@ -184,11 +193,17 @@ export function LoginPage({onLoggedIn}: {
         );
 
         if (error) {
-            console.log(error);
+            api.error({
+                title: 'Registrierung Fehler!',
+                description: 'Geben Sie eine gültige Email und/oder ein gültiges Passwort ein.',
+                duration: 3,
+                showProgress: true,
+                pauseOnHover: true,
+                placement: "top",
+            });
         }
 
         if (data) {
-            onFinish();
             onLoggedIn();
         }
     }
@@ -211,13 +226,15 @@ export function LoginPage({onLoggedIn}: {
         setActiveKey(key);
     }
 
-    return (
-        <Tabs
-            className={"h-full"}
-            defaultActiveKey="1"
-            activeKey={activeKey}
-            centered
-            onTabClick={onTabClick}
-            items={items}/>
+    return (<>
+            {contextHolder}
+            <Tabs
+                className={"h-full"}
+                defaultActiveKey="1"
+                activeKey={activeKey}
+                centered
+                onTabClick={onTabClick}
+                items={items}/>
+        </>
     )
 }

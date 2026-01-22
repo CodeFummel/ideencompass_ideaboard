@@ -14,19 +14,34 @@ datasource db {
 }
 
 model Idea {
-  id        Int      @id @default(autoincrement())
-  title     String
-  category  String
-  tags      String[]
-  body      String
+  id         Int      @id @default(autoincrement())
+  title      String
+  category   String
+  tags       String[]
+  body       String
   // comments Comment @relation()
-  // author    User      @relation(fields: [userId], references: [id])
-  // userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  author     Session  @relation(fields: [authorId], references: [userId])
+  authorId   String
+  // name       User     @relation(fields: [authorName], references: [name])
+  authorName String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
   // comments  Comment[]
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  files      File[]
+
+  @@map("ideas")
+}
+
+model File {
+  id     String @id @unique
+  idea   Idea   @relation(fields: [ideaId], references: [id])
+  ideaId Int
+  name   String
+  data   Bytes
+
+  @@map("files")
 }
 
 model User {
@@ -43,21 +58,22 @@ model User {
   ideas         Idea[]
 
   // comments      Comment[]
-  @@map("user")
+  @@map("users")
 }
 
 model Session {
   id        String   @id @unique
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String   @unique
   token     String
   ipAddress String
   userAgent String
   expiresAt DateTime
   createdAt DateTime //@default(now())
   updatedAt DateTime
+  ideas     Idea[]
 
-  @@map("session")
+  @@map("sessions")
 }
 
 model Account {
@@ -70,7 +86,7 @@ model Account {
   createdAt  DateTime //@default(now())
   updatedAt  DateTime
 
-  @@map("account")
+  @@map("accounts")
 }
 
 model Verification {
@@ -81,7 +97,7 @@ model Verification {
   createdAt  DateTime //@default(now())
   updatedAt  DateTime
 
-  @@map("verification")
+  @@map("verifications")
 }
 
 /**
@@ -98,7 +114,7 @@ model Verification {
  * model Category {
  * id       Int    @id @default(autoincrement())
  * category String
- * @@map("category")
+ * @@map("categorys")
  * }
  */
 enum Role {

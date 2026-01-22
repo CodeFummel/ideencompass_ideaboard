@@ -1,11 +1,13 @@
 "use client"
 
-import { InboxOutlined } from '@ant-design/icons';
-import type { FormInstance, UploadProps } from 'antd';
-import { Form, Input, message, Select, Upload, notification } from 'antd';
+import {InboxOutlined} from '@ant-design/icons';
+import type {FormInstance, UploadFile, UploadProps} from 'antd';
+import {Form, Input, notification, Select, Upload} from 'antd';
 import {Ref, useImperativeHandle, useRef, useState} from "react";
 
-// Title
+import {createAuthClient} from "better-auth/react"
+
+const {useSession} = createAuthClient()
 
 // Categories
 const categoryOptions = [
@@ -51,28 +53,8 @@ const tagOptions = [
     {
         values: "Schnell erledigt",
         label: "Schnell erledigt"
-    }
+    },
 ];
-// Files
-const props: UploadProps = {
-    name: 'file',
-    multiple: true,
-    action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-    onChange(info) {
-        const {status} = info.file;
-        if (status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-    onDrop(e) {
-        console.log('Dropped files', e.dataTransfer.files);
-    },
-};
 
 export interface IdeaCreatorRef {
     submit: () => void
@@ -81,7 +63,8 @@ export interface IdeaCreatorRef {
 export const IdeaCreator = ({ref}: {
     ref?: Ref<IdeaCreatorRef>
 }) => {
-    const [isOK, setIsOK] = useState<null|boolean>(null);
+    const [isOK, setIsOK] = useState<null | boolean>(null);
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
 
     const formRef = useRef<FormInstance>(null)
 
@@ -91,33 +74,61 @@ export const IdeaCreator = ({ref}: {
         }
     }), [formRef]);
 
+    const {
+        data: session,
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } = useSession()
+
     const [api, contextHolder] = notification.useNotification();
+
+    const encodeFile = async (blob: Blob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        return new Promise((resolve => reader.onloadend = () => resolve(reader.result))
+        )
+    }
 
     const finish = async (values) => {
         console.info({values})
+        
+        const files = fileList.map(async (f) => {
+            console.log("hallo", f);
+            return ({
+                name: f.fileName,
+                data: await encodeFile(f.originFileObj!),
+            })
+        })
+
+        console.log(files);
+
         const result = await fetch("/ideas", {
             method: "POST",
             body: JSON.stringify({
                 title: values.title,
                 category: values.category,
-                body: values.body
+                tags: values.tags,
+                body: values.body,
+                authorId: session?.session.userId,
+                authorName: session?.user.name,
+                files,
             }),
         });
         const x = await result.json();
         console.info({x});
-        if (x.ok){
+        if (x.ok) {
             setIsOK(true);
             console.info("IdeaCreator successfull idea creation")
             api.open({
                 title: 'Idee gespeichert!',
-                description: 'Sie haben ihre Idee erfolgreich abgeschickt.',
+                description: 'Sie haben Ihre Idee erfolgreich abgeschickt.',
                 duration: 5,
                 showProgress: true,
                 pauseOnHover: true,
                 placement: "top",
             });
-        }
-        else{
+        } else {
             console.info("Server IdeaCreator Input Error")
         }
     };
@@ -134,6 +145,24 @@ export const IdeaCreator = ({ref}: {
         });
     }
 
+    // Files
+
+    const uploadProps: UploadProps = {
+        onRemove: (file) => {
+            const index = fileList.indexOf(file);
+            const newFileList = fileList.slice();
+            newFileList.splice(index, 1);
+            setFileList(newFileList);
+        },
+        beforeUpload: (file) => {
+            setFileList([...fileList, file]);
+
+            return false;
+        },
+        fileList,
+    };
+
+
     return (
         <Form className="flex-1 overflow-y-auto"
               labelCol={{span: 4}}
@@ -142,13 +171,13 @@ export const IdeaCreator = ({ref}: {
               ref={formRef}
         >
             {contextHolder}
-            {isOK?
+            {isOK ?
                 ("Placeholder")
-                :null}
+                : null}
             <Form.Item name={"title"} label="Titel:" rules={[{required: true, message: ""}]}>
                 <Input/>
             </Form.Item>
-            <Form.Item label={"Kategorie:"} >
+            <Form.Item label={"Kategorie:"}>
                 <div className="flex flex-1 gap-4">
                     <Form.Item className="flex-3" noStyle name={"category"} rules={[{required: true, message: ""}]}>
                         <Select className={"flex-1"}
@@ -169,8 +198,6 @@ export const IdeaCreator = ({ref}: {
                             <Select className={"flex-1"}
                                     mode="tags"
                                     placeholder="#tags"
-                                //prefix={"#"}
-                                //onChange={handleChange}
                                     options={tagOptions}/>
                         </Form.Item>
                     </div>
@@ -181,8 +208,8 @@ export const IdeaCreator = ({ref}: {
             </Form.Item>
             <Form.Item name={"files"} label={"Anhänge:"}>
                 <div
-                    className=" flex content-center  align-center border-(--border) border-2 border-inherited border-dotted rounded-(--border-radius) text-center h-30">
-                    <Upload.Dragger {...props} className="flex flex-1 justify-center align-center">
+                    className=" flex content-center align-center border-(--border) border-2 border-inherited border-dotted rounded-(--border-radius) text-center h-30">
+                    <Upload.Dragger {...uploadProps} className="flex flex-1 justify-center align-center">
                         <p className="ant-upload-drag-icon flex justify-center">
                             <InboxOutlined className="flex self-center justify-center"/>
                         </p>

@@ -1,4 +1,4 @@
-import {UserPage} from "@/src/components/UserPage";
+import {UserPage} from "@/src/components/user/UserPage";
 
 export default function AccountPage() {
 

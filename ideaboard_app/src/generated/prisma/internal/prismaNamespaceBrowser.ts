@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Idea: 'Idea',
+  File: 'File',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -80,12 +81,24 @@ export const IdeaScalarFieldEnum = {
   category: 'category',
   tags: 'tags',
   body: 'body',
+  authorId: 'authorId',
+  authorName: 'authorName',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
 } as const
 
 export type IdeaScalarFieldEnum = (typeof IdeaScalarFieldEnum)[keyof typeof IdeaScalarFieldEnum]
+
+
+export const FileScalarFieldEnum = {
+  id: 'id',
+  ideaId: 'ideaId',
+  name: 'name',
+  data: 'data'
+} as const
+
+export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

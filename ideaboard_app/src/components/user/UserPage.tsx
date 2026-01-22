@@ -3,11 +3,24 @@
 import React, {useState} from "react";
 import {Button, Form, Input, Tabs, TabsProps} from "antd";
 
+import { createAuthClient } from "better-auth/react"
+const { useSession } = createAuthClient()
+
+
 const UserDashboard = () => {
 
+    const {
+        data: session,
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } = useSession()
+
     return (
-        <div>
-            <p>Hier stehen tolle Userdaten aus der Datenbank</p>
+        <div className={"flex-1 h-full p-(--standard-padding-in) border-2 border-(--border)"}>
+            <p>Avatar: {session?.user.image}</p>
+            <p>Benutzername: {session?.user.name}</p>
+            <p>Email: {session?.user.email}</p>
         </div>
     )
 }

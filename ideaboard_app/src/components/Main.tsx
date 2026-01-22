@@ -9,7 +9,7 @@ import {Header} from "@/src/components/head/Header";
 import {Home} from "@/src/components/home/Home";
 import {Dashboard} from "@/src/components/dashboard/Dashboard";
 import {Statistics} from "@/src/components/statistics/Statistics";
-import {LoginPage} from "@/src/components/LoginPage";
+import {LoginPage} from "@/src/components/user/LoginPage";
 import {authClient} from "@/src/utils/auth-client";
 
 const onChange = (key: string) => {

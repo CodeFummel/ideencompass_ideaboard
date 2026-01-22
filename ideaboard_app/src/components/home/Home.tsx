@@ -1,8 +1,8 @@
 "use client"
 
-import { UserInfo } from "./UserInfo";
 import { MyIdeas } from "@/src/components/home/MyIdeas";
 import { MyProjects } from "@/src/components/home/MyProjects";
+import {TopThreeIdeas} from "@/src/components/home/TopThreeIdeas";
 
 export const Home = () => {
     return (
@@ -14,7 +14,7 @@ export const Home = () => {
                 <MyProjects/>
             </div>
             <div className={"row-span-2 h-full"}>
-                <UserInfo/>
+                <TopThreeIdeas/>
             </div>
         </div>
     );
