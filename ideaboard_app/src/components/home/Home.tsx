@@ -4,8 +4,6 @@ import { UserInfo } from "./UserInfo";
 import { MyIdeas } from "@/src/components/home/MyIdeas";
 import { MyProjects } from "@/src/components/home/MyProjects";
 
-const username = "Lynette";
-
 export const Home = () => {
     return (
         <div className={"grid grid-cols-3 grid-rows-2 gap-4 h-dvh m-4 mt-0"}>
@@ -16,7 +14,7 @@ export const Home = () => {
                 <MyProjects/>
             </div>
             <div className={"row-span-2 h-full"}>
-                <UserInfo username={username}/>
+                <UserInfo/>
             </div>
         </div>
     );

@@ -1,49 +1,32 @@
 "use client"
 
 import React, {FormEvent, useState} from "react";
-import {Button, Checkbox, Form, FormProps, Input, Tabs, TabsProps} from "antd";
+import {Button, Checkbox, Form, FormProps, Input, notification, Tabs, TabsProps} from "antd";
 import {useRouter} from 'next/navigation'
 import {authClient} from "@/src/utils/auth-client";
 
+type LoginFieldType = {
+    email?: string;
+    password?: string;
+    remember?: string;
+};
 
-const LoginForm =  () => {
+const LoginForm =  ({onSubmit}: {
+    onSubmit:  FormProps<LoginFieldType>["onFinish"]
+}) => {
 
-    const router = useRouter()
-
-    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-
-        const formData = new FormData(event.currentTarget)
-        const email = formData.get('email') as string;
-        const password = formData.get('password') as string;
-
-        const {data, error} = await authClient.signIn.email({
-                email,
-                password,
-            },
-        );
-
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email, password}),
-        })
-
-        if (response.ok) {
-            console.log('Login success');
-            router.push('/home')
-        } else {
-            // Handle errors
-        }
-    }
-
-    type FieldType = {
-        email?: string;
-        password?: string;
-        remember?: string;
-    };
+    const [api, contextHolder] = notification.useNotification();
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-        console.log('Login failed:', errorInfo);
+        console.log('(Client) Login failed:', errorInfo);
+        api.error({
+            title: 'Email oder Passwort falsch!',
+            description: 'Geben Sie Ihre richtige Email oder Ihr richtges Passwort ein.',
+            duration: 3,
+            showProgress: true,
+            pauseOnHover: true,
+            placement: "top",
+        });
     };
 
     return (
@@ -55,10 +38,11 @@ const LoginForm =  () => {
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
                 initialValues={{remember: true}}
-                onFinish={handleSubmit}
+                onFinish={onSubmit}
                 onFinishFailed={onFinishFailed as any}
                 autoComplete="off"
             >
+                {contextHolder}
                 <Form.Item<FieldType>
                     label="Email"
                     name="email"
@@ -89,14 +73,16 @@ const LoginForm =  () => {
     )
 }
 
-type FieldType = {
+type RegisterFieldType = {
     name?: string;
     email?: string;
     password?: string;
-    remember?: string;
 };
 
-const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
+const RegisterForm = ({onSubmit}: {
+    onSubmit:  FormProps<LoginFieldType>["onFinish"]
+}) =>{
+
     const router = useRouter()
 
     async function onFinishForm(values) {
@@ -113,7 +99,7 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
         console.info({result});
     }
 
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    const onFinishFailed: FormProps<RegisterFieldType>['onFinishFailed'] = (errorInfo) => {
         console.log('Register failed:', errorInfo);
     };
 
@@ -126,25 +112,25 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
                 initialValues={{remember: true}}
-                onFinish={onFinishForm}
+                onFinish={onSubmit}
                 onFinishFailed={onFinishFailed as any}
                 autoComplete="off"
             >
-                <Form.Item<FieldType>
+                <Form.Item<RegisterFieldType>
                     label="Vor- und Nachname"
                     name="name"
                     rules={[{required: true, message: 'Bitte geben Sie Ihren vollen Namen ein!'}]}
                 >
                     <Input/>
                 </Form.Item>
-                <Form.Item<FieldType>
+                <Form.Item<RegisterFieldType>
                     label="Email"
                     name="email"
                     rules={[{required: true, message: 'Bitte geben Sie eine gültige Email ein!'}]}
                 >
                     <Input/>
                 </Form.Item>
-                <Form.Item<FieldType>
+                <Form.Item<RegisterFieldType>
                     label="Passwort"
                     name="password"
                     rules={[{required: true, message: 'Bitte geben Sie Ihr Passwort ein!'}]}
@@ -161,23 +147,62 @@ const RegisterForm: React.FC<{ onFinish: () => void }> = ({onFinish}) => {
     )
 }
 
-export function LoginPage() {
+export function LoginPage({onLoggedIn}: {
+    onLoggedIn: () => void,
+}) {
     const [activeKey, setActiveKey] = useState<string>("1");
+
+    const handleLoginSubmit: FormProps<LoginFieldType>["onFinish"] = async (fields) => {
+
+        const {data, error} = await authClient.signIn.email({
+                email: fields.email!,
+                password: fields.password!,
+            },
+        );
+
+        if (data) {
+            onLoggedIn();
+        }
+    }
 
     const onFinish = () => {
         setActiveKey("1");
+    }
+
+
+    const handleRegisterSubmit: FormProps<RegisterFieldType>["onFinish"] = async (fields) => {
+
+        console.log(fields.name);
+        console.log(fields.email);
+        console.log(fields.password);
+
+        const {data, error} = await authClient.signUp.email({
+                name: fields.name!,
+                email: fields.email!,
+                password: fields.password!,
+            },
+        );
+
+        if (error) {
+            console.log(error);
+        }
+
+        if (data) {
+            onFinish();
+            onLoggedIn();
+        }
     }
 
     const items: TabsProps['items'] = [
         {
             key: '1',
             label: 'Einloggen',
-            children: <LoginForm/>,
+            children: <LoginForm onSubmit={handleLoginSubmit}/>,
         },
         {
             key: '2',
             label: 'Registrieren',
-            children: <RegisterForm onFinish={onFinish}/>,
+            children: <RegisterForm onSubmit={handleRegisterSubmit}/>,
         },
 
     ];
