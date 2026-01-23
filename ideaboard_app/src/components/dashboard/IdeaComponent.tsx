@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import {CommentOutlined} from "@ant-design/icons";
+import {CommentOutlined, RightOutlined} from "@ant-design/icons";
 import {Button, Form, Input, Tag} from "antd";
 
 import {LikeButton} from "./LikeButton";
@@ -10,22 +10,26 @@ type Idea = {
     category: string,
     tags: string[],
     body: string,
+    files: {
+        name: string,
+        data: string,
+    }[],
 }
 
-export const IdeaComponent: React.FC<Idea> = ({category, tags, body}) => {
+export const IdeaComponent: React.FC<Idea> = ({category, tags, body, files}) => {
 
     return <div>
         <div className={"flex"}>
             <div className={"flex-1 h-full p-(--standard-padding-in) border-r-2 border-b-2 border-(--border)"}>
-                <p>Kategorie: {<Tag>
+                <div>Kategorie: {<Tag>
                     <div
                         className={"pl-(--standard-padding-in) pr-(--standard-padding-in)  border-2 border-(--border) rounded-(--border-radius)"}>{category}</div>
                 </Tag>
                 }
-                </p>
+                </div>
             </div>
             <div className={"flex-2 h-full p-(--standard-padding-in) border-b-2 border-(--border)"}>
-                <p>Tags: {tags.map((
+                <div>Tags: {tags.map((
                         tag, index
                     ) => <Tag
                         key={index}
@@ -33,14 +37,17 @@ export const IdeaComponent: React.FC<Idea> = ({category, tags, body}) => {
                         <div
                             className={"pl-(--standard-padding-in) pr-(--standard-padding-in)  border-2 border-(--border) rounded-(--border-radius)"}>{tag}</div>
                     </Tag>
-                )}</p>
+                )}</div>
             </div>
         </div>
         <div className={"flex h-full p-(--standard-padding-in) border-b-2 border-(--border)"}>
             <p>{body}</p>
         </div>
         <div>
-            <p>Here go files</p>
+            <div>{files.map(({name, data}, index) => (
+                <a key={index} href={data} download={name}
+                   className={"pl-(--standard-padding-in) pr-(--standard-padding-in)"}><RightOutlined />{name}</a>
+            ))}</div>
         </div>
         <div className={"flex h-full p-(--standard-padding-in) border-t-2 border-(--border)"}>
             <Button className={"flex-1"}>

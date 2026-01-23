@@ -15,6 +15,7 @@ type Idea = {
     tags: string[],
     body: string,
     authorName: string,
+    files: {name: string, data: string}[],
 }
 
 const IdeaList: React.FC = () => {
@@ -37,7 +38,7 @@ const IdeaList: React.FC = () => {
                 <h4 className={"text-[1.2rem] font-medium"}>{idea.title}</h4>
                 <span className={"place-self-center text-[1rem] "}>Von {idea.authorName}</span>
             </div>,
-            children: <IdeaComponent category={idea.category} tags={idea.tags} body={idea.body}/>
+            children: <IdeaComponent {...idea}/>
         }
     ));
 

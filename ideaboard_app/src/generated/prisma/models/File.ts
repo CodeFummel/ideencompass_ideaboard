@@ -27,25 +27,27 @@ export type AggregateFile = {
 }
 
 export type FileAvgAggregateOutputType = {
+  id: number | null
   ideaId: number | null
 }
 
 export type FileSumAggregateOutputType = {
+  id: number | null
   ideaId: number | null
 }
 
 export type FileMinAggregateOutputType = {
-  id: string | null
+  id: number | null
   ideaId: number | null
   name: string | null
-  data: runtime.Bytes | null
+  data: string | null
 }
 
 export type FileMaxAggregateOutputType = {
-  id: string | null
+  id: number | null
   ideaId: number | null
   name: string | null
-  data: runtime.Bytes | null
+  data: string | null
 }
 
 export type FileCountAggregateOutputType = {
@@ -58,10 +60,12 @@ export type FileCountAggregateOutputType = {
 
 
 export type FileAvgAggregateInputType = {
+  id?: true
   ideaId?: true
 }
 
 export type FileSumAggregateInputType = {
+  id?: true
   ideaId?: true
 }
 
@@ -174,10 +178,10 @@ export type FileGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type FileGroupByOutputType = {
-  id: string
+  id: number
   ideaId: number
   name: string
-  data: runtime.Bytes
+  data: string
   _count: FileCountAggregateOutputType | null
   _avg: FileAvgAggregateOutputType | null
   _sum: FileSumAggregateOutputType | null
@@ -204,10 +208,10 @@ export type FileWhereInput = {
   AND?: Prisma.FileWhereInput | Prisma.FileWhereInput[]
   OR?: Prisma.FileWhereInput[]
   NOT?: Prisma.FileWhereInput | Prisma.FileWhereInput[]
-  id?: Prisma.StringFilter<"File"> | string
+  id?: Prisma.IntFilter<"File"> | number
   ideaId?: Prisma.IntFilter<"File"> | number
   name?: Prisma.StringFilter<"File"> | string
-  data?: Prisma.BytesFilter<"File"> | runtime.Bytes
+  data?: Prisma.StringFilter<"File"> | string
   idea?: Prisma.XOR<Prisma.IdeaScalarRelationFilter, Prisma.IdeaWhereInput>
 }
 
@@ -220,15 +224,15 @@ export type FileOrderByWithRelationInput = {
 }
 
 export type FileWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
+  id?: number
   AND?: Prisma.FileWhereInput | Prisma.FileWhereInput[]
   OR?: Prisma.FileWhereInput[]
   NOT?: Prisma.FileWhereInput | Prisma.FileWhereInput[]
   ideaId?: Prisma.IntFilter<"File"> | number
   name?: Prisma.StringFilter<"File"> | string
-  data?: Prisma.BytesFilter<"File"> | runtime.Bytes
+  data?: Prisma.StringFilter<"File"> | string
   idea?: Prisma.XOR<Prisma.IdeaScalarRelationFilter, Prisma.IdeaWhereInput>
-}, "id" | "id">
+}, "id">
 
 export type FileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -246,58 +250,55 @@ export type FileScalarWhereWithAggregatesInput = {
   AND?: Prisma.FileScalarWhereWithAggregatesInput | Prisma.FileScalarWhereWithAggregatesInput[]
   OR?: Prisma.FileScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FileScalarWhereWithAggregatesInput | Prisma.FileScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"File"> | string
+  id?: Prisma.IntWithAggregatesFilter<"File"> | number
   ideaId?: Prisma.IntWithAggregatesFilter<"File"> | number
   name?: Prisma.StringWithAggregatesFilter<"File"> | string
-  data?: Prisma.BytesWithAggregatesFilter<"File"> | runtime.Bytes
+  data?: Prisma.StringWithAggregatesFilter<"File"> | string
 }
 
 export type FileCreateInput = {
-  id: string
   name: string
-  data: runtime.Bytes
+  data: string
   idea: Prisma.IdeaCreateNestedOneWithoutFilesInput
 }
 
 export type FileUncheckedCreateInput = {
-  id: string
+  id?: number
   ideaId: number
   name: string
-  data: runtime.Bytes
+  data: string
 }
 
 export type FileUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  data?: Prisma.StringFieldUpdateOperationsInput | string
   idea?: Prisma.IdeaUpdateOneRequiredWithoutFilesNestedInput
 }
 
 export type FileUncheckedUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   ideaId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  data?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FileCreateManyInput = {
-  id: string
+  id?: number
   ideaId: number
   name: string
-  data: runtime.Bytes
+  data: string
 }
 
 export type FileUpdateManyMutationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  data?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FileUncheckedUpdateManyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   ideaId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  data?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FileListRelationFilter = {
@@ -318,6 +319,7 @@ export type FileCountOrderByAggregateInput = {
 }
 
 export type FileAvgOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   ideaId?: Prisma.SortOrder
 }
 
@@ -336,6 +338,7 @@ export type FileMinOrderByAggregateInput = {
 }
 
 export type FileSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   ideaId?: Prisma.SortOrder
 }
 
@@ -381,20 +384,15 @@ export type FileUncheckedUpdateManyWithoutIdeaNestedInput = {
   deleteMany?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
 }
 
-export type BytesFieldUpdateOperationsInput = {
-  set?: runtime.Bytes
-}
-
 export type FileCreateWithoutIdeaInput = {
-  id: string
   name: string
-  data: runtime.Bytes
+  data: string
 }
 
 export type FileUncheckedCreateWithoutIdeaInput = {
-  id: string
+  id?: number
   name: string
-  data: runtime.Bytes
+  data: string
 }
 
 export type FileCreateOrConnectWithoutIdeaInput = {
@@ -427,34 +425,33 @@ export type FileScalarWhereInput = {
   AND?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
   OR?: Prisma.FileScalarWhereInput[]
   NOT?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
-  id?: Prisma.StringFilter<"File"> | string
+  id?: Prisma.IntFilter<"File"> | number
   ideaId?: Prisma.IntFilter<"File"> | number
   name?: Prisma.StringFilter<"File"> | string
-  data?: Prisma.BytesFilter<"File"> | runtime.Bytes
+  data?: Prisma.StringFilter<"File"> | string
 }
 
 export type FileCreateManyIdeaInput = {
-  id: string
+  id?: number
   name: string
-  data: runtime.Bytes
+  data: string
 }
 
 export type FileUpdateWithoutIdeaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  data?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FileUncheckedUpdateWithoutIdeaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  data?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FileUncheckedUpdateManyWithoutIdeaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
+  data?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -507,10 +504,10 @@ export type $FilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     idea: Prisma.$IdeaPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: string
+    id: number
     ideaId: number
     name: string
-    data: runtime.Bytes
+    data: string
   }, ExtArgs["result"]["file"]>
   composites: {}
 }
@@ -935,10 +932,10 @@ export interface Prisma__FileClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the File model
  */
 export interface FileFieldRefs {
-  readonly id: Prisma.FieldRef<"File", 'String'>
+  readonly id: Prisma.FieldRef<"File", 'Int'>
   readonly ideaId: Prisma.FieldRef<"File", 'Int'>
   readonly name: Prisma.FieldRef<"File", 'String'>
-  readonly data: Prisma.FieldRef<"File", 'Bytes'>
+  readonly data: Prisma.FieldRef<"File", 'String'>
 }
     
 

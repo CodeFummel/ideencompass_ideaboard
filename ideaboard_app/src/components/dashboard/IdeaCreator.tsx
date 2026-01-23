@@ -83,25 +83,26 @@ export const IdeaCreator = ({ref}: {
 
     const [api, contextHolder] = notification.useNotification();
 
-    const encodeFile = async (blob: Blob) => {
+    const encodeFile = async (blob: File): Promise<string> => {
         const reader = new FileReader();
         reader.readAsDataURL(blob);
-        return new Promise((resolve => reader.onloadend = () => resolve(reader.result))
+        return new Promise(
+            (resolve => reader.onloadend = () => resolve(reader.result as string))
         )
     }
 
     const finish = async (values) => {
         console.info({values})
-        
-        const files = fileList.map(async (f) => {
-            console.log("hallo", f);
-            return ({
-                name: f.fileName,
-                data: await encodeFile(f.originFileObj!),
-            })
-        })
 
-        console.log(files);
+        const files = await Promise.all(fileList.map(async (f) => {
+            console.log("Data: ", f);
+            return ({
+                name: f.name,
+                data: (await encodeFile(f as any)),//.split(",")[1],
+            });
+        }));
+
+        console.log("Files: ", files);
 
         const result = await fetch("/ideas", {
             method: "POST",

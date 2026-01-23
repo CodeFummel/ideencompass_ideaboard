@@ -35,11 +35,11 @@ model Idea {
 }
 
 model File {
-  id     String @id @unique
+  id     Int    @id @default(autoincrement())
   idea   Idea   @relation(fields: [ideaId], references: [id])
   ideaId Int
   name   String
-  data   Bytes
+  data   String
 
   @@map("files")
 }

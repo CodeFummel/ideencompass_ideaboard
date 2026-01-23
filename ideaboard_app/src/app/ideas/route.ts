@@ -3,8 +3,19 @@ import {prisma} from "@/src/utils/database";
 
 export async function GET(request: Request) {
     const ideas = await prisma.idea.findMany();
+
     console.info({ideas});
-    return NextResponse.json(ideas)
+
+    const result = await Promise.all(ideas.map(async idea => {
+        const files = await prisma.file.findMany({where: {ideaId: idea.id}});
+        console.log("File amount: ", files.length, idea.id);
+        const transformFiles = files.map(file => ({
+            ...file,
+            data: Buffer.from(file.data).toString("utf8"),
+        }));
+        return ({...idea, files: transformFiles});
+    }));
+    return NextResponse.json(result);
 }
 
 export async function POST(request: Request) {
@@ -12,24 +23,53 @@ export async function POST(request: Request) {
 
     const {title, category, tags, body, authorId, authorName} = data;
 
-    if (!title || !category || !body) {
+    if (!title || !category || !body || !authorId || !authorName || !data.files) {
         return new Response("Fill all blanks", {status: 400});
     }
 
-    console.log({data})
+    //console.log({data})
 
-    await prisma.idea.create({
+    const files = data.files.map(file => ({
+        name: file.name,
+        data: file.data,
+    }));
+
+    const idea = await prisma.idea.create({
         data: {
             title,
             category,
             tags,
             body,
             authorId,
-            authorName
+            authorName,
+            files: {
+                create: files,
+            }
         }
     });
 
-    console.log("Log 2")
+    console.log("Idea: ", idea);
+    /*
+        const id = idea.id;
 
+        const filesResult = await Promise.all(
+            files.map(file => prisma.file.create({
+                    data: {
+                        ideaId: id,
+                        ...file
+                    }
+                })
+            ));
+        console.log("Files: ", filesResult);
+
+        await prisma.idea.update({
+            where: {
+                id
+            },
+            data: {
+                files: filesResult.map((f) => f.id)
+            }
+        })
+    */
     return NextResponse.json({ok: true, message: "Idea successfully uploaded"})
 }
