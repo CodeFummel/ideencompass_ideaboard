@@ -69,3 +69,13 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Like
+ * 
+ */
+export type Like = Prisma.LikeModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel

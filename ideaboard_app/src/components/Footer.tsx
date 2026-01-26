@@ -7,7 +7,7 @@ export const Footer = () => {
 
             <p>Verantwortlich für den Inhalt dieser Website:
             < br/>
-            Justus Schindler Janusz Holubowski
+            Justus Schindler
             < br/>
             Kontakt:
                 < br/>

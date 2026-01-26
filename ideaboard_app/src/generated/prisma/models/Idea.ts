@@ -255,6 +255,8 @@ export type IdeaWhereInput = {
   author?: Prisma.XOR<Prisma.SessionScalarRelationFilter, Prisma.SessionWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   files?: Prisma.FileListRelationFilter
+  likes?: Prisma.LikeListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
 }
 
 export type IdeaOrderByWithRelationInput = {
@@ -271,6 +273,8 @@ export type IdeaOrderByWithRelationInput = {
   author?: Prisma.SessionOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   files?: Prisma.FileOrderByRelationAggregateInput
+  likes?: Prisma.LikeOrderByRelationAggregateInput
+  comments?: Prisma.CommentOrderByRelationAggregateInput
 }
 
 export type IdeaWhereUniqueInput = Prisma.AtLeast<{
@@ -290,6 +294,8 @@ export type IdeaWhereUniqueInput = Prisma.AtLeast<{
   author?: Prisma.XOR<Prisma.SessionScalarRelationFilter, Prisma.SessionWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   files?: Prisma.FileListRelationFilter
+  likes?: Prisma.LikeListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
 }, "id">
 
 export type IdeaOrderByWithAggregationInput = {
@@ -337,6 +343,8 @@ export type IdeaCreateInput = {
   author: Prisma.SessionCreateNestedOneWithoutIdeasInput
   user?: Prisma.UserCreateNestedOneWithoutIdeasInput
   files?: Prisma.FileCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUncheckedCreateInput = {
@@ -351,6 +359,8 @@ export type IdeaUncheckedCreateInput = {
   updatedAt?: Date | string
   userId?: string | null
   files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUpdateInput = {
@@ -364,6 +374,8 @@ export type IdeaUpdateInput = {
   author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
   user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
   files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateInput = {
@@ -378,6 +390,8 @@ export type IdeaUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaCreateManyInput = {
@@ -611,6 +625,34 @@ export type IdeaUncheckedUpdateManyWithoutAuthorNestedInput = {
   deleteMany?: Prisma.IdeaScalarWhereInput | Prisma.IdeaScalarWhereInput[]
 }
 
+export type IdeaCreateNestedOneWithoutLikesInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutLikesInput, Prisma.IdeaUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutLikesInput
+  connect?: Prisma.IdeaWhereUniqueInput
+}
+
+export type IdeaUpdateOneRequiredWithoutLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutLikesInput, Prisma.IdeaUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutLikesInput
+  upsert?: Prisma.IdeaUpsertWithoutLikesInput
+  connect?: Prisma.IdeaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IdeaUpdateToOneWithWhereWithoutLikesInput, Prisma.IdeaUpdateWithoutLikesInput>, Prisma.IdeaUncheckedUpdateWithoutLikesInput>
+}
+
+export type IdeaCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutCommentsInput, Prisma.IdeaUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.IdeaWhereUniqueInput
+}
+
+export type IdeaUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.IdeaCreateWithoutCommentsInput, Prisma.IdeaUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.IdeaCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.IdeaUpsertWithoutCommentsInput
+  connect?: Prisma.IdeaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IdeaUpdateToOneWithWhereWithoutCommentsInput, Prisma.IdeaUpdateWithoutCommentsInput>, Prisma.IdeaUncheckedUpdateWithoutCommentsInput>
+}
+
 export type IdeaCreateWithoutFilesInput = {
   title: string
   category: string
@@ -621,6 +663,8 @@ export type IdeaCreateWithoutFilesInput = {
   updatedAt?: Date | string
   author: Prisma.SessionCreateNestedOneWithoutIdeasInput
   user?: Prisma.UserCreateNestedOneWithoutIdeasInput
+  likes?: Prisma.LikeCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUncheckedCreateWithoutFilesInput = {
@@ -634,6 +678,8 @@ export type IdeaUncheckedCreateWithoutFilesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaCreateOrConnectWithoutFilesInput = {
@@ -662,6 +708,8 @@ export type IdeaUpdateWithoutFilesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
   user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateWithoutFilesInput = {
@@ -675,6 +723,8 @@ export type IdeaUncheckedUpdateWithoutFilesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaCreateWithoutUserInput = {
@@ -687,6 +737,8 @@ export type IdeaCreateWithoutUserInput = {
   updatedAt?: Date | string
   author: Prisma.SessionCreateNestedOneWithoutIdeasInput
   files?: Prisma.FileCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUncheckedCreateWithoutUserInput = {
@@ -700,6 +752,8 @@ export type IdeaUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaCreateOrConnectWithoutUserInput = {
@@ -754,6 +808,8 @@ export type IdeaCreateWithoutAuthorInput = {
   updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutIdeasInput
   files?: Prisma.FileCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaUncheckedCreateWithoutAuthorInput = {
@@ -767,6 +823,8 @@ export type IdeaUncheckedCreateWithoutAuthorInput = {
   updatedAt?: Date | string
   userId?: string | null
   files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIdeaInput
 }
 
 export type IdeaCreateOrConnectWithoutAuthorInput = {
@@ -795,6 +853,154 @@ export type IdeaUpdateManyWithWhereWithoutAuthorInput = {
   data: Prisma.XOR<Prisma.IdeaUpdateManyMutationInput, Prisma.IdeaUncheckedUpdateManyWithoutAuthorInput>
 }
 
+export type IdeaCreateWithoutLikesInput = {
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.SessionCreateNestedOneWithoutIdeasInput
+  user?: Prisma.UserCreateNestedOneWithoutIdeasInput
+  files?: Prisma.FileCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentCreateNestedManyWithoutIdeaInput
+}
+
+export type IdeaUncheckedCreateWithoutLikesInput = {
+  id?: number
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorId: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId?: string | null
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIdeaInput
+}
+
+export type IdeaCreateOrConnectWithoutLikesInput = {
+  where: Prisma.IdeaWhereUniqueInput
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutLikesInput, Prisma.IdeaUncheckedCreateWithoutLikesInput>
+}
+
+export type IdeaUpsertWithoutLikesInput = {
+  update: Prisma.XOR<Prisma.IdeaUpdateWithoutLikesInput, Prisma.IdeaUncheckedUpdateWithoutLikesInput>
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutLikesInput, Prisma.IdeaUncheckedCreateWithoutLikesInput>
+  where?: Prisma.IdeaWhereInput
+}
+
+export type IdeaUpdateToOneWithWhereWithoutLikesInput = {
+  where?: Prisma.IdeaWhereInput
+  data: Prisma.XOR<Prisma.IdeaUpdateWithoutLikesInput, Prisma.IdeaUncheckedUpdateWithoutLikesInput>
+}
+
+export type IdeaUpdateWithoutLikesInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
+  user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
+  files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutIdeaNestedInput
+}
+
+export type IdeaUncheckedUpdateWithoutLikesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutIdeaNestedInput
+}
+
+export type IdeaCreateWithoutCommentsInput = {
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.SessionCreateNestedOneWithoutIdeasInput
+  user?: Prisma.UserCreateNestedOneWithoutIdeasInput
+  files?: Prisma.FileCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeCreateNestedManyWithoutIdeaInput
+}
+
+export type IdeaUncheckedCreateWithoutCommentsInput = {
+  id?: number
+  title: string
+  category: string
+  tags?: Prisma.IdeaCreatetagsInput | string[]
+  body: string
+  authorId: string
+  authorName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId?: string | null
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutIdeaInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutIdeaInput
+}
+
+export type IdeaCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.IdeaWhereUniqueInput
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutCommentsInput, Prisma.IdeaUncheckedCreateWithoutCommentsInput>
+}
+
+export type IdeaUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.IdeaUpdateWithoutCommentsInput, Prisma.IdeaUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.IdeaCreateWithoutCommentsInput, Prisma.IdeaUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.IdeaWhereInput
+}
+
+export type IdeaUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.IdeaWhereInput
+  data: Prisma.XOR<Prisma.IdeaUpdateWithoutCommentsInput, Prisma.IdeaUncheckedUpdateWithoutCommentsInput>
+}
+
+export type IdeaUpdateWithoutCommentsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
+  user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
+  files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutIdeaNestedInput
+}
+
+export type IdeaUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.IdeaUpdatetagsInput | string[]
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutIdeaNestedInput
+}
+
 export type IdeaCreateManyUserInput = {
   id?: number
   title: string
@@ -817,6 +1023,8 @@ export type IdeaUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.SessionUpdateOneRequiredWithoutIdeasNestedInput
   files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateWithoutUserInput = {
@@ -830,6 +1038,8 @@ export type IdeaUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateManyWithoutUserInput = {
@@ -866,6 +1076,8 @@ export type IdeaUpdateWithoutAuthorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutIdeasNestedInput
   files?: Prisma.FileUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateWithoutAuthorInput = {
@@ -879,6 +1091,8 @@ export type IdeaUncheckedUpdateWithoutAuthorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   files?: Prisma.FileUncheckedUpdateManyWithoutIdeaNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutIdeaNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutIdeaNestedInput
 }
 
 export type IdeaUncheckedUpdateManyWithoutAuthorInput = {
@@ -900,10 +1114,14 @@ export type IdeaUncheckedUpdateManyWithoutAuthorInput = {
 
 export type IdeaCountOutputType = {
   files: number
+  likes: number
+  comments: number
 }
 
 export type IdeaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   files?: boolean | IdeaCountOutputTypeCountFilesArgs
+  likes?: boolean | IdeaCountOutputTypeCountLikesArgs
+  comments?: boolean | IdeaCountOutputTypeCountCommentsArgs
 }
 
 /**
@@ -923,6 +1141,20 @@ export type IdeaCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.FileWhereInput
 }
 
+/**
+ * IdeaCountOutputType without action
+ */
+export type IdeaCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LikeWhereInput
+}
+
+/**
+ * IdeaCountOutputType without action
+ */
+export type IdeaCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentWhereInput
+}
+
 
 export type IdeaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -938,6 +1170,8 @@ export type IdeaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
   files?: boolean | Prisma.Idea$filesArgs<ExtArgs>
+  likes?: boolean | Prisma.Idea$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Idea$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.IdeaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["idea"]>
 
@@ -989,6 +1223,8 @@ export type IdeaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   author?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Idea$userArgs<ExtArgs>
   files?: boolean | Prisma.Idea$filesArgs<ExtArgs>
+  likes?: boolean | Prisma.Idea$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Idea$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.IdeaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IdeaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1006,6 +1242,8 @@ export type $IdeaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     author: Prisma.$SessionPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs> | null
     files: Prisma.$FilePayload<ExtArgs>[]
+    likes: Prisma.$LikePayload<ExtArgs>[]
+    comments: Prisma.$CommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1415,6 +1653,8 @@ export interface Prisma__IdeaClient<T, Null = never, ExtArgs extends runtime.Typ
   author<T extends Prisma.SessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SessionDefaultArgs<ExtArgs>>): Prisma.Prisma__SessionClient<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.Idea$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Idea$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   files<T extends Prisma.Idea$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Idea$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likes<T extends Prisma.Idea$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Idea$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Idea$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Idea$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1890,6 +2130,54 @@ export type Idea$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
+}
+
+/**
+ * Idea.likes
+ */
+export type Idea$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Like
+   */
+  select?: Prisma.LikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Like
+   */
+  omit?: Prisma.LikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LikeInclude<ExtArgs> | null
+  where?: Prisma.LikeWhereInput
+  orderBy?: Prisma.LikeOrderByWithRelationInput | Prisma.LikeOrderByWithRelationInput[]
+  cursor?: Prisma.LikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LikeScalarFieldEnum | Prisma.LikeScalarFieldEnum[]
+}
+
+/**
+ * Idea.comments
+ */
+export type Idea$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comment
+   */
+  select?: Prisma.CommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comment
+   */
+  omit?: Prisma.CommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentInclude<ExtArgs> | null
+  where?: Prisma.CommentWhereInput
+  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
+  cursor?: Prisma.CommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
 }
 
 /**

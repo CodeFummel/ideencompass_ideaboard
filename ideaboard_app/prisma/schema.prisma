@@ -14,23 +14,21 @@ datasource db {
 }
 
 model Idea {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   title      String
   category   String
   tags       String[]
   body       String
-  // comments Comment @relation()
-  author     Session  @relation(fields: [authorId], references: [userId])
+  author     Session   @relation(fields: [authorId], references: [userId])
   authorId   String
-  // name       User     @relation(fields: [authorName], references: [name])
   authorName String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
-  // comments  Comment[]
-  user       User?    @relation(fields: [userId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt
+  user       User?     @relation(fields: [userId], references: [id])
   userId     String?
   files      File[]
-  likes      Int
+  likes      Like[]
+  comments   Comment[]
 
   @@map("ideas")
 }
@@ -57,22 +55,24 @@ model User {
   sessions      Session[]
   accounts      Account[]
   ideas         Idea[]
+  likes         Like[]
 
   // comments      Comment[]
   @@map("users")
 }
 
 model Session {
-  id        String   @id @unique
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique
+  id        String    @id @unique
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @unique
   token     String
   ipAddress String
   userAgent String
   expiresAt DateTime
-  createdAt DateTime //@default(now())
+  createdAt DateTime
   updatedAt DateTime
   ideas     Idea[]
+  comments  Comment[]
 
   @@map("sessions")
 }
@@ -84,7 +84,7 @@ model Account {
   accountId  String
   providerId String
   password   String
-  createdAt  DateTime //@default(now())
+  createdAt  DateTime
   updatedAt  DateTime
 
   @@map("accounts")
@@ -95,23 +95,35 @@ model Verification {
   identifier String
   value      String
   expiresAt  DateTime
-  createdAt  DateTime //@default(now())
+  createdAt  DateTime
   updatedAt  DateTime
 
   @@map("verifications")
 }
 
+model Like {
+  author    User   @relation(fields: [authorId], references: [id])
+  authorId  String
+  idea      Idea   @relation(fields: [likedIdea], references: [id])
+  likedIdea Int
+
+  @@id(name: "likeId", [authorId, likedIdea])
+  @@map("likes")
+}
+
+model Comment {
+  id          Int      @id @default(autoincrement())
+  content     String
+  reactions   String[]
+  idea        Idea     @relation(fields: [commentedId], references: [id])
+  commentedId Int
+  author      Session  @relation(fields: [authorId], references: [id])
+  authorId    String
+
+  @@map("comments")
+}
+
 /**
- * model Comment {
- * id        Int      @id @default(autoincrement())
- * content   String
- * reactions String[]
- * idea      Idea     @relation(fields: [ideaId], references: [id])
- * ideaId    Int
- * author    User     @relation(fields: [userId], references: [id])
- * userId    String
- * @@map("comment")
- * }
  * model Category {
  * id       Int    @id @default(autoincrement())
  * category String

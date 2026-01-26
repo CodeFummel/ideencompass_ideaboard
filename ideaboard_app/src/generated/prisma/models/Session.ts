@@ -208,6 +208,7 @@ export type SessionWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Session"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   ideas?: Prisma.IdeaListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
 }
 
 export type SessionOrderByWithRelationInput = {
@@ -221,6 +222,7 @@ export type SessionOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   ideas?: Prisma.IdeaOrderByRelationAggregateInput
+  comments?: Prisma.CommentOrderByRelationAggregateInput
 }
 
 export type SessionWhereUniqueInput = Prisma.AtLeast<{
@@ -237,6 +239,7 @@ export type SessionWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Session"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   ideas?: Prisma.IdeaListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
 }, "id" | "id" | "userId">
 
 export type SessionOrderByWithAggregationInput = {
@@ -277,6 +280,7 @@ export type SessionCreateInput = {
   updatedAt: Date | string
   user: Prisma.UserCreateNestedOneWithoutSessionsInput
   ideas?: Prisma.IdeaCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
 }
 
 export type SessionUncheckedCreateInput = {
@@ -289,6 +293,7 @@ export type SessionUncheckedCreateInput = {
   createdAt: Date | string
   updatedAt: Date | string
   ideas?: Prisma.IdeaUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type SessionUpdateInput = {
@@ -301,6 +306,7 @@ export type SessionUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
   ideas?: Prisma.IdeaUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
 }
 
 export type SessionUncheckedUpdateInput = {
@@ -313,6 +319,7 @@ export type SessionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ideas?: Prisma.IdeaUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type SessionCreateManyInput = {
@@ -451,6 +458,20 @@ export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.SessionScalarWhereInput | Prisma.SessionScalarWhereInput[]
 }
 
+export type SessionCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.SessionCreateWithoutCommentsInput, Prisma.SessionUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.SessionCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.SessionWhereUniqueInput
+}
+
+export type SessionUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.SessionCreateWithoutCommentsInput, Prisma.SessionUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.SessionCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.SessionUpsertWithoutCommentsInput
+  connect?: Prisma.SessionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SessionUpdateToOneWithWhereWithoutCommentsInput, Prisma.SessionUpdateWithoutCommentsInput>, Prisma.SessionUncheckedUpdateWithoutCommentsInput>
+}
+
 export type SessionCreateWithoutIdeasInput = {
   id: string
   token: string
@@ -460,6 +481,7 @@ export type SessionCreateWithoutIdeasInput = {
   createdAt: Date | string
   updatedAt: Date | string
   user: Prisma.UserCreateNestedOneWithoutSessionsInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
 }
 
 export type SessionUncheckedCreateWithoutIdeasInput = {
@@ -471,6 +493,7 @@ export type SessionUncheckedCreateWithoutIdeasInput = {
   expiresAt: Date | string
   createdAt: Date | string
   updatedAt: Date | string
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type SessionCreateOrConnectWithoutIdeasInput = {
@@ -498,6 +521,7 @@ export type SessionUpdateWithoutIdeasInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
 }
 
 export type SessionUncheckedUpdateWithoutIdeasInput = {
@@ -509,6 +533,7 @@ export type SessionUncheckedUpdateWithoutIdeasInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type SessionCreateWithoutUserInput = {
@@ -520,6 +545,7 @@ export type SessionCreateWithoutUserInput = {
   createdAt: Date | string
   updatedAt: Date | string
   ideas?: Prisma.IdeaCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
 }
 
 export type SessionUncheckedCreateWithoutUserInput = {
@@ -531,6 +557,7 @@ export type SessionUncheckedCreateWithoutUserInput = {
   createdAt: Date | string
   updatedAt: Date | string
   ideas?: Prisma.IdeaUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type SessionCreateOrConnectWithoutUserInput = {
@@ -573,6 +600,70 @@ export type SessionScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Session"> | Date | string
 }
 
+export type SessionCreateWithoutCommentsInput = {
+  id: string
+  token: string
+  ipAddress: string
+  userAgent: string
+  expiresAt: Date | string
+  createdAt: Date | string
+  updatedAt: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSessionsInput
+  ideas?: Prisma.IdeaCreateNestedManyWithoutAuthorInput
+}
+
+export type SessionUncheckedCreateWithoutCommentsInput = {
+  id: string
+  userId: string
+  token: string
+  ipAddress: string
+  userAgent: string
+  expiresAt: Date | string
+  createdAt: Date | string
+  updatedAt: Date | string
+  ideas?: Prisma.IdeaUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type SessionCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.SessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.SessionCreateWithoutCommentsInput, Prisma.SessionUncheckedCreateWithoutCommentsInput>
+}
+
+export type SessionUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.SessionUpdateWithoutCommentsInput, Prisma.SessionUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.SessionCreateWithoutCommentsInput, Prisma.SessionUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.SessionWhereInput
+}
+
+export type SessionUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.SessionWhereInput
+  data: Prisma.XOR<Prisma.SessionUpdateWithoutCommentsInput, Prisma.SessionUncheckedUpdateWithoutCommentsInput>
+}
+
+export type SessionUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
+  ideas?: Prisma.IdeaUpdateManyWithoutAuthorNestedInput
+}
+
+export type SessionUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ideas?: Prisma.IdeaUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
 export type SessionCreateManyUserInput = {
   id: string
   token: string
@@ -592,6 +683,7 @@ export type SessionUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ideas?: Prisma.IdeaUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
 }
 
 export type SessionUncheckedUpdateWithoutUserInput = {
@@ -603,6 +695,7 @@ export type SessionUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ideas?: Prisma.IdeaUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type SessionUncheckedUpdateManyWithoutUserInput = {
@@ -622,10 +715,12 @@ export type SessionUncheckedUpdateManyWithoutUserInput = {
 
 export type SessionCountOutputType = {
   ideas: number
+  comments: number
 }
 
 export type SessionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ideas?: boolean | SessionCountOutputTypeCountIdeasArgs
+  comments?: boolean | SessionCountOutputTypeCountCommentsArgs
 }
 
 /**
@@ -645,6 +740,13 @@ export type SessionCountOutputTypeCountIdeasArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.IdeaWhereInput
 }
 
+/**
+ * SessionCountOutputType without action
+ */
+export type SessionCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentWhereInput
+}
+
 
 export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -657,6 +759,7 @@ export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   ideas?: boolean | Prisma.Session$ideasArgs<ExtArgs>
+  comments?: boolean | Prisma.Session$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.SessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["session"]>
 
@@ -699,6 +802,7 @@ export type SessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type SessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   ideas?: boolean | Prisma.Session$ideasArgs<ExtArgs>
+  comments?: boolean | Prisma.Session$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.SessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -713,6 +817,7 @@ export type $SessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     ideas: Prisma.$IdeaPayload<ExtArgs>[]
+    comments: Prisma.$CommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1119,6 +1224,7 @@ export interface Prisma__SessionClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   ideas<T extends Prisma.Session$ideasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Session$ideasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IdeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Session$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Session$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1573,6 +1679,30 @@ export type Session$ideasArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.IdeaScalarFieldEnum | Prisma.IdeaScalarFieldEnum[]
+}
+
+/**
+ * Session.comments
+ */
+export type Session$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comment
+   */
+  select?: Prisma.CommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comment
+   */
+  omit?: Prisma.CommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentInclude<ExtArgs> | null
+  where?: Prisma.CommentWhereInput
+  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
+  cursor?: Prisma.CommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
 }
 
 /**

@@ -7,6 +7,7 @@ import {Button, Form, Input, Tag} from "antd";
 import {LikeButton} from "./LikeButton";
 
 type Idea = {
+    id: number;
     category: string,
     tags: string[],
     body: string,
@@ -16,7 +17,7 @@ type Idea = {
     }[],
 }
 
-export const IdeaComponent: React.FC<Idea> = ({category, tags, body, files}) => {
+export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files}) => {
 
     return <div>
         <div className={"flex"}>
@@ -54,7 +55,7 @@ export const IdeaComponent: React.FC<Idea> = ({category, tags, body, files}) => 
                 <CommentOutlined/>
             </Button>
             <div className={"flex-1"}>
-                <LikeButton/>
+                <LikeButton ideaId={id}/>
             </div>
             <div className={"flex-24"}></div>
         </div>
