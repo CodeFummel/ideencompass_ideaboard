@@ -5,6 +5,8 @@ import {Button, Collapse, Dropdown, MenuProps, Tabs} from 'antd';
 import {FilterOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "./IdeaCreator";
 import {IdeaComponent} from "./IdeaComponent";
+import { createAuthClient } from "better-auth/react"
+const { useSession } = createAuthClient()
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -14,8 +16,9 @@ type Idea = {
     category: string,
     tags: string[],
     body: string,
+    authorId: string,
     authorName: string,
-    files: {name: string, data: string}[],
+    files: { name: string, data: string }[],
 }
 
 const IdeaList: React.FC = () => {
@@ -30,13 +33,24 @@ const IdeaList: React.FC = () => {
         })
     }, []);
 
+    const {
+        data: session,
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } = useSession()
+
+    if (!session) {
+        return (error);
+    }
 
     const items = ideas.map((idea) => (
         {
             key: idea.id,
-            label:<div className={"flex justify-between"}>
+            label: <div className={"flex justify-between"}>
                 <h4 className={"text-[1.2rem] font-medium"}>{idea.title}</h4>
-                <span className={"place-self-center text-[1rem] "}>Von {idea.authorName}</span>
+                {idea.authorId === session?.user.id ? <Button></Button> :
+                    <span className={"place-self-center text-[1rem] "}>Von {idea.authorName}</span>}
             </div>,
             children: <IdeaComponent {...idea}/>
         }

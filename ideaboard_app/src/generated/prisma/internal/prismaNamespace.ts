@@ -1051,8 +1051,7 @@ export const IdeaScalarFieldEnum = {
   authorId: 'authorId',
   authorName: 'authorName',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type IdeaScalarFieldEnum = (typeof IdeaScalarFieldEnum)[keyof typeof IdeaScalarFieldEnum]
@@ -1154,14 +1153,6 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 

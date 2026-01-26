@@ -4,10 +4,14 @@ import React, {useState} from "react";
 import {Button, Form, Input, Tabs, TabsProps} from "antd";
 
 import { createAuthClient } from "better-auth/react"
+import {authClient} from "@/src/utils/auth-client";
+import {useRouter} from "next/navigation";
 const { useSession } = createAuthClient()
 
 
 const UserDashboard = () => {
+
+    const router = useRouter();
 
     const {
         data: session,
@@ -16,11 +20,24 @@ const UserDashboard = () => {
         refetch //refetch the session
     } = useSession()
 
+    const handleSignOut = async () => {
+        await authClient.signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    console.log("sign out success")
+                    router.push("/");
+                },
+            },
+
+        });
+    }
+
     return (
         <div className={"flex-1 h-full p-(--standard-padding-in) border-2 border-(--border)"}>
             <p>Avatar: {session?.user.image}</p>
             <p>Benutzername: {session?.user.name}</p>
             <p>Email: {session?.user.email}</p>
+            <Button onClick={handleSignOut}>Abmelden</Button>
         </div>
     )
 }

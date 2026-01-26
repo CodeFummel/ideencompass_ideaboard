@@ -13,6 +13,7 @@ export const UserInfo = () => {
 
     console.log("UserInfo", session);
 
+
     return (<div className={" h-full border-2 rounded-(--border-radius) border-(--border)"}>
                 <div className={"border-b-2 border-(--border) p-2"}>
                     <p>Benutzerdaten</p>

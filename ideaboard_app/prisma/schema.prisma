@@ -19,13 +19,11 @@ model Idea {
   category   String
   tags       String[]
   body       String
-  author     Session   @relation(fields: [authorId], references: [userId])
+  author     User      @relation(fields: [authorId], references: [id])
   authorId   String
   authorName String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @default(now()) @updatedAt
-  user       User?     @relation(fields: [userId], references: [id])
-  userId     String?
   files      File[]
   likes      Like[]
   comments   Comment[]
@@ -56,23 +54,22 @@ model User {
   accounts      Account[]
   ideas         Idea[]
   likes         Like[]
+  comments      Comment[]
 
   // comments      Comment[]
   @@map("users")
 }
 
 model Session {
-  id        String    @id @unique
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String    @unique
+  id        String   @id @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
   token     String
   ipAddress String
   userAgent String
   expiresAt DateTime
   createdAt DateTime
   updatedAt DateTime
-  ideas     Idea[]
-  comments  Comment[]
 
   @@map("sessions")
 }
@@ -117,7 +114,7 @@ model Comment {
   reactions   String[]
   idea        Idea     @relation(fields: [commentedId], references: [id])
   commentedId Int
-  author      Session  @relation(fields: [authorId], references: [id])
+  author      User     @relation(fields: [authorId], references: [id])
   authorId    String
 
   @@map("comments")
