@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link";
 
 import { Image } from "antd";
 
@@ -24,14 +25,22 @@ export const UserButton = () => {
     }
 
     return (
-        <Button
-            className="p-2 h-full text-left border-2 border-solid rounded-(--border-radius) border-(--border) hover:bg(--hover-background)"
-            onClick={navigate}>
+        <Link
+            href="/account"
+            className="cursor-pointer flex flex-col items-center gap-1 p-2"
+        >
             <Image
-                width={50}
+                width={40}
                 alt="Benutzerbild"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4keE4qLaVynZj3DWaXDTfnFR3CgPiz-n_9w&s"/>
-            <p>{session?.user.name}</p>
-        </Button>
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4keE4qLaVynZj3DWaXDTfnFR3CgPiz-n_9w&s"
+            />
+            <p className="text-sm text-black dark:text-white">
+                {session?.user.name}
+            </p>
+        </Link>
+
+
     );
+
+
 };

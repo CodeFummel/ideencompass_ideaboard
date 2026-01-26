@@ -1,39 +1,5 @@
-/*
-  Warnings:
-
-  - You are about to drop the `account` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `idea` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `session` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `user` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `verification` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "account" DROP CONSTRAINT "account_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "idea" DROP CONSTRAINT "idea_authorId_fkey";
-
--- DropForeignKey
-ALTER TABLE "idea" DROP CONSTRAINT "idea_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "session" DROP CONSTRAINT "session_userId_fkey";
-
--- DropTable
-DROP TABLE "account";
-
--- DropTable
-DROP TABLE "idea";
-
--- DropTable
-DROP TABLE "session";
-
--- DropTable
-DROP TABLE "user";
-
--- DropTable
-DROP TABLE "verification";
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('USER', 'LEAD', 'ADMIN');
 
 -- CreateTable
 CREATE TABLE "ideas" (
@@ -53,9 +19,10 @@ CREATE TABLE "ideas" (
 
 -- CreateTable
 CREATE TABLE "files" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "ideaId" INTEGER NOT NULL,
-    "data" BYTEA NOT NULL,
+    "name" TEXT NOT NULL,
+    "data" TEXT NOT NULL,
 
     CONSTRAINT "files_pkey" PRIMARY KEY ("id")
 );
@@ -112,9 +79,6 @@ CREATE TABLE "verifications" (
 
     CONSTRAINT "verifications_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "files_id_key" ON "files"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
