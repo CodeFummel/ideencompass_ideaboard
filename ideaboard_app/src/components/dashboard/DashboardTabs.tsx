@@ -5,9 +5,10 @@ import {Button, Collapse, Dropdown, MenuProps, Tabs} from 'antd';
 import {EditOutlined, FilterOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 import {IdeaComponent} from "../idea/IdeaComponent";
-import { createAuthClient } from "better-auth/react"
+import {createAuthClient} from "better-auth/react"
+import {LikeButton} from "../idea/LikeButton";
 
-const { useSession } = createAuthClient()
+const {useSession} = createAuthClient()
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -48,8 +49,15 @@ const IdeaList: React.FC = () => {
             key: idea.id,
             label: <div className={"flex justify-between"}>
                 <h4 className={"text-[1.2rem] font-medium"}>{idea.title}</h4>
-                {idea.authorId === session?.user.id ? <Button><EditOutlined /></Button> :
-                    <span className={"place-self-center text-[1rem] "}>Von {idea.authorName}</span>}
+                {idea.authorId === session?.user.id ?
+                    <div className={"items-center align-middle"}>
+                        <Button><EditOutlined/></Button>
+                        <LikeButton ideaId={idea.id}/>
+                    </div> :
+                    <div className={"items-center align-middle"}>
+                        <span className={"place-self-center text-[1rem] "}>Von {idea.authorName} / </span>
+                        <LikeButton ideaId={idea.id}/>
+                    </div>}
             </div>,
             children: <IdeaComponent {...idea}/>
         }

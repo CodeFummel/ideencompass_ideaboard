@@ -145,9 +145,6 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                     <Form.Item noStyle className={""}>
                         <Button type={"primary"} htmlType="submit"><SendOutlined/></Button>
                     </Form.Item>
-                    <div className={""}>
-                        <LikeButton ideaId={id}/>
-                    </div>
                 </div>
             </Form>
 
