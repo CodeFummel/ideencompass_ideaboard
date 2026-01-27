@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Idea {
+  id         Int      @id @default(autoincrement())
+  title      String
+  category   String
+  tags       String[]
+  body       String
+  // comments Comment @relation()
+  author     Session  @relation(fields: [authorId], references: [userId])
+  authorId   String
+  // name       User     @relation(fields: [authorName], references: [name])
+  authorName String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  // comments  Comment[]
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  files      File[]
+
+  @@map("ideas")
+}
+
+model File {
+  id     String @id @unique
+  idea   Idea   @relation(fields: [ideaId], references: [id])
+  ideaId Int
+  name   String
+  data   Bytes
+
+  @@map("files")
+}
+
+model User {
+  id            String    @id @unique
+  name          String
+  email         String    @unique
+  emailVerified Boolean
+  createdAt     DateTime
+  updatedAt     DateTime
+  userImage     String    @default("none")
+  role          Role      @default(USER)
+  sessions      Session[]
+  accounts      Account[]
+  ideas         Idea[]
+
+  // comments      Comment[]
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  token     String
+  ipAddress String
+  userAgent String
+  expiresAt DateTime
+  createdAt DateTime //@default(now())
+  updatedAt DateTime
+  ideas     Idea[]
+
+  @@map("sessions")
+}
+
+model Account {
+  id         String   @id @unique
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  accountId  String
+  providerId String
+  password   String
+  createdAt  DateTime //@default(now())
+  updatedAt  DateTime
+
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id @unique
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime //@default(now())
+  updatedAt  DateTime
+
+  @@map("verifications")
+}
+
+/**
+ * model Comment {
+ * id        Int      @id @default(autoincrement())
+ * content   String
+ * reactions String[]
+ * idea      Idea     @relation(fields: [ideaId], references: [id])
+ * ideaId    Int
+ * author    User     @relation(fields: [userId], references: [id])
+ * userId    String
+ * @@map("comment")
+ * }
+ * model Category {
+ * id       Int    @id @default(autoincrement())
+ * category String
+ * @@map("categorys")
+ * }
+ */
+enum Role {
+  USER
+  LEAD
+  ADMIN
+}
