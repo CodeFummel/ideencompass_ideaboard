@@ -112,10 +112,12 @@ model Comment {
   id          Int      @id @default(autoincrement())
   content     String
   reactions   String[]
+  createdAt   DateTime @default(now())
   idea        Idea     @relation(fields: [commentedId], references: [id])
   commentedId Int
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
+  authorName  String
 
   @@map("comments")
 }

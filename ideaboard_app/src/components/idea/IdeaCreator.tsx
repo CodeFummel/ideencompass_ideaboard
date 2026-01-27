@@ -51,7 +51,7 @@ const tagOptions = [
         label: "Dringend"
     },
     {
-        values: "Schnell erledigt",
+        value: "Schnell erledigt",
         label: "Schnell erledigt"
     },
 ];
@@ -76,9 +76,7 @@ export const IdeaCreator = ({ref}: {
 
     const {
         data: session,
-        isPending, //loading state
-        error, //error object
-        refetch //refetch the session
+        error,
     } = useSession()
 
     const [api, contextHolder] = notification.useNotification();
@@ -163,7 +161,6 @@ export const IdeaCreator = ({ref}: {
         fileList,
     };
 
-
     return (
         <Form className="flex-1 overflow-y-auto"
               labelCol={{span: 4}}
@@ -220,6 +217,5 @@ export const IdeaCreator = ({ref}: {
                 </div>
             </Form.Item>
         </Form>
-
     );
 };

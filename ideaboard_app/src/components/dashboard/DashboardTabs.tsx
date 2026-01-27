@@ -2,10 +2,11 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import {Button, Collapse, Dropdown, MenuProps, Tabs} from 'antd';
-import {FilterOutlined} from "@ant-design/icons";
-import {IdeaCreator, IdeaCreatorRef} from "./IdeaCreator";
-import {IdeaComponent} from "./IdeaComponent";
+import {EditOutlined, FilterOutlined} from "@ant-design/icons";
+import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
+import {IdeaComponent} from "../idea/IdeaComponent";
 import { createAuthClient } from "better-auth/react"
+
 const { useSession } = createAuthClient()
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
@@ -29,19 +30,17 @@ const IdeaList: React.FC = () => {
             response.json().then((x) => {
                 console.info(x);
                 setIdeas(x);
-            })
+            }).catch((error) => console.info(error))
         })
     }, []);
 
     const {
         data: session,
-        isPending, //loading state
-        error, //error object
-        refetch //refetch the session
+        error,
     } = useSession()
 
-    if (!session) {
-        return (error);
+    if (error) {
+        return (error.statusText);
     }
 
     const items = ideas.map((idea) => (
@@ -49,7 +48,7 @@ const IdeaList: React.FC = () => {
             key: idea.id,
             label: <div className={"flex justify-between"}>
                 <h4 className={"text-[1.2rem] font-medium"}>{idea.title}</h4>
-                {idea.authorId === session?.user.id ? <Button></Button> :
+                {idea.authorId === session?.user.id ? <Button><EditOutlined /></Button> :
                     <span className={"place-self-center text-[1rem] "}>Von {idea.authorName}</span>}
             </div>,
             children: <IdeaComponent {...idea}/>
