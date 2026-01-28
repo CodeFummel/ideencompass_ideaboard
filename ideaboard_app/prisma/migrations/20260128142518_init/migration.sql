@@ -92,8 +92,10 @@ CREATE TABLE "comments" (
     "id" SERIAL NOT NULL,
     "content" TEXT NOT NULL,
     "reactions" TEXT[],
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "commentedId" INTEGER NOT NULL,
     "authorId" TEXT NOT NULL,
+    "authorName" TEXT NOT NULL,
 
     CONSTRAINT "comments_pkey" PRIMARY KEY ("id")
 );
