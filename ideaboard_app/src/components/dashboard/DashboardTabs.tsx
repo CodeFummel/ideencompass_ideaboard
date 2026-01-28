@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Collapse, Dropdown, MenuProps, Tabs} from 'antd';
+import {Button, Collapse, Dropdown, MenuProps, notification, Tabs} from 'antd';
 import {EditOutlined, FilterOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 import {IdeaComponent} from "../idea/IdeaComponent";
@@ -85,17 +85,30 @@ export const DashboardTabs: React.FC = () => {
     const [items, setItems] = useState(defaultPanes);
     const [activeKey, setActiveKey] = useState("ideas-tab");
     const newTabIndex = useRef(0);
-    const ref = useRef<IdeaCreatorRef>(null);
+    const ref = useRef<Map<string, IdeaCreatorRef | null>>(new Map);
 
     const onChange = (key: string) => {
         setActiveKey(key);
     };
 
+    const [api, contextHolder] = notification.useNotification();
+
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
         setItems([...items, {
             label: 'Neue Idee',
-            children: <IdeaCreator ref={ref}/>,
+            children: <IdeaCreator ref={(node) => {
+                ref.current.set(newActiveKey, node);
+            }} onIdeaSaved={function (): void {
+                api.open({
+                    title: 'Idee gespeichert!',
+                    description: 'Sie haben Ihre Idee erfolgreich abgeschickt.',
+                    duration: 5,
+                    showProgress: true,
+                    pauseOnHover: true,
+                    placement: "top",
+                });
+            }}/>,
             key: newActiveKey,
             closable: true,
             forceRender: false,
@@ -104,7 +117,8 @@ export const DashboardTabs: React.FC = () => {
     };
 
     const handleSubmit = () => {
-        ref.current?.submit();
+        ref.current.get(activeKey)?.submit();
+        remove(activeKey);
     };
 
     const remove = (targetKey: TargetKey) => {
@@ -147,6 +161,7 @@ export const DashboardTabs: React.FC = () => {
         <div
             className="flex h-full text-left p-[6px] flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
             <nav className="flex">
+                {contextHolder}
                 <Tabs
                     className="flex flex-1"
                     tabBarExtraContent={{left: filterButton, right: saveIdeaButton}}

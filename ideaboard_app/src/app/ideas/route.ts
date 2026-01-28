@@ -27,8 +27,6 @@ export async function POST(request: Request) {
         return new Response("Fill all blanks", {status: 400});
     }
 
-    //console.log({data})
-
     const files = data.files.map(file => ({
         name: file.name,
         data: file.data,
@@ -49,27 +47,6 @@ export async function POST(request: Request) {
     });
 
     console.log("Idea: ", idea);
-    /*
-        const id = idea.id;
 
-        const filesResult = await Promise.all(
-            files.map(file => prisma.file.create({
-                    data: {
-                        ideaId: id,
-                        ...file
-                    }
-                })
-            ));
-        console.log("Files: ", filesResult);
-
-        await prisma.idea.update({
-            where: {
-                id
-            },
-            data: {
-                files: filesResult.map((f) => f.id)
-            }
-        })
-    */
     return NextResponse.json({ok: true, message: "Idea successfully uploaded"})
 }

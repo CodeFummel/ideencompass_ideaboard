@@ -60,10 +60,10 @@ export interface IdeaCreatorRef {
     submit: () => void
 }
 
-export const IdeaCreator = ({ref}: {
-    ref?: Ref<IdeaCreatorRef>
+export const IdeaCreator = ({ref, onIdeaSaved}: {
+    ref?: Ref<IdeaCreatorRef>,
+    onIdeaSaved: () => void,
 }) => {
-    const [isOK, setIsOK] = useState<null | boolean>(null);
     const [fileList, setFileList] = useState<UploadFile[]>([]);
 
     const formRef = useRef<FormInstance>(null)
@@ -114,19 +114,11 @@ export const IdeaCreator = ({ref}: {
                 files,
             }),
         });
-        const x = await result.json();
-        console.info({x});
-        if (x.ok) {
-            setIsOK(true);
+        const route = await result.json();
+        console.info({route});
+        if (route.ok) {
             console.info("IdeaCreator successfull idea creation")
-            api.open({
-                title: 'Idee gespeichert!',
-                description: 'Sie haben Ihre Idee erfolgreich abgeschickt.',
-                duration: 5,
-                showProgress: true,
-                pauseOnHover: true,
-                placement: "top",
-            });
+            onIdeaSaved();
         } else {
             console.info("Server IdeaCreator Input Error")
         }
@@ -169,9 +161,6 @@ export const IdeaCreator = ({ref}: {
               ref={formRef}
         >
             {contextHolder}
-            {isOK ?
-                ("Placeholder")
-                : null}
             <Form.Item name={"title"} label="Titel:" rules={[{required: true, message: ""}]}>
                 <Input/>
             </Form.Item>
