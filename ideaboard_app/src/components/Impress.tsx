@@ -10,10 +10,12 @@ export const Impress = () => {
 
     return (
         <div>
-
-            <h1 className={"text-5xl  text-center text-gray-500"}>Impressum</h1>
-            <Button href={"/"} className={""}>Dashboard</Button>
-
+            <header className={"flex flex-row gap-4 items-center  ml-4 mr-4 h-20"}>
+            <h1 className={"text-[30px] font-bold text-center"}>Impressum</h1>
+            <div className={"flex flex-1 justify-end h-full mt-11"}>
+                <Button href={"/"} >Dashboard</Button>
+            </div>
+            </header>
 
             <br/>
             <br/>
