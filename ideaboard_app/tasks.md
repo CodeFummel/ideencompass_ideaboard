@@ -43,5 +43,4 @@ men
 reichte Ideen, Kommentare, Likes, etc.  
 
 #### [ ] 2.9 Optionale Funktionen
-[ ] - Bei der Recherche zu dem Thema werdet Ihr zahlreiche Use Cases (z. B. Dark Mode, Gamification-Elemente,
-etc.) finden, die sich in Euer Projekt integrieren lassen.  
+[ ] - Dark Mode 

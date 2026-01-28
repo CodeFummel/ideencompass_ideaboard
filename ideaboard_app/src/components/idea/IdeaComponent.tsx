@@ -104,7 +104,7 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
             <div className={"flex-1 h-full p-(--standard-padding-in) border-r-2 border-b-2 border-(--border)"}>
                 <div>Kategorie: {<Tag>
                     <div
-                        className={"pl-(--standard-padding-in) pr-(--standard-padding-in)  border-2 border-(--border) rounded-(--border-radius)"}>{category}</div>
+                        className={"pl-(--standard-padding-in) pr-(--standard-padding-in) border-2 border-(--border) rounded-(--border-radius)"}>{category}</div>
                 </Tag>
                 }
                 </div>
@@ -148,7 +148,6 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                     </Form.Item>
                 </div>
             </Form>
-
         </div>
         <div>
             {comments.map(comment => <CommentComponent key={comment.id} {...comment}/>)}
