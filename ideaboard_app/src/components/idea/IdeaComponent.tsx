@@ -3,8 +3,6 @@
 import React, {useEffect, useState} from "react";
 import {RightOutlined, SendOutlined} from "@ant-design/icons";
 import {Button, Form, Input, notification, Tag} from "antd";
-
-import {LikeButton} from "./LikeButton";
 import {Comment, CommentComponent} from "@/src/components/idea/CommentComponent";
 
 import {createAuthClient} from "better-auth/react"
@@ -139,8 +137,11 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                   onFinishFailed={onFormError}
             >
                 <div className="flex flex-row gap-2 items-center w-full">
-                    <Form.Item noStyle className={"w-full"} name={"content"} rules={[{required: true, message: ""}]}>
-                        <Input placeholder={"Kommentieren"}/>
+                    <Form.Item noStyle
+                               className={"w-full"}
+                               name={"content"}
+                               rules={[{required: true, message: ""}]}>
+                        <Input showCount maxLength={200} placeholder={"Kommentieren"}/>
                     </Form.Item>
                     <Form.Item noStyle className={""}>
                         <Button type={"primary"} htmlType="submit"><SendOutlined/></Button>

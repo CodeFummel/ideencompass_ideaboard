@@ -1,5 +1,0 @@
--Change layout
--Finish IdeaComponent Design
--IdeaComponent comments expandable
--IdeaComponent like/user works
--Ideas Editable

@@ -1,0 +1,47 @@
+#### [ ] 2.1 Ideen einreichen
+[x] − Neue Ideen anlegen (Title, Beschreibung und Kategorie)  
+[x] − Möglichkeit Schlagworte/ Tags hinzuzufügen  
+[ ] − Möglichkeit zur Bearbeitung eigener eingereichten Ideen  
+[x] − Option zum Hochladen von Dateien zu Ideen  
+
+#### [ ] 2.2 Ideen fördern & bewerten
+[x] − Eingereichte Ideen können geliked werden  
+[ ] − Jeder Nutzer hat drei Likes pro Woche  
+[x] − Ideen können kommentiert werden (max. 200 Zeichen)  
+[ ] − Nutzer können auf Kommentare reagieren (z. B. mit Emojis)  
+
+#### [ ] 2.3 Projektübersicht
+[ ] − Übersicht über alle aktuell laufenden Projekte  
+[ ] − Anzeige des Status (Konzeption, Umsetzung, Abgeschlossen)  
+[ ] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
+[ ] − Direkte Kontaktmöglichkeit des Ansprechpartners  
+
+#### [ ] 2.4 Dashboard & Übersicht
+[ ] − Übersicht über neue Ideen, Top-Ideen, Projekte und Umfragen  
+[ ] − Möglichkeit an Umfragen teilzunehmen  
+[ ] − Interaktive Filter- und Sortiermöglichkeiten  
+[ ] − Hervorhebung der „Top 3 – Ideen der Woche“  
+
+#### [ ] 2.5 Statistiken & Reporting
+[ ] − Anzeige von Kennzahlen (Anzahl neuer Ideen, Beliebtesten Kategorien, Beliebteste Idee)  
+[ ] − Graphische Darstellung dieser Kennzahlen (z. B. Diagramme)  
+
+#### [ ] 2.6 Rollenmanagement
+[x] - Nutzersystem implementieren  
+[ ] − Verwaltung von Nutzerrollen und Berechtigungen (Administratoren, Projektleiter, Mitarbeiter)  
+[ ] − Mitarbeiter können nur Ideen einreichen, bewerten, Kommentare schreiben und an Umfragen teilneh-
+men  
+[ ] − Projektleiter können zusätzlich noch Projekte bearbeiten (z. B. den Status verändern)  
+[ ] − Admins können alle Bereiche verwalten (z. B. Ideen löschen)  
+
+#### [ ] 2.7 Benutzeroberfläche
+[ ] − Moderne, intuitive Bedienoberfläche in deutscher Sprache  
+[ ] − Responsive Design für verschiedene Endgeräte  
+
+#### [ ] 2.8 Backend & Datenhaltung
+[ ] - Die Daten werden im Backend verarbeitet und validiert. Zu diesen Daten gehören Benutzerdaten, einge-
+reichte Ideen, Kommentare, Likes, etc.  
+
+#### [ ] 2.9 Optionale Funktionen
+[ ] - Bei der Recherche zu dem Thema werdet Ihr zahlreiche Use Cases (z. B. Dark Mode, Gamification-Elemente,
+etc.) finden, die sich in Euer Projekt integrieren lassen.  
