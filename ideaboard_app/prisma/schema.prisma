@@ -13,24 +13,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model Idea {
-  id         Int       @id @default(autoincrement())
-  title      String
-  category   String
-  tags       String[]
-  body       String
-  author     User      @relation(fields: [authorId], references: [id])
-  authorId   String
-  authorName String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @default(now()) @updatedAt
-  files      File[]
-  likes      Like[]
-  comments   Comment[]
-
-  @@map("ideas")
-}
-
 model File {
   id     Int    @id @default(autoincrement())
   idea   Idea   @relation(fields: [ideaId], references: [id])
@@ -55,6 +37,7 @@ model User {
   ideas         Idea[]
   likes         Like[]
   comments      Comment[]
+  projects      Project[]
 
   // comments      Comment[]
   @@map("users")
@@ -98,6 +81,25 @@ model Verification {
   @@map("verifications")
 }
 
+model Idea {
+  id         Int       @id @default(autoincrement())
+  title      String
+  category   String
+  tags       String[]
+  body       String
+  author     User      @relation(fields: [authorId], references: [id])
+  authorId   String
+  authorName String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt
+  files      File[]
+  likes      Like[]
+  comments   Comment[]
+  projects   Project[]
+
+  @@map("ideas")
+}
+
 model Like {
   author    User   @relation(fields: [authorId], references: [id])
   authorId  String
@@ -120,6 +122,29 @@ model Comment {
   authorName  String
 
   @@map("comments")
+}
+
+model Project {
+  id         Int    @id @default(autoincrement())
+  idea       Idea   @relation(fields: [parentIdea], references: [id])
+  parentIdea Int
+  body       String
+  progress   Int    @default(0)
+  manager    User   @relation(fields: [managerId], references: [id])
+  managerId  String
+
+  @@map("projects")
+}
+
+model Poll {
+  id       Int      @id @default(autoincrement())
+  title    String
+  body     String
+  options  String[]
+  votes    Int[]
+  allVotes Int      @default(0)
+
+  @@map("polls")
 }
 
 /**

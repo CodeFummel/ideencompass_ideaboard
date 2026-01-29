@@ -1,71 +1,19 @@
 "use client"
 
-import React, {useEffect, useRef, useState} from 'react';
-import {Button, Collapse, Dropdown, MenuProps, notification, Tabs} from 'antd';
-import {EditOutlined, FilterOutlined} from "@ant-design/icons";
+import React, { useRef, useState} from 'react';
+import {Button, Dropdown, MenuProps, notification, Tabs} from 'antd';
+import {FilterOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
-import {IdeaComponent} from "../idea/IdeaComponent";
-import {createAuthClient} from "better-auth/react"
-import {LikeButton} from "../idea/LikeButton";
 
-const {useSession} = createAuthClient()
+import {IdeaList} from "@/src/components/idea/IdeaList";
+import {useIdeas} from "@/src/components/idea/useIdeas";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-type Idea = {
-    id: number,
-    title: string,
-    category: string,
-    tags: string[],
-    body: string,
-    authorId: string,
-    authorName: string,
-    files: { name: string, data: string }[],
-}
+const IdeaListWrapper:React.FC = () => {
+    const ideas = useIdeas();
 
-const IdeaList: React.FC = () => {
-    const [ideas, setIdeas] = useState<Idea[]>([]);
-
-    useEffect(() => {
-        fetch("/ideas").then((response) => {
-            response.json().then((x) => {
-                console.info(x);
-                setIdeas(x);
-            }).catch((error) => console.info(error))
-        })
-    }, []);
-
-    const {
-        data: session,
-        error,
-    } = useSession()
-
-    if (error) {
-        return (error.statusText);
-    }
-
-    const items = ideas.map((idea) => (
-        {
-            key: idea.id,
-            label: <div className={"flex justify-between"}>
-                <h4 className={"text-[1.2rem] font-medium"}>{idea.title}</h4>
-                {idea.authorId === session?.user.id ?
-                    <div className={"items-center align-middle"}>
-                        <Button><EditOutlined/></Button>
-                        <LikeButton ideaId={idea.id}/>
-                    </div> :
-                    <div className={"items-center align-middle"}>
-                        <span className={"place-self-center text-[1rem] "}>Von {idea.authorName} / </span>
-                        <LikeButton ideaId={idea.id}/>
-                    </div>}
-            </div>,
-            children: <IdeaComponent {...idea}/>
-        }
-    ));
-
-    return <div className={"overflow-auto"}>
-        <Collapse className={"p-0"} size={"small"} items={items}></Collapse>
-    </div>;
+    return <IdeaList ideas={ideas}/>;
 }
 
 export const DashboardTabs: React.FC = () => {
@@ -76,7 +24,7 @@ export const DashboardTabs: React.FC = () => {
             key: "ideas-tab",
             closable: false,
             forceRender: true,
-            children: <IdeaList/>,
+            children: <IdeaListWrapper/>,
         },
         {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
         {label: "Umfragen", key: "polls-tab", closable: false, children: "Umfragen yippie"},
