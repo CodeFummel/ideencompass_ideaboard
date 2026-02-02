@@ -2,22 +2,30 @@ import {NextResponse} from "next/server";
 import {prisma} from "@/src/utils/database";
 
 export async function GET(request: Request) {
-    const ideas = await prisma.idea.findMany();
+    const ideas = await prisma.idea.findMany({
+        include: {
+            _count: {
+                select: { likes: true },
+            },
+            files: true,
+        },
+    });
 
-    console.info({ideas});
+    //console.info({ideas});
 
+    // Get files of the specific idea
     const result = await Promise.all(ideas.map(async idea => {
-        const files = await prisma.file.findMany({where: {ideaId: idea.id}});
-        console.log("File amount: ", files.length, idea.id);
-        const transformFiles = files.map(file => ({
+        const transformFiles = idea.files.map(file => ({
             ...file,
             data: Buffer.from(file.data).toString("utf8"),
         }));
         return ({...idea, files: transformFiles});
     }));
+
     return NextResponse.json(result);
 }
 
+// Create a new Idea
 export async function POST(request: Request) {
     const data = await request.json();
 

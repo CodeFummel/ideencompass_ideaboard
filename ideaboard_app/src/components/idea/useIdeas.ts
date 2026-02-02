@@ -8,7 +8,9 @@ export type Idea = {
     body: string,
     authorId: string,
     authorName: string,
+    createdAt: string,
     files: { name: string, data: string }[],
+    _count: { likes: number },
 }
 
 export type FilterFn = (ideas: Idea[]) => Idea[];

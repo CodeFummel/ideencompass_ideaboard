@@ -21,8 +21,8 @@ export const CommentComponent: React.FC<Comment> = ({content, reactions, authorI
 
     const date = dayjs(createdAt, 'YYYY-MM-DD HH:mm:ssss', 'de');
     const formatDate = date.local().format("DD.MM.YYYY u[m] HH:mm").toString();
-    console.log("date", date);
-    console.log("formatDate", formatDate);
+    //console.log("date", date);
+    //console.log("formatDate", formatDate);
 
 
     return (

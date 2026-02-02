@@ -25,7 +25,7 @@ export const MyIdeas:React.FC = () => {
     return (
         <div className={"flex-2 overflow-auto h-full border-2 rounded-(--border-radius) border-(--border)"}>
             <div className={"border-b-2 border-(--border) p-2"}>
-                <p>Meine Ideen:</p>
+                <h2 className={"font-medium"}>Meine Ideen:</h2>
             </div>
             <div className={"flex"}>
                 <IdeaList ideas={filteredIdeas}/>
