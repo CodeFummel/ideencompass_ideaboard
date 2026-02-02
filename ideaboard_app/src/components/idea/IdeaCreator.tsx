@@ -12,12 +12,8 @@ const {useSession} = createAuthClient()
 // Categories
 const categoryOptions = [
     {
-        value: "Ausstattung",
-        label: "Ausstattung"
-    },
-    {
-        value: "Büro",
-        label: "Büro"
+        value: "Arbeitsplatz",
+        label: "Arbeitsplatz"
     },
     {
         value: "Cafe",
@@ -30,10 +26,6 @@ const categoryOptions = [
     {
         value: "IT",
         label: "IT"
-    },
-    {
-        value: "Pausen",
-        label: "Pausen"
     },
     {
         value: "Produkte",
@@ -90,8 +82,6 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
     }
 
     const finish = async (values) => {
-        console.info({values})
-
         const files = await Promise.all(fileList.map(async (f) => {
             console.log("Data: ", f);
             return ({
@@ -99,8 +89,6 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
                 data: (await encodeFile(f as any)),//.split(",")[1],
             });
         }));
-
-        console.log("Files: ", files);
 
         const result = await fetch("/ideas", {
             method: "POST",
@@ -137,7 +125,6 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
     }
 
     // Files
-
     const uploadProps: UploadProps = {
         onRemove: (file) => {
             const index = fileList.indexOf(file);

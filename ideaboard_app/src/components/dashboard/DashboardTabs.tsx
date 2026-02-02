@@ -1,18 +1,28 @@
 "use client"
 
-import React, { useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Button, Dropdown, MenuProps, notification, Tabs} from 'antd';
-import {FilterOutlined} from "@ant-design/icons";
+import {FilterOutlined, SortAscendingOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 
 import {IdeaList} from "@/src/components/idea/IdeaList";
-import {useIdeas} from "@/src/components/idea/useIdeas";
+import {Idea, useIdeas} from "@/src/components/idea/useIdeas";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-const IdeaListWrapper:React.FC = () => {
+const IdeaListWrapper: React.FC = () => {
     const ideas = useIdeas();
 
+    const [filter, setFilter] = useState<keyof Idea>("category");
+    const [filterValue, setFilterValue] = useState<string>("Sonstiges");
+    const [sort, setSort] = useState<keyof Idea>("createdAt");
+    /*
+        const filteredIdeas = useMemo(() => {
+            return ideas
+                .filter(idea => idea[filter] === filterValue)
+                .sort((a, b) => b[sort] - a[sort])
+        }, [ideas, filter, sort]);
+    */
     return <IdeaList ideas={ideas}/>;
 }
 
@@ -87,27 +97,64 @@ export const DashboardTabs: React.FC = () => {
         }
     };
 
-    const filterOptions: MenuProps["items"] = [
+    type MenuItem = Required<MenuProps>["items"][number];
+    const filterOptions: MenuItem[] = [
         {
-            label: "Best",
-            key: "1",
+            key: "category", label: "Kategorie", children: [
+                {key: "workplace", label: "Arbeitsplatz"},
+                {key: "cafe", label: "Cafe"},
+                {key: "hr", label: "HR"},
+                {key: "it", label: "IT"},
+                {key: "products", label: "Produkte"},
+                {key: "else", label: "Sonstiges"},
+            ]
         },
         {
-            label: "New",
-            key: "2",
-        },
-        {
-            label: "Old",
-            key: "3",
+            key: "period", label: "Zeitraum", children: [
+                {key: "p_today", label: "Heute"},
+                {key: "p_three", label: "Drei Tage"},
+                {key: "p_week", label: "Woche"},
+                {key: "p_month", label: "Monat"},
+                {key: "p_all", label: "Immer"},
+            ]
         },
     ];
 
-    const filterButton = <Dropdown trigger={["click"]} menu={{items: filterOptions}}><FilterOutlined/></Dropdown>
+    const sortOptions: MenuItem[] = [
+        {
+            key: "time", label: "Erstellzeit", children: [
+                {key: "t_up", label: "Aufsteigend"},
+                {key: "t_down", label: "Absteigend"},
+            ]
+        },
+        {
+            key: "likes", label: "Likes", children: [
+                {key: "l_up", label: "Aufsteigend"},
+                {key: "l_down", label: "Absteigend"},
+            ]
+        },
+        {
+            key: "comments", label: "Kommentare", children: [
+                {key: "c_up", label: "Aufsteigend"},
+                {key: "c_down", label: "Absteigend"},
+            ]
+        },
+    ]
+
+    const filterButton = <div className={"m-2"}>
+        <Dropdown trigger={["click"]} menu={{items: filterOptions}}>
+            <FilterOutlined className={"mr-2 p-2 border-2 rounded-(--border-radius) border-(--border)"}/>
+        </Dropdown>
+        <Dropdown trigger={["click"]} menu={{items: sortOptions}}>
+            <SortAscendingOutlined className={"p-2 border-2 rounded-(--border-radius) border-(--border)"}/>
+        </Dropdown>
+    </div>
+
     const saveIdeaButton = <Button type={"primary"} onClick={handleSubmit}>Idee speichern</Button>
 
     return (
         <div
-            className="flex h-full text-left p-[6px] flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
+            className="flex h-full text-left p-1.5 flex-col flex-2 justify-start gap-(--flex-gap) border-2 border-solid rounded-(--border-radius) border-(--border)">
             <nav className="flex">
                 {contextHolder}
                 <Tabs

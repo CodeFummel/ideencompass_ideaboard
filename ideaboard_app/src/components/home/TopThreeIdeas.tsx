@@ -19,11 +19,11 @@ export const TopThreeIdeas = () => {
     // look at https://www.prisma.io/docs/orm/prisma-client/queries/aggregation-grouping-summarizing
 
     return (
-        <div className={"flex-2  h-full border-2 rounded-(--border-radius) border-(--border)"}>
+        <div className={"flex-2 overflow-auto h-full border-2 rounded-(--border-radius) border-(--border)"}>
             <div className={"border-b-2 border-(--border) p-2"}>
                 <h2 className={"font-medium"}>Top-3 Ideen der Woche</h2>
             </div>
-            <div className={"flex overflow-auto"}>
+            <div className={"flex"}>
                 <IdeaList ideas={filteredIdeas}/>
             </div>
         </div>
