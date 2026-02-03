@@ -51,14 +51,17 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Idea: 'Idea',
   File: 'File',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
+  Idea: 'Idea',
   Like: 'Like',
-  Comment: 'Comment'
+  Comment: 'Comment',
+  Project: 'Project',
+  Poll: 'Poll',
+  Option: 'Option'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -75,21 +78,6 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-export const IdeaScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  category: 'category',
-  tags: 'tags',
-  body: 'body',
-  authorId: 'authorId',
-  authorName: 'authorName',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type IdeaScalarFieldEnum = (typeof IdeaScalarFieldEnum)[keyof typeof IdeaScalarFieldEnum]
 
 
 export const FileScalarFieldEnum = {
@@ -155,6 +143,21 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const IdeaScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  category: 'category',
+  tags: 'tags',
+  body: 'body',
+  authorId: 'authorId',
+  authorName: 'authorName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IdeaScalarFieldEnum = (typeof IdeaScalarFieldEnum)[keyof typeof IdeaScalarFieldEnum]
+
+
 export const LikeScalarFieldEnum = {
   authorId: 'authorId',
   likedIdea: 'likedIdea'
@@ -174,6 +177,39 @@ export const CommentScalarFieldEnum = {
 } as const
 
 export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const ProjectScalarFieldEnum = {
+  id: 'id',
+  parentIdea: 'parentIdea',
+  body: 'body',
+  progress: 'progress',
+  managerId: 'managerId'
+} as const
+
+export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
+export const PollScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  title: 'title',
+  body: 'body',
+  authorId: 'authorId',
+  authorName: 'authorName'
+} as const
+
+export type PollScalarFieldEnum = (typeof PollScalarFieldEnum)[keyof typeof PollScalarFieldEnum]
+
+
+export const OptionScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  votes: 'votes',
+  pollId: 'pollId'
+} as const
+
+export type OptionScalarFieldEnum = (typeof OptionScalarFieldEnum)[keyof typeof OptionScalarFieldEnum]
 
 
 export const SortOrder = {

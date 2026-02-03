@@ -304,48 +304,6 @@ export type LikeSumOrderByAggregateInput = {
   likedIdea?: Prisma.SortOrder
 }
 
-export type LikeCreateNestedManyWithoutIdeaInput = {
-  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
-  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
-  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
-  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-}
-
-export type LikeUncheckedCreateNestedManyWithoutIdeaInput = {
-  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
-  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
-  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
-  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-}
-
-export type LikeUpdateManyWithoutIdeaNestedInput = {
-  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
-  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
-  upsert?: Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput[]
-  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
-  set?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  disconnect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  delete?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  update?: Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput[]
-  updateMany?: Prisma.LikeUpdateManyWithWhereWithoutIdeaInput | Prisma.LikeUpdateManyWithWhereWithoutIdeaInput[]
-  deleteMany?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
-}
-
-export type LikeUncheckedUpdateManyWithoutIdeaNestedInput = {
-  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
-  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
-  upsert?: Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput[]
-  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
-  set?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  disconnect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  delete?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
-  update?: Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput[]
-  updateMany?: Prisma.LikeUpdateManyWithWhereWithoutIdeaInput | Prisma.LikeUpdateManyWithWhereWithoutIdeaInput[]
-  deleteMany?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
-}
-
 export type LikeCreateNestedManyWithoutAuthorInput = {
   create?: Prisma.XOR<Prisma.LikeCreateWithoutAuthorInput, Prisma.LikeUncheckedCreateWithoutAuthorInput> | Prisma.LikeCreateWithoutAuthorInput[] | Prisma.LikeUncheckedCreateWithoutAuthorInput[]
   connectOrCreate?: Prisma.LikeCreateOrConnectWithoutAuthorInput | Prisma.LikeCreateOrConnectWithoutAuthorInput[]
@@ -388,46 +346,46 @@ export type LikeUncheckedUpdateManyWithoutAuthorNestedInput = {
   deleteMany?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
 }
 
-export type LikeCreateWithoutIdeaInput = {
-  author: Prisma.UserCreateNestedOneWithoutLikesInput
+export type LikeCreateNestedManyWithoutIdeaInput = {
+  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
+  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
+  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
+  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
 }
 
-export type LikeUncheckedCreateWithoutIdeaInput = {
-  authorId: string
+export type LikeUncheckedCreateNestedManyWithoutIdeaInput = {
+  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
+  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
+  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
+  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
 }
 
-export type LikeCreateOrConnectWithoutIdeaInput = {
-  where: Prisma.LikeWhereUniqueInput
-  create: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput>
+export type LikeUpdateManyWithoutIdeaNestedInput = {
+  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
+  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
+  upsert?: Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput[]
+  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
+  set?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  disconnect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  delete?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  update?: Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput[]
+  updateMany?: Prisma.LikeUpdateManyWithWhereWithoutIdeaInput | Prisma.LikeUpdateManyWithWhereWithoutIdeaInput[]
+  deleteMany?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
 }
 
-export type LikeCreateManyIdeaInputEnvelope = {
-  data: Prisma.LikeCreateManyIdeaInput | Prisma.LikeCreateManyIdeaInput[]
-  skipDuplicates?: boolean
-}
-
-export type LikeUpsertWithWhereUniqueWithoutIdeaInput = {
-  where: Prisma.LikeWhereUniqueInput
-  update: Prisma.XOR<Prisma.LikeUpdateWithoutIdeaInput, Prisma.LikeUncheckedUpdateWithoutIdeaInput>
-  create: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput>
-}
-
-export type LikeUpdateWithWhereUniqueWithoutIdeaInput = {
-  where: Prisma.LikeWhereUniqueInput
-  data: Prisma.XOR<Prisma.LikeUpdateWithoutIdeaInput, Prisma.LikeUncheckedUpdateWithoutIdeaInput>
-}
-
-export type LikeUpdateManyWithWhereWithoutIdeaInput = {
-  where: Prisma.LikeScalarWhereInput
-  data: Prisma.XOR<Prisma.LikeUpdateManyMutationInput, Prisma.LikeUncheckedUpdateManyWithoutIdeaInput>
-}
-
-export type LikeScalarWhereInput = {
-  AND?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
-  OR?: Prisma.LikeScalarWhereInput[]
-  NOT?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
-  authorId?: Prisma.StringFilter<"Like"> | string
-  likedIdea?: Prisma.IntFilter<"Like"> | number
+export type LikeUncheckedUpdateManyWithoutIdeaNestedInput = {
+  create?: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput> | Prisma.LikeCreateWithoutIdeaInput[] | Prisma.LikeUncheckedCreateWithoutIdeaInput[]
+  connectOrCreate?: Prisma.LikeCreateOrConnectWithoutIdeaInput | Prisma.LikeCreateOrConnectWithoutIdeaInput[]
+  upsert?: Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpsertWithWhereUniqueWithoutIdeaInput[]
+  createMany?: Prisma.LikeCreateManyIdeaInputEnvelope
+  set?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  disconnect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  delete?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  connect?: Prisma.LikeWhereUniqueInput | Prisma.LikeWhereUniqueInput[]
+  update?: Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput | Prisma.LikeUpdateWithWhereUniqueWithoutIdeaInput[]
+  updateMany?: Prisma.LikeUpdateManyWithWhereWithoutIdeaInput | Prisma.LikeUpdateManyWithWhereWithoutIdeaInput[]
+  deleteMany?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
 }
 
 export type LikeCreateWithoutAuthorInput = {
@@ -464,20 +422,46 @@ export type LikeUpdateManyWithWhereWithoutAuthorInput = {
   data: Prisma.XOR<Prisma.LikeUpdateManyMutationInput, Prisma.LikeUncheckedUpdateManyWithoutAuthorInput>
 }
 
-export type LikeCreateManyIdeaInput = {
+export type LikeScalarWhereInput = {
+  AND?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
+  OR?: Prisma.LikeScalarWhereInput[]
+  NOT?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
+  authorId?: Prisma.StringFilter<"Like"> | string
+  likedIdea?: Prisma.IntFilter<"Like"> | number
+}
+
+export type LikeCreateWithoutIdeaInput = {
+  author: Prisma.UserCreateNestedOneWithoutLikesInput
+}
+
+export type LikeUncheckedCreateWithoutIdeaInput = {
   authorId: string
 }
 
-export type LikeUpdateWithoutIdeaInput = {
-  author?: Prisma.UserUpdateOneRequiredWithoutLikesNestedInput
+export type LikeCreateOrConnectWithoutIdeaInput = {
+  where: Prisma.LikeWhereUniqueInput
+  create: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput>
 }
 
-export type LikeUncheckedUpdateWithoutIdeaInput = {
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+export type LikeCreateManyIdeaInputEnvelope = {
+  data: Prisma.LikeCreateManyIdeaInput | Prisma.LikeCreateManyIdeaInput[]
+  skipDuplicates?: boolean
 }
 
-export type LikeUncheckedUpdateManyWithoutIdeaInput = {
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+export type LikeUpsertWithWhereUniqueWithoutIdeaInput = {
+  where: Prisma.LikeWhereUniqueInput
+  update: Prisma.XOR<Prisma.LikeUpdateWithoutIdeaInput, Prisma.LikeUncheckedUpdateWithoutIdeaInput>
+  create: Prisma.XOR<Prisma.LikeCreateWithoutIdeaInput, Prisma.LikeUncheckedCreateWithoutIdeaInput>
+}
+
+export type LikeUpdateWithWhereUniqueWithoutIdeaInput = {
+  where: Prisma.LikeWhereUniqueInput
+  data: Prisma.XOR<Prisma.LikeUpdateWithoutIdeaInput, Prisma.LikeUncheckedUpdateWithoutIdeaInput>
+}
+
+export type LikeUpdateManyWithWhereWithoutIdeaInput = {
+  where: Prisma.LikeScalarWhereInput
+  data: Prisma.XOR<Prisma.LikeUpdateManyMutationInput, Prisma.LikeUncheckedUpdateManyWithoutIdeaInput>
 }
 
 export type LikeCreateManyAuthorInput = {
@@ -494,6 +478,22 @@ export type LikeUncheckedUpdateWithoutAuthorInput = {
 
 export type LikeUncheckedUpdateManyWithoutAuthorInput = {
   likedIdea?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type LikeCreateManyIdeaInput = {
+  authorId: string
+}
+
+export type LikeUpdateWithoutIdeaInput = {
+  author?: Prisma.UserUpdateOneRequiredWithoutLikesNestedInput
+}
+
+export type LikeUncheckedUpdateWithoutIdeaInput = {
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type LikeUncheckedUpdateManyWithoutIdeaInput = {
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 

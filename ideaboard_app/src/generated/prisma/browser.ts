@@ -18,11 +18,6 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model Idea
- * 
- */
-export type Idea = Prisma.IdeaModel
-/**
  * Model File
  * 
  */
@@ -48,6 +43,11 @@ export type Account = Prisma.AccountModel
  */
 export type Verification = Prisma.VerificationModel
 /**
+ * Model Idea
+ * 
+ */
+export type Idea = Prisma.IdeaModel
+/**
  * Model Like
  * 
  */
@@ -57,3 +57,18 @@ export type Like = Prisma.LikeModel
  * 
  */
 export type Comment = Prisma.CommentModel
+/**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel
+/**
+ * Model Poll
+ * 
+ */
+export type Poll = Prisma.PollModel
+/**
+ * Model Option
+ * 
+ */
+export type Option = Prisma.OptionModel

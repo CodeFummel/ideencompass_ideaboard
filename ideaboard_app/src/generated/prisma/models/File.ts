@@ -301,16 +301,6 @@ export type FileUncheckedUpdateManyInput = {
   data?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type FileListRelationFilter = {
-  every?: Prisma.FileWhereInput
-  some?: Prisma.FileWhereInput
-  none?: Prisma.FileWhereInput
-}
-
-export type FileOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type FileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ideaId?: Prisma.SortOrder
@@ -340,6 +330,28 @@ export type FileMinOrderByAggregateInput = {
 export type FileSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ideaId?: Prisma.SortOrder
+}
+
+export type FileListRelationFilter = {
+  every?: Prisma.FileWhereInput
+  some?: Prisma.FileWhereInput
+  none?: Prisma.FileWhereInput
+}
+
+export type FileOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type FileCreateNestedManyWithoutIdeaInput = {

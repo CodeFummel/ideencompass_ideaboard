@@ -7,6 +7,7 @@ import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 
 import IdeaList from "@/src/components/idea/IdeaList";
 import {Idea, useIdeas} from "@/src/components/idea/useIdeas";
+import {PollCreator} from "@/src/components/poll/PollCreator";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -37,7 +38,7 @@ export const DashboardTabs: React.FC = () => {
             children: <IdeaListWrapper/>,
         },
         {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
-        {label: "Umfragen", key: "polls-tab", closable: false, children: "Umfragen yippie"},
+        {label: "Umfragen", key: "polls-tab", closable: false, children: <PollCreator/>},
     ];
 
     const [items, setItems] = useState(defaultPanes);
@@ -45,11 +46,11 @@ export const DashboardTabs: React.FC = () => {
     const newTabIndex = useRef(0);
     const ref = useRef<Map<string, IdeaCreatorRef | null>>(new Map);
 
+    const [api, contextHolder] = notification.useNotification();
+
     const onChange = (key: string) => {
         setActiveKey(key);
     };
-
-    const [api, contextHolder] = notification.useNotification();
 
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;

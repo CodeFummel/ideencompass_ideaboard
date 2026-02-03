@@ -38,6 +38,7 @@ model User {
   likes         Like[]
   comments      Comment[]
   projects      Project[]
+  polls         Poll[]
 
   // comments      Comment[]
   @@map("users")
@@ -137,14 +138,26 @@ model Project {
 }
 
 model Poll {
-  id       Int      @id @default(autoincrement())
-  title    String
-  body     String
-  options  String[]
-  votes    Int[]
-  allVotes Int      @default(0)
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  title      String
+  body       String
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   String
+  authorName String
+  options    Option[]
 
   @@map("polls")
+}
+
+model Option {
+  id      Int    @id @default(autoincrement())
+  content String
+  votes   Int    @default(0)
+  poll    Poll   @relation(fields: [pollId], references: [id])
+  pollId  Int
+
+  @@map("options")
 }
 
 /**

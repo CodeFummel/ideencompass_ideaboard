@@ -81,7 +81,7 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
         )
     }
 
-    const finish = async (values) => {
+    const onFinish = async (values) => {
         const files = await Promise.all(fileList.map(async (f) => {
             console.log("Data: ", f);
             return ({
@@ -143,7 +143,7 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
     return (
         <Form className="flex-1 overflow-y-auto"
               labelCol={{span: 4}}
-              onFinish={finish}
+              onFinish={onFinish}
               onFinishFailed={onFormError}
               ref={formRef}
         >
