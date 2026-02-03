@@ -5,7 +5,7 @@ import {Button, Dropdown, MenuProps, notification, Tabs} from 'antd';
 import {FilterOutlined, SortAscendingOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 
-import {IdeaList} from "@/src/components/idea/IdeaList";
+import IdeaList from "@/src/components/idea/IdeaList";
 import {Idea, useIdeas} from "@/src/components/idea/useIdeas";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;

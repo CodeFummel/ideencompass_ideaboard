@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useMemo} from "react";
-import {IdeaList} from "@/src/components/idea/IdeaList";
+import IdeaList from "@/src/components/idea/IdeaList";
 import {useIdeas} from "@/src/components/idea/useIdeas";
 import dayjs from "dayjs";
 

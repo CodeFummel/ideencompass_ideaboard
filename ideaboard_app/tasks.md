@@ -20,7 +20,7 @@
 [ ] − Übersicht über neue Ideen, Top-Ideen, Projekte und Umfragen  
 [ ] − Möglichkeit an Umfragen teilzunehmen  
 [ ] − Interaktive Filter- und Sortiermöglichkeiten  
-[ ] − Hervorhebung der „Top 3 – Ideen der Woche“  
+[x] − Hervorhebung der „Top 3 – Ideen der Woche“  
 
 #### [ ] 2.5 Statistiken & Reporting
 [ ] − Anzeige von Kennzahlen (Anzahl neuer Ideen, Beliebtesten Kategorien, Beliebteste Idee)  

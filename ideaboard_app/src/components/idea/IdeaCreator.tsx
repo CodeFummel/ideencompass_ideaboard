@@ -86,7 +86,7 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
             console.log("Data: ", f);
             return ({
                 name: f.name,
-                data: (await encodeFile(f as any)),//.split(",")[1],
+                data: (await encodeFile(f as any)),
             });
         }));
 

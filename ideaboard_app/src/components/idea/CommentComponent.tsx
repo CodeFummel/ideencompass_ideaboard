@@ -28,8 +28,8 @@ export const CommentComponent: React.FC<Comment> = ({content, reactions, authorI
     return (
         <div className={"overflow-auto p-(--standard-padding-in) m-1 mt-2 border-2 border-(--border) rounded-(--border-radius)"}>
             <div className={"flex flex-row border-b-2 border-(--border)"}>
-                <h4 className={"font-semibold"}>{authorName}</h4>
-                <h2 className={"font-light ml-1"}>am {formatDate}</h2>
+                <h2 className={"font-semibold"}>{authorName}</h2>
+                <h4 className={"font-light ml-1"}>am {formatDate}</h4>
             </div>
             <span className={"mt-4"}>{content}</span>
             <span>{reactions}</span>

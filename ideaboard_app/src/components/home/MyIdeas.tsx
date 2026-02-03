@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import {IdeaList} from "@/src/components/idea/IdeaList";
+import IdeaList from "@/src/components/idea/IdeaList";
 import {createAuthClient} from "better-auth/react";
 import {useIdeas} from "@/src/components/idea/useIdeas";
 
