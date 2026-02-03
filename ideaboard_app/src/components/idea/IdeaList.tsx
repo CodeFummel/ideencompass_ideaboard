@@ -42,11 +42,11 @@ const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
                     })()} {}</h4>
                 </div>
                 {idea.authorId === session?.user.id ?
-                    <div className={"flex flex-row items-center align-middle gap-2"}>
+                    <div className={"flex flex-row items-center gap-2"}>
                         <Button><EditOutlined/></Button>
                         <LikeButton ideaId={idea.id}/>
                     </div> :
-                    <div className={"items-center align-middle"}>
+                    <div className={"flex items-center"}>
                         <LikeButton ideaId={idea.id}/>
                     </div>}
             </div>,
@@ -58,7 +58,7 @@ const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
         <Collapse className={"p-0"} size={"small"} items={items} expandIcon={({ isActive }) => (
             <RightOutlined
                 rotate={isActive ? 90 : 0}
-                style={{ fontSize: "20px", margin: "10px 0px 0px 0px"}}
+                style={{ fontSize: "20px", margin: "10px 0px 0px 0px", alignSelf: "center" }}
             />
         )}
         ></Collapse>
