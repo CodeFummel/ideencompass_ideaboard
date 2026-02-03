@@ -3,7 +3,7 @@
 
 import React from "react";
 import {Button, Collapse} from "antd";
-import {EditOutlined} from "@ant-design/icons";
+import Icon, {DownOutlined, EditOutlined, RightOutlined} from "@ant-design/icons";
 import {LikeButton} from "@/src/components/idea/LikeButton";
 import {IdeaComponent} from "@/src/components/idea/IdeaComponent";
 import {createAuthClient} from "better-auth/react";
@@ -32,9 +32,9 @@ const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
         {
             key: idea.id,
             label: <div className={"flex justify-between"}>
-                <div>
+                <div className={"flex flex-col"}>
                     <h2 className={"text-[1.2rem] font-medium"}>{idea.title}</h2>
-                    <h4 className={"font-light ml-1"}>am {(() => {
+                    <h4 className={"font-light ml-1"}>Von {idea.authorName} am {(() => {
                         dayjs.extend(customParseFormat);
                         dayjs.extend(utc);
                         const date = dayjs(idea.createdAt, 'YYYY-MM-DD HH:mm:ssss', 'de');
@@ -42,12 +42,11 @@ const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
                     })()} {}</h4>
                 </div>
                 {idea.authorId === session?.user.id ?
-                    <div className={"items-center align-middle"}>
+                    <div className={"flex flex-row items-center align-middle gap-2"}>
                         <Button><EditOutlined/></Button>
                         <LikeButton ideaId={idea.id}/>
                     </div> :
                     <div className={"items-center align-middle"}>
-                        <span className={"place-self-center text-[1rem] "}>Von {idea.authorName} / </span>
                         <LikeButton ideaId={idea.id}/>
                     </div>}
             </div>,
@@ -56,7 +55,13 @@ const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
     ));
 
     return <div className={"m-2 overflow-y-auto w-full"}>
-        <Collapse className={"p-0"} size={"small"} items={items}></Collapse>
+        <Collapse className={"p-0"} size={"small"} items={items} expandIcon={({ isActive }) => (
+            <RightOutlined
+                rotate={isActive ? 90 : 0}
+                style={{ fontSize: "20px", margin: "10px 0px 0px 0px"}}
+            />
+        )}
+        ></Collapse>
     </div>;
 }
 export default IdeaList
