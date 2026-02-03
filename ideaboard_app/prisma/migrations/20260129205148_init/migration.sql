@@ -2,21 +2,6 @@
 CREATE TYPE "Role" AS ENUM ('USER', 'LEAD', 'ADMIN');
 
 -- CreateTable
-CREATE TABLE "ideas" (
-    "id" SERIAL NOT NULL,
-    "title" TEXT NOT NULL,
-    "category" TEXT NOT NULL,
-    "tags" TEXT[],
-    "body" TEXT NOT NULL,
-    "authorId" TEXT NOT NULL,
-    "authorName" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "ideas_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "files" (
     "id" SERIAL NOT NULL,
     "ideaId" INTEGER NOT NULL,
@@ -80,6 +65,21 @@ CREATE TABLE "verifications" (
 );
 
 -- CreateTable
+CREATE TABLE "ideas" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "tags" TEXT[],
+    "body" TEXT NOT NULL,
+    "authorId" TEXT NOT NULL,
+    "authorName" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "ideas_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "likes" (
     "authorId" TEXT NOT NULL,
     "likedIdea" INTEGER NOT NULL,
@@ -98,6 +98,29 @@ CREATE TABLE "comments" (
     "authorName" TEXT NOT NULL,
 
     CONSTRAINT "comments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "projects" (
+    "id" SERIAL NOT NULL,
+    "parentIdea" INTEGER NOT NULL,
+    "body" TEXT NOT NULL,
+    "progress" INTEGER NOT NULL DEFAULT 0,
+    "managerId" TEXT NOT NULL,
+
+    CONSTRAINT "projects_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "polls" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
+    "options" TEXT[],
+    "votes" INTEGER[],
+    "allVotes" INTEGER NOT NULL DEFAULT 0,
+
+    CONSTRAINT "polls_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -119,9 +142,6 @@ CREATE UNIQUE INDEX "accounts_id_key" ON "accounts"("id");
 CREATE UNIQUE INDEX "verifications_id_key" ON "verifications"("id");
 
 -- AddForeignKey
-ALTER TABLE "ideas" ADD CONSTRAINT "ideas_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "files" ADD CONSTRAINT "files_ideaId_fkey" FOREIGN KEY ("ideaId") REFERENCES "ideas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -129,6 +149,9 @@ ALTER TABLE "sessions" ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userI
 
 -- AddForeignKey
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ideas" ADD CONSTRAINT "ideas_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "likes" ADD CONSTRAINT "likes_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -141,3 +164,9 @@ ALTER TABLE "comments" ADD CONSTRAINT "comments_commentedId_fkey" FOREIGN KEY ("
 
 -- AddForeignKey
 ALTER TABLE "comments" ADD CONSTRAINT "comments_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "projects" ADD CONSTRAINT "projects_parentIdea_fkey" FOREIGN KEY ("parentIdea") REFERENCES "ideas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "projects" ADD CONSTRAINT "projects_managerId_fkey" FOREIGN KEY ("managerId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
