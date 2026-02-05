@@ -34,7 +34,7 @@ export const UserButton = () => {
                 alt="Benutzerbild"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4keE4qLaVynZj3DWaXDTfnFR3CgPiz-n_9w&s"
             />
-            <p className="text-sm text-black dark:text-white">
+            <p className="text-sm text-black ">
                 {session?.user.name}
             </p>
         </Link>
