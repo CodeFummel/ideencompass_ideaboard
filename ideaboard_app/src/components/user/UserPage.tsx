@@ -9,6 +9,21 @@ import {useRouter} from "next/navigation";
 const { useSession } = createAuthClient()
 
 
+import { PlusOutlined } from '@ant-design/icons';
+import { Image, Upload } from 'antd';
+import type { GetProp, UploadFile, UploadProps } from 'antd';
+
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
+const getBase64 = (file: FileType): Promise<string> =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+    });
+
+
 const UserDashboard = () => {
 
     const router = useRouter();
@@ -51,12 +66,38 @@ type FieldType = {
 };
 
 const UserSettings:React.FC = () => {
+    const [previewOpen, setPreviewOpen] = useState(false);
+    const [previewImage, setPreviewImage] = useState('');
+    const [fileList, setFileList] = useState<UploadFile[]>([
+        
 
+
+    ]);
+
+    const handlePreview = async (file: UploadFile) => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj as FileType);
+        }
+
+        setPreviewImage(file.url || (file.preview as string));
+        setPreviewOpen(true);
+    };
+
+    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+        setFileList(newFileList);
+
+    const uploadButton = (
+        <button style={{ border: 0, background: 'none' }} type="button">
+            <PlusOutlined />
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </button>
+    );
     return (
         <div className={"flex flex-row relative"}>
             <Form
                 className={"flex-1 absolute left-1/2 -translate-x-[65%] w-full justify-center align-items-middle"}
                 name="changeSettingsForm"
+
                 labelCol={{span: 8}}
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
@@ -66,7 +107,28 @@ const UserSettings:React.FC = () => {
                 autoComplete="off"
             >
                 <Form.Item<FieldType>>
-                    <p>Bild anpassen</p>
+                    <>
+                        <Upload
+                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                            listType="picture-circle"
+                            fileList={fileList}
+                            onPreview={handlePreview}
+                            onChange={handleChange}
+                        >
+                            {fileList.length >= 8 ? null : uploadButton}
+                        </Upload>
+                        {previewImage && (
+                            <Image
+                                styles={{ root: { display: 'none' } }}
+                                preview={{
+                                    open: previewOpen,
+                                    onOpenChange: (visible) => setPreviewOpen(visible),
+                                    afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                                }}
+                                src={previewImage}
+                            />
+                        )}
+                    </>
                 </Form.Item>
                 <Form.Item
                     label={"Namen ändern"}
