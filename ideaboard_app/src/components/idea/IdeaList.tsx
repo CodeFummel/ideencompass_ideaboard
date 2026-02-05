@@ -15,8 +15,7 @@ import utc from "dayjs/plugin/utc";
 
 const {useSession} = createAuthClient()
 
-
-const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
+const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = ({ideas, onIdeaEdit}) => {
 
     const {
         data: session,
@@ -26,7 +25,6 @@ const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
     if (!session) {
         return (error?.statusText);
     }
-
 
     const items = ideas.map((idea) => (
         {
@@ -43,8 +41,7 @@ const IdeaList: React.FC<{ ideas: Idea[] }> = ({ideas}) => {
                 </div>
                 {idea.authorId === session?.user.id ?
                     <div className={"flex flex-row items-center gap-2"}>
-                        <Button><EditOutlined/></Button>
-                        <LikeButton ideaId={idea.id}/>
+                        <Button onClick={() => onIdeaEdit(idea.id)}><EditOutlined/></Button>
                     </div> :
                     <div className={"flex items-center"}>
                         <LikeButton ideaId={idea.id}/>

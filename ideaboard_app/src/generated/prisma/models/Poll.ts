@@ -37,6 +37,7 @@ export type PollSumAggregateOutputType = {
 export type PollMinAggregateOutputType = {
   id: number | null
   createdAt: Date | null
+  closeDate: Date | null
   title: string | null
   body: string | null
   authorId: string | null
@@ -46,6 +47,7 @@ export type PollMinAggregateOutputType = {
 export type PollMaxAggregateOutputType = {
   id: number | null
   createdAt: Date | null
+  closeDate: Date | null
   title: string | null
   body: string | null
   authorId: string | null
@@ -55,6 +57,7 @@ export type PollMaxAggregateOutputType = {
 export type PollCountAggregateOutputType = {
   id: number
   createdAt: number
+  closeDate: number
   title: number
   body: number
   authorId: number
@@ -74,6 +77,7 @@ export type PollSumAggregateInputType = {
 export type PollMinAggregateInputType = {
   id?: true
   createdAt?: true
+  closeDate?: true
   title?: true
   body?: true
   authorId?: true
@@ -83,6 +87,7 @@ export type PollMinAggregateInputType = {
 export type PollMaxAggregateInputType = {
   id?: true
   createdAt?: true
+  closeDate?: true
   title?: true
   body?: true
   authorId?: true
@@ -92,6 +97,7 @@ export type PollMaxAggregateInputType = {
 export type PollCountAggregateInputType = {
   id?: true
   createdAt?: true
+  closeDate?: true
   title?: true
   body?: true
   authorId?: true
@@ -188,6 +194,7 @@ export type PollGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type PollGroupByOutputType = {
   id: number
   createdAt: Date
+  closeDate: Date
   title: string
   body: string
   authorId: string
@@ -220,6 +227,7 @@ export type PollWhereInput = {
   NOT?: Prisma.PollWhereInput | Prisma.PollWhereInput[]
   id?: Prisma.IntFilter<"Poll"> | number
   createdAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
+  closeDate?: Prisma.DateTimeFilter<"Poll"> | Date | string
   title?: Prisma.StringFilter<"Poll"> | string
   body?: Prisma.StringFilter<"Poll"> | string
   authorId?: Prisma.StringFilter<"Poll"> | string
@@ -231,6 +239,7 @@ export type PollWhereInput = {
 export type PollOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  closeDate?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
@@ -245,6 +254,7 @@ export type PollWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PollWhereInput[]
   NOT?: Prisma.PollWhereInput | Prisma.PollWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
+  closeDate?: Prisma.DateTimeFilter<"Poll"> | Date | string
   title?: Prisma.StringFilter<"Poll"> | string
   body?: Prisma.StringFilter<"Poll"> | string
   authorId?: Prisma.StringFilter<"Poll"> | string
@@ -256,6 +266,7 @@ export type PollWhereUniqueInput = Prisma.AtLeast<{
 export type PollOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  closeDate?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
@@ -273,6 +284,7 @@ export type PollScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PollScalarWhereWithAggregatesInput | Prisma.PollScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Poll"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Poll"> | Date | string
+  closeDate?: Prisma.DateTimeWithAggregatesFilter<"Poll"> | Date | string
   title?: Prisma.StringWithAggregatesFilter<"Poll"> | string
   body?: Prisma.StringWithAggregatesFilter<"Poll"> | string
   authorId?: Prisma.StringWithAggregatesFilter<"Poll"> | string
@@ -281,6 +293,7 @@ export type PollScalarWhereWithAggregatesInput = {
 
 export type PollCreateInput = {
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorName: string
@@ -291,6 +304,7 @@ export type PollCreateInput = {
 export type PollUncheckedCreateInput = {
   id?: number
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorId: string
@@ -300,6 +314,7 @@ export type PollUncheckedCreateInput = {
 
 export type PollUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -310,6 +325,7 @@ export type PollUpdateInput = {
 export type PollUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -320,6 +336,7 @@ export type PollUncheckedUpdateInput = {
 export type PollCreateManyInput = {
   id?: number
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorId: string
@@ -328,6 +345,7 @@ export type PollCreateManyInput = {
 
 export type PollUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -336,6 +354,7 @@ export type PollUpdateManyMutationInput = {
 export type PollUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -355,6 +374,7 @@ export type PollOrderByRelationAggregateInput = {
 export type PollCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  closeDate?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
@@ -368,6 +388,7 @@ export type PollAvgOrderByAggregateInput = {
 export type PollMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  closeDate?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
@@ -377,6 +398,7 @@ export type PollMaxOrderByAggregateInput = {
 export type PollMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  closeDate?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
@@ -450,6 +472,7 @@ export type PollUpdateOneRequiredWithoutOptionsNestedInput = {
 
 export type PollCreateWithoutAuthorInput = {
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorName: string
@@ -459,6 +482,7 @@ export type PollCreateWithoutAuthorInput = {
 export type PollUncheckedCreateWithoutAuthorInput = {
   id?: number
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorName: string
@@ -497,6 +521,7 @@ export type PollScalarWhereInput = {
   NOT?: Prisma.PollScalarWhereInput | Prisma.PollScalarWhereInput[]
   id?: Prisma.IntFilter<"Poll"> | number
   createdAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
+  closeDate?: Prisma.DateTimeFilter<"Poll"> | Date | string
   title?: Prisma.StringFilter<"Poll"> | string
   body?: Prisma.StringFilter<"Poll"> | string
   authorId?: Prisma.StringFilter<"Poll"> | string
@@ -505,6 +530,7 @@ export type PollScalarWhereInput = {
 
 export type PollCreateWithoutOptionsInput = {
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorName: string
@@ -514,6 +540,7 @@ export type PollCreateWithoutOptionsInput = {
 export type PollUncheckedCreateWithoutOptionsInput = {
   id?: number
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorId: string
@@ -538,6 +565,7 @@ export type PollUpdateToOneWithWhereWithoutOptionsInput = {
 
 export type PollUpdateWithoutOptionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -547,6 +575,7 @@ export type PollUpdateWithoutOptionsInput = {
 export type PollUncheckedUpdateWithoutOptionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -556,6 +585,7 @@ export type PollUncheckedUpdateWithoutOptionsInput = {
 export type PollCreateManyAuthorInput = {
   id?: number
   createdAt?: Date | string
+  closeDate: Date | string
   title: string
   body: string
   authorName: string
@@ -563,6 +593,7 @@ export type PollCreateManyAuthorInput = {
 
 export type PollUpdateWithoutAuthorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -572,6 +603,7 @@ export type PollUpdateWithoutAuthorInput = {
 export type PollUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -581,6 +613,7 @@ export type PollUncheckedUpdateWithoutAuthorInput = {
 export type PollUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -620,6 +653,7 @@ export type PollCountOutputTypeCountOptionsArgs<ExtArgs extends runtime.Types.Ex
 export type PollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   createdAt?: boolean
+  closeDate?: boolean
   title?: boolean
   body?: boolean
   authorId?: boolean
@@ -632,6 +666,7 @@ export type PollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type PollSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   createdAt?: boolean
+  closeDate?: boolean
   title?: boolean
   body?: boolean
   authorId?: boolean
@@ -642,6 +677,7 @@ export type PollSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type PollSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   createdAt?: boolean
+  closeDate?: boolean
   title?: boolean
   body?: boolean
   authorId?: boolean
@@ -652,13 +688,14 @@ export type PollSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type PollSelectScalar = {
   id?: boolean
   createdAt?: boolean
+  closeDate?: boolean
   title?: boolean
   body?: boolean
   authorId?: boolean
   authorName?: boolean
 }
 
-export type PollOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "title" | "body" | "authorId" | "authorName", ExtArgs["result"]["poll"]>
+export type PollOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "closeDate" | "title" | "body" | "authorId" | "authorName", ExtArgs["result"]["poll"]>
 export type PollInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Poll$optionsArgs<ExtArgs>
@@ -680,6 +717,7 @@ export type $PollPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     createdAt: Date
+    closeDate: Date
     title: string
     body: string
     authorId: string
@@ -1111,6 +1149,7 @@ export interface Prisma__PollClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface PollFieldRefs {
   readonly id: Prisma.FieldRef<"Poll", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Poll", 'DateTime'>
+  readonly closeDate: Prisma.FieldRef<"Poll", 'DateTime'>
   readonly title: Prisma.FieldRef<"Poll", 'String'>
   readonly body: Prisma.FieldRef<"Poll", 'String'>
   readonly authorId: Prisma.FieldRef<"Poll", 'String'>

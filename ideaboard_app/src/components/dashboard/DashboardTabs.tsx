@@ -11,8 +11,10 @@ import {PollCreator} from "@/src/components/poll/PollCreator";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-const IdeaListWrapper: React.FC = () => {
-    const ideas = useIdeas();
+const IdeaListWrapper = ({ideas, onIdeaEdit}:{
+    ideas: Idea[]
+    onIdeaEdit: (id: number) => void
+}) => {
 
     const [filter, setFilter] = useState<keyof Idea>("category");
     const [filterValue, setFilterValue] = useState<string>("Sonstiges");
@@ -24,24 +26,13 @@ const IdeaListWrapper: React.FC = () => {
                 .sort((a, b) => b[sort] - a[sort])
         }, [ideas, filter, sort]);
     */
-    return <IdeaList ideas={ideas}/>;
+    return <IdeaList ideas={ideas} onIdeaEdit={onIdeaEdit}/>;
 }
 
 export const DashboardTabs: React.FC = () => {
+    const ideas = useIdeas();
+    const [items, setItems] = useState(() => defaultPanes);
 
-    const defaultPanes = [
-        {
-            label: "Ideen",
-            key: "ideas-tab",
-            closable: false,
-            forceRender: true,
-            children: <IdeaListWrapper/>,
-        },
-        {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
-        {label: "Umfragen", key: "polls-tab", closable: false, children: <PollCreator/>},
-    ];
-
-    const [items, setItems] = useState(defaultPanes);
     const [activeKey, setActiveKey] = useState("ideas-tab");
     const newTabIndex = useRef(0);
     const ref = useRef<Map<string, IdeaCreatorRef | null>>(new Map);
@@ -75,6 +66,30 @@ export const DashboardTabs: React.FC = () => {
         setActiveKey(newActiveKey);
     };
 
+    const edit = (id: number) => {
+        const idea = ideas.find((idea) => idea.id === id)!;
+        const newActiveKey = `newTab${newTabIndex.current++}`;
+        setItems([...items, {
+            label: 'Neue Idee',
+            children: <IdeaCreator initialIdea={idea} ref={(node) => {
+                ref.current.set(newActiveKey, node);
+            }} onIdeaSaved={function (): void {
+                api.open({
+                    title: 'Idee gespeichert!',
+                    description: 'Sie haben Ihre Idee erfolgreich verändert.',
+                    duration: 5,
+                    showProgress: true,
+                    pauseOnHover: true,
+                    placement: "top",
+                });
+            }}/>,
+            key: newActiveKey,
+            closable: true,
+            forceRender: false,
+        }]);
+        setActiveKey(newActiveKey);
+    }
+
     const handleSubmit = () => {
         ref.current.get(activeKey)?.submit();
         remove(activeKey);
@@ -97,6 +112,18 @@ export const DashboardTabs: React.FC = () => {
             remove(targetKey);
         }
     };
+
+    const defaultPanes = [
+        {
+            label: "Ideen",
+            key: "ideas-tab",
+            closable: false,
+            forceRender: true,
+            children: <IdeaListWrapper ideas={ideas} onIdeaEdit={edit}/>,
+        },
+        {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
+        {label: "Umfragen", key: "polls-tab", closable: false, children: <PollCreator/>},
+    ];
 
     type MenuItem = Required<MenuProps>["items"][number];
     const filterOptions: MenuItem[] = [

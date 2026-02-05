@@ -193,6 +193,7 @@ export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeo
 export const PollScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
+  closeDate: 'closeDate',
   title: 'title',
   body: 'body',
   authorId: 'authorId',

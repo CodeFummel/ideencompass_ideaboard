@@ -140,6 +140,7 @@ model Project {
 model Poll {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
+  closeDate  DateTime
   title      String
   body       String
   author     User     @relation(fields: [authorId], references: [id])

@@ -1,6 +1,4 @@
-kitty @ launch --type os-window --title 'Docker' sh -c "ls; exec bash"
-kitty @ send-text --match 'title:Docker' 'cd git/ideaboard_masterplan/ideaboard_app\n'
-kitty @ send-text --match 'title:Docker' 'docker-compose up\n'
+docker-compose up -d
 
 sleep 1
 

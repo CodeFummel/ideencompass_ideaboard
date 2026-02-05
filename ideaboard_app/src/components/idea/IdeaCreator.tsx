@@ -1,11 +1,13 @@
 "use client"
 
 import {InboxOutlined} from '@ant-design/icons';
-import type {FormInstance, UploadFile, UploadProps} from 'antd';
+import type {FormInstance, UploadProps} from 'antd';
 import {Form, Input, notification, Select, Upload} from 'antd';
 import {Ref, useImperativeHandle, useRef, useState} from "react";
 
 import {createAuthClient} from "better-auth/react"
+import {Idea} from "@/src/components/idea/useIdeas";
+import {RcFile} from "antd/lib/upload";
 
 const {useSession} = createAuthClient()
 
@@ -52,11 +54,13 @@ export interface IdeaCreatorRef {
     submit: () => void
 }
 
-export const IdeaCreator = ({ref, onIdeaSaved}: {
+export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     ref?: Ref<IdeaCreatorRef>,
     onIdeaSaved: () => void,
+    initialIdea?: Idea,
 }) => {
-    const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+    const [fileList, setFileList] = useState<RcFile[]>([]);
 
     const formRef = useRef<FormInstance>(null)
 
@@ -86,7 +90,7 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
             console.log("Data: ", f);
             return ({
                 name: f.name,
-                data: (await encodeFile(f as any)),
+                data: (await encodeFile(f)),
             });
         }));
 
@@ -127,14 +131,10 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
     // Files
     const uploadProps: UploadProps = {
         onRemove: (file) => {
-            const index = fileList.indexOf(file);
-            const newFileList = fileList.slice();
-            newFileList.splice(index, 1);
-            setFileList(newFileList);
+            setFileList(fileList.filter(currentFile => currentFile.uid !== file.uid));
         },
         beforeUpload: (file) => {
             setFileList([...fileList, file]);
-
             return false;
         },
         fileList,
@@ -145,6 +145,7 @@ export const IdeaCreator = ({ref, onIdeaSaved}: {
               labelCol={{span: 4}}
               onFinish={onFinish}
               onFinishFailed={onFormError}
+              initialValues={initialIdea}
               ref={formRef}
         >
             {contextHolder}

@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useState} from "react";
-import {Button, Form, Input, notification} from "antd";
+import {Button, DatePicker, DatePickerProps, Form, Input, notification} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import {createAuthClient} from "better-auth/react"
 
@@ -20,10 +20,14 @@ export const PollCreator: React.FC = () => {
 
     const [optionsList, setOptionsList] = useState<option[]>([]);
 
+    const onOk = (value: DatePickerProps['value']) => {
+        console.log('onOk: ', value);
+    };
+
     const onFinish = async (values) => {
 
         setOptionsList([values.options]);
-        
+
         const options = await Promise.all(optionsList.map(async (op) => {
             console.log("Options: ", op);
             return ({
@@ -36,6 +40,7 @@ export const PollCreator: React.FC = () => {
             body: JSON.stringify({
                 title: values.title,
                 body: values.body,
+                closeDate: values.closeDate,
                 authorId: session?.session.userId,
                 authorName: session?.user.name,
                 options,
@@ -63,10 +68,12 @@ export const PollCreator: React.FC = () => {
     }
 
     return (
-        <div className={"overflow-auto"}>
+        <div className={"flex flex-col items-center overflow-auto"}>
             {contextHolder}
             <Form
+                className={"w-full"}
                 name="poll_form"
+                labelCol={{span: 5}}
                 onFinish={onFinish}
                 onFinishFailed={onFormError}
                 style={{maxWidth: 600}}
@@ -140,7 +147,7 @@ export const PollCreator: React.FC = () => {
                                     ) : null}
                                 </Form.Item>
                             ))}
-                            <Form.Item>
+                            <Form.Item className={"flex-1 content-center"}>
                                 <Button
                                     type="dashed"
                                     onClick={() => add()}
@@ -154,6 +161,24 @@ export const PollCreator: React.FC = () => {
                         </>
                     )}
                 </Form.List>
+                <Form.Item
+                    name={"closeDate"}
+                    label={"Enddatum"}
+                    rules={[
+                        {
+                            required: true,
+                            message: "Bitte geben Sie Ihrer Umfrage einen ein Enddatum",
+                        },
+                    ]}>
+                    <DatePicker
+                        showTime
+                        onChange={(value, dateString) => {
+                            console.log('Selected Time: ', value);
+                            console.log('Formatted Selected Time: ', dateString);
+                        }}
+                        onOk={onOk}
+                    />
+                </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
                         Submit
