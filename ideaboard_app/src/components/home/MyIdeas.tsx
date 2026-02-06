@@ -7,7 +7,7 @@ import {useIdeas} from "@/src/components/idea/useIdeas";
 
 const {useSession} = createAuthClient()
 
-export const MyIdeas:React.FC = () => {
+export const MyIdeas: React.FC = () => {
 
     const ideas = useIdeas();
 
@@ -20,7 +20,7 @@ export const MyIdeas:React.FC = () => {
         return (error?.statusText);
     }
 
-    const filteredIdeas =  ideas.filter((idea) => idea.authorId === session.user.id);
+    const filteredIdeas = ideas.filter((idea) => idea.authorId === session.user.id);
 
     return (
         <div className={"flex-2 overflow-auto h-full border-2 rounded-(--border-radius) border-(--border)"}>
@@ -28,7 +28,7 @@ export const MyIdeas:React.FC = () => {
                 <h2 className={"font-medium"}>Meine Ideen:</h2>
             </div>
             <div className={"flex"}>
-                <IdeaList ideas={filteredIdeas}/>
+                {(filteredIdeas.length != 0) ? <IdeaList ideas={filteredIdeas}/> : <span className={"flex-1 m-6 font-light justify-self-center"}>Keine Ideen erstellt</span>}
             </div>
         </div>
     );

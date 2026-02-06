@@ -101,24 +101,26 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
     return <div>
         <div className={"flex"}>
             {contextHolder}
-            <div className={"flex-1 h-full p-(--standard-padding-in) border-r-2 border-b-2 border-(--border)"}>
-                <div>Kategorie: {<Tag>
-                    <div
-                        className={"pl-(--standard-padding-in) pr-(--standard-padding-in) border-2 border-(--border) rounded-(--border-radius)"}>{category}</div>
-                </Tag>
-                }
-                </div>
-            </div>
-            <div className={"flex-2 h-full p-(--standard-padding-in) border-b-2 border-(--border)"}>
-                <div>Tags: {tags.map((
-                        tag, index
-                    ) => <Tag
-                        key={index}
-                    >
+            <div className={"flex flex-1 border-b-2 border-(--border)"}>
+                <div className={"flex-1 h-full p-(--standard-padding-in) border-r-2 border-(--border)"}>
+                    <div>Kategorie: {<Tag>
                         <div
-                            className={"pl-(--standard-padding-in) pr-(--standard-padding-in)  border-2 border-(--border) rounded-(--border-radius)"}>{tag}</div>
-                    </Tag>
-                )}</div>
+                            className={"pl-(--standard-padding-in) pr-(--standard-padding-in) border-2 border-(--border) rounded-(--border-radius)"}>{category}
+                        </div>
+                    </Tag>}
+                    </div>
+                </div>
+                <div className={"flex-2 h-full p-(--standard-padding-in) (--border)"}>
+                    <div>Tags: {tags.map((
+                            tag, index
+                        ) => <Tag
+                            key={index}
+                        >
+                            <div
+                                className={"pl-(--standard-padding-in) pr-(--standard-padding-in)  border-2 border-(--border) rounded-(--border-radius)"}>{tag}</div>
+                        </Tag>
+                    )}</div>
+                </div>
             </div>
         </div>
         <div className={"flex h-full p-(--standard-padding-in) border-b-2 border-(--border)"}>

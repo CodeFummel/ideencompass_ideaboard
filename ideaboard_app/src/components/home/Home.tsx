@@ -6,14 +6,14 @@ import {TopThreeIdeas} from "@/src/components/home/TopThreeIdeas";
 
 export const Home = () => {
     return (
-        <div className={"grid grid-cols-3 grid-rows-2 gap-4 h-dvh m-4 mt-0"}>
-            <div className={"row-span-2 h-full"}>
+        <div className={"grid grid-cols-3 gap-4 h-dvh m-4 mt-0"}>
+            <div className={"h-full"}>
                 <MyIdeas/>
             </div>
-            <div className={"row-span-2 h-full"}>
+            <div className={"h-full"}>
                 <MyProjects/>
             </div>
-            <div className={"row-span-2 h-full"}>
+            <div className={"h-full"}>
                 <TopThreeIdeas/>
             </div>
         </div>

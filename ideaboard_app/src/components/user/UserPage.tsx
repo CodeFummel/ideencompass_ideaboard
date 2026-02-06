@@ -1,17 +1,16 @@
 "use client"
 
-import React, {useState} from "react";
-import {Button, Form, Input, Tabs, TabsProps} from "antd";
+import React, {useEffect, useMemo, useState} from "react";
+import type {GetProp, UploadFile, UploadProps} from 'antd';
+import {Button, Form, Image, Input, Tabs, TabsProps, Upload} from "antd";
 
-import { createAuthClient } from "better-auth/react"
+import {createAuthClient} from "better-auth/react"
 import {authClient} from "@/src/utils/auth-client";
 import {useRouter} from "next/navigation";
-const { useSession } = createAuthClient()
+import {PlusOutlined} from '@ant-design/icons';
 
+const {useSession} = createAuthClient()
 
-import { PlusOutlined } from '@ant-design/icons';
-import { Image, Upload } from 'antd';
-import type { GetProp, UploadFile, UploadProps } from 'antd';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -30,9 +29,7 @@ const UserDashboard = () => {
 
     const {
         data: session,
-        isPending, //loading state
         error, //error object
-        refetch //refetch the session
     } = useSession()
 
     const handleSignOut = async () => {
@@ -59,20 +56,38 @@ const UserDashboard = () => {
 }
 
 type FieldType = {
+    id?: string,
     name?: string;
     email?: string;
     password?: string;
     changePassword?: string;
 };
 
-const UserSettings:React.FC = () => {
+const UserSettings: React.FC = () => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>([
-        
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
 
+    const [users, setUsers] = useState<FieldType[]>([]);
 
-    ]);
+    const {
+        data: session,
+        error,
+    } = useSession()
+
+    useEffect(() => {
+        fetch("/users").then((response) => {
+            response.json().then((u) => {
+                console.info(u);
+                setUsers(u);
+            }).catch((error) => console.info(error))
+        })
+    }, []);
+
+    const filteredUser = useMemo(() => {
+        return users
+            .filter(user => user.id === session?.user.id)
+    }, [session?.user, users]);
 
     const handlePreview = async (file: UploadFile) => {
         if (!file.url && !file.preview) {
@@ -83,13 +98,13 @@ const UserSettings:React.FC = () => {
         setPreviewOpen(true);
     };
 
-    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    const handleChange: UploadProps['onChange'] = ({fileList: newFileList}) =>
         setFileList(newFileList);
 
     const uploadButton = (
-        <button style={{ border: 0, background: 'none' }} type="button">
-            <PlusOutlined />
-            <div style={{ marginTop: 8 }}>Upload</div>
+        <button style={{border: 0, background: 'none'}} type="button">
+            <PlusOutlined/>
+            <div style={{marginTop: 8}}>Upload</div>
         </button>
     );
     return (
@@ -97,7 +112,7 @@ const UserSettings:React.FC = () => {
             <Form
                 className={"flex-1 absolute left-1/2 -translate-x-[65%] w-full justify-center align-items-middle"}
                 name="changeSettingsForm"
-
+                initialValues={filteredUser}
                 labelCol={{span: 8}}
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
@@ -119,7 +134,8 @@ const UserSettings:React.FC = () => {
                         </Upload>
                         {previewImage && (
                             <Image
-                                styles={{ root: { display: 'none' } }}
+                                styles={{root: {display: 'none'}}}
+                                alt={"serverError"}
                                 preview={{
                                     open: previewOpen,
                                     onOpenChange: (visible) => setPreviewOpen(visible),
@@ -165,7 +181,7 @@ const UserSettings:React.FC = () => {
     )
 }
 
-export const UserPage:React.FC = () => {
+export const UserPage: React.FC = () => {
     const [activeKey, setActiveKey] = useState<string>("1");
 
     const onFinish = () => {

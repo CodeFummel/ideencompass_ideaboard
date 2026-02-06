@@ -3,11 +3,11 @@
 
 import React from "react";
 import {Button, Collapse} from "antd";
-import Icon, {DownOutlined, EditOutlined, RightOutlined} from "@ant-design/icons";
-import {LikeButton} from "@/src/components/idea/LikeButton";
-import {IdeaComponent} from "@/src/components/idea/IdeaComponent";
-import {createAuthClient} from "better-auth/react";
-import {Idea} from "@/src/components/idea/useIdeas";
+import { EditOutlined, RightOutlined} from "@ant-design/icons";
+import { LikeButton } from "@/src/components/idea/LikeButton";
+import { IdeaComponent } from "@/src/components/idea/IdeaComponent";
+import { createAuthClient } from "better-auth/react";
+import { Idea } from "@/src/components/idea/useIdeas";
 
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
