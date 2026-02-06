@@ -1,9 +1,8 @@
 "use client"
 
 import React from 'react'
-import {BestCategory} from "@/src/components/statistics/BestCategory";
+import {CategoryStat} from "@/src/components/statistics/CategoryStat";
 import {BestIdea} from "@/src/components/statistics/BestIdea";
-import {BestTags} from "@/src/components/statistics/BestTags";
 import {CommentCount} from "@/src/components/statistics/CommentCount";
 import {IdeaCount} from "@/src/components/statistics/IdeaCount";
 import {LikeCount} from "@/src/components/statistics/LikeCount";
@@ -18,17 +17,14 @@ export const Statistics: React.FC = () => {
             <div className={"col-span-2 h-full"}>
                 <BestIdea/>
             </div>
-            <div className={"col-span-1 h-full"}>
-                <IdeaCount/>
+            <div className={"row-span-2 h-full"}>
+                <CategoryStat/>
             </div>
             <div className={"col-span-1 h-full"}>
                 <LikeCount/>
             </div>
             <div className={"col-span-1 h-full"}>
-                <BestCategory/>
-            </div>
-            <div className={"col-span-1 h-full"}>
-                <BestTags/>
+                <IdeaCount/>
             </div>
             <div className={"col-span-1 h-full"}>
                 <CommentCount/>
