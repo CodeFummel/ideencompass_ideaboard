@@ -21,13 +21,13 @@ export const Statistics: React.FC = () => {
                 <CategoryStat/>
             </div>
             <div className={"col-span-1 h-full"}>
-                <LikeCount/>
-            </div>
-            <div className={"col-span-1 h-full"}>
                 <IdeaCount/>
             </div>
             <div className={"col-span-1 h-full"}>
                 <CommentCount/>
+            </div>
+            <div className={"col-span-1 h-full"}>
+                <LikeCount/>
             </div>
         </div>
     );

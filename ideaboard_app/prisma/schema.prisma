@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
@@ -24,14 +21,14 @@ model File {
 }
 
 model User {
-  id            String    @id @unique
+  id            String     @id @unique
   name          String
-  email         String    @unique
+  email         String     @unique
   emailVerified Boolean
   createdAt     DateTime
   updatedAt     DateTime
-  userImage     String    @default("none")
-  role          Role      @default(USER)
+  userImage     String     @default("none")
+  role          Role       @default(USER)
   sessions      Session[]
   accounts      Account[]
   ideas         Idea[]
@@ -39,8 +36,8 @@ model User {
   comments      Comment[]
   projects      Project[]
   polls         Poll[]
+  reactions     Reaction[]
 
-  // comments      Comment[]
   @@map("users")
 }
 
@@ -112,17 +109,28 @@ model Like {
 }
 
 model Comment {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   content     String
-  reactions   String[]
-  createdAt   DateTime @default(now())
-  idea        Idea     @relation(fields: [commentedId], references: [id])
+  createdAt   DateTime   @default(now())
+  idea        Idea       @relation(fields: [commentedId], references: [id])
   commentedId Int
-  author      User     @relation(fields: [authorId], references: [id])
+  author      User       @relation(fields: [authorId], references: [id])
   authorId    String
   authorName  String
+  reactions   Reaction[]
 
   @@map("comments")
+}
+
+model Reaction {
+  id        Int     @id @default(autoincrement())
+  comment   Comment @relation(fields: [commentId], references: [id])
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  String
+  commentId Int
+  emoji     Int
+
+  @@map("reactions")
 }
 
 model Project {

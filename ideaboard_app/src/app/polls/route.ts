@@ -17,6 +17,8 @@ export async function POST(request: Request) {
 
     const {title, body, closeDate, authorId, authorName} = data;
 
+    console.log("data: ", {data});
+
     if (!title || !body) {
         return new Response("Fill all blanks", {status: 400});
     }
@@ -24,6 +26,8 @@ export async function POST(request: Request) {
     const options = data.options.map(option => ({
         content: option.content,
     }));
+
+    console.log("Options in Route: " ,options);
 
     const poll = await prisma.poll.create({
         data: {

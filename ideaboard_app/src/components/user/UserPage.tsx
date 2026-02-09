@@ -8,6 +8,7 @@ import {createAuthClient} from "better-auth/react"
 import {authClient} from "@/src/utils/auth-client";
 import {useRouter} from "next/navigation";
 import {PlusOutlined} from '@ant-design/icons';
+import {RcFile} from "antd/lib/upload";
 
 const {useSession} = createAuthClient()
 
@@ -101,12 +102,44 @@ const UserSettings: React.FC = () => {
     const handleChange: UploadProps['onChange'] = ({fileList: newFileList}) =>
         setFileList(newFileList);
 
+    const encodeFile = async (blob: File): Promise<string> => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        return new Promise(
+            (resolve => reader.onloadend = () => resolve(reader.result as string))
+        )
+    }
+
+    const uploadProps: UploadProps = {
+        onRemove: (file) => {
+            setFileList(fileList.filter(currentFile => currentFile.uid !== file.uid));
+        },
+        beforeUpload: (file) => {
+            setFileList([...fileList, file]);
+            return false;
+        },
+        fileList,
+    };
+
+    const onFinishForm = async (values) => {
+
+        await authClient.updateUser({
+            image: values.file,
+            name: values.name,
+        })
+        await authClient.changeEmail({
+            newEmail: "new-email@email.com",
+            callbackURL: "/main",
+        });
+    };
+
     const uploadButton = (
         <button style={{border: 0, background: 'none'}} type="button">
             <PlusOutlined/>
             <div style={{marginTop: 8}}>Upload</div>
         </button>
     );
+
     return (
         <div className={"flex flex-row relative"}>
             <Form
@@ -117,34 +150,33 @@ const UserSettings: React.FC = () => {
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
                 //initialValues={{remember: true}}
-                //onFinish={onFinishForm}
+                onFinish={onFinishForm}
                 //onFinishFailed={onFinishFailed as any}
                 autoComplete="off"
             >
                 <Form.Item<FieldType>>
-                    <>
-                        <Upload
-                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                            listType="picture-circle"
-                            fileList={fileList}
-                            onPreview={handlePreview}
-                            onChange={handleChange}
-                        >
-                            {fileList.length >= 8 ? null : uploadButton}
-                        </Upload>
-                        {previewImage && (
-                            <Image
-                                styles={{root: {display: 'none'}}}
-                                alt={"serverError"}
-                                preview={{
-                                    open: previewOpen,
-                                    onOpenChange: (visible) => setPreviewOpen(visible),
-                                    afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                                }}
-                                src={previewImage}
-                            />
-                        )}
-                    </>
+                    <Upload
+                        {...uploadProps}
+                        listType="picture-circle"
+                        fileList={fileList}
+                        onPreview={handlePreview}
+                        onChange={handleChange}
+                        name={"file"}
+                    >
+                        {fileList.length >= 1 ? null : uploadButton}
+                    </Upload>
+                    {previewImage && (
+                        <Image
+                            styles={{root: {display: 'none'}}}
+                            alt={"serverError"}
+                            preview={{
+                                open: previewOpen,
+                                onOpenChange: (visible) => setPreviewOpen(visible),
+                                afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                            }}
+                            src={previewImage}
+                        />
+                    )}
                 </Form.Item>
                 <Form.Item
                     label={"Namen ändern"}
@@ -197,7 +229,7 @@ export const UserPage: React.FC = () => {
         {
             key: '2',
             label: 'Einstellungen',
-            children: <UserSettings onFinish={onFinish}/>,
+            children: <UserSettings/>,
         },
 
     ];

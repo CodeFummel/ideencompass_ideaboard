@@ -2,6 +2,7 @@
 
 import React from "react";
 import {PollList} from "@/src/components/poll/PollList";
+import {PollCreator} from "@/src/components/poll/PollCreator";
 
 export const MyProjects = () => {
     return (
@@ -10,7 +11,7 @@ export const MyProjects = () => {
                 <h2 className={"font-medium"}>Meine Projekte:</h2>
             </div>
             <div>
-                <PollList/>
+                <PollCreator/>
             </div>
         </div>
     );
