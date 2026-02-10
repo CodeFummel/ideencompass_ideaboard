@@ -1,6 +1,6 @@
 "use client"
 
-import { DashboardTabs } from "./DashboardTabs";
+import DashboardTabs from "./DashboardTabs";
 
 export const Dashboard = () => {
 

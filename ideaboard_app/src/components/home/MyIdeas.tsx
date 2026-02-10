@@ -9,7 +9,7 @@ const {useSession} = createAuthClient()
 
 export const MyIdeas: React.FC = () => {
 
-    const ideas = useIdeas();
+    const {ideas} = useIdeas();
 
     const {
         data: session,

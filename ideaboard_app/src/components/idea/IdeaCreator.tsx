@@ -1,7 +1,7 @@
 "use client"
 
 import {InboxOutlined} from '@ant-design/icons';
-import type {FormInstance, UploadProps} from 'antd';
+import type {FormInstance, UploadFile, UploadProps} from 'antd';
 import {Form, Input, notification, Select, Upload} from 'antd';
 import {Ref, useImperativeHandle, useRef, useState} from "react";
 
@@ -59,8 +59,11 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     onIdeaSaved: () => void,
     initialIdea?: Idea,
 }) => {
-
-    const [fileList, setFileList] = useState<RcFile[]>([]);
+    const [previousInitialIdea, setPreviousInitialIdea] = useState<Idea | undefined>(initialIdea);
+    const [fileList, setFileList] = useState<(RcFile | UploadFile)[]>(initialIdea?.files.map(({id, name}) => ({
+        uid: id.toString(),
+        name,
+    })) ?? []);
 
     const formRef = useRef<FormInstance>(null)
 
@@ -77,6 +80,15 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
 
     const [api, contextHolder] = notification.useNotification();
 
+    if (previousInitialIdea !== initialIdea) {
+        setFileList(initialIdea?.files.map(({id, name}) => ({
+            uid: id.toString(),
+            name,
+        })) ?? []);
+        setPreviousInitialIdea(initialIdea);
+        return null;
+    }
+
     const encodeFile = async (blob: File): Promise<string> => {
         const reader = new FileReader();
         reader.readAsDataURL(blob);
@@ -87,15 +99,23 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
 
     const onFinish = async (values) => {
         const files = await Promise.all(fileList.map(async (f) => {
-            console.log("Data: ", f);
-            return ({
-                name: f.name,
-                data: (await encodeFile(f)),
-            });
+            if (f instanceof File) {
+                return ({
+                    name: f.name,
+                    data: (await encodeFile(f)),
+                });
+            } else {
+                return ({
+                    id: Number(f.uid),
+                    name: f.name,
+                })
+            }
         }));
 
-        const result = await fetch("/ideas", {
-            method: "POST",
+        console.log("Files: ", files);
+
+        const result = await fetch(initialIdea ? `/ideas/${initialIdea.id}` : "/ideas", {
+            method: initialIdea ? "PATCH" : "POST",
             body: JSON.stringify({
                 title: values.title,
                 category: values.category,
@@ -105,10 +125,9 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                 authorName: session?.user.name,
                 files,
             }),
-        });
-        const route = await result.json();
-        console.info({route});
-        if (route.ok) {
+        }).then(res => res.json());
+        console.info({result});
+        if (result.ok) {
             console.info("IdeaCreator successfull idea creation")
             onIdeaSaved();
         } else {

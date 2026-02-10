@@ -1,7 +1,7 @@
 "use client"
 
-import React, {useEffect, useRef, useState} from 'react';
-import {Button, Dropdown, MenuProps, notification, Tabs} from 'antd';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
+import {Button, Dropdown, MenuProps, notification, Tabs, TabsProps} from 'antd';
 import {FilterOutlined, SortAscendingOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 
@@ -29,8 +29,8 @@ const IdeaListWrapper = ({ideas, onIdeaEdit}: {
     return <IdeaList ideas={ideas} onIdeaEdit={onIdeaEdit}/>;
 }
 
-export const DashboardTabs: React.FC = () => {
-    const ideas = useIdeas();
+const DashboardTabs: React.FC = () => {
+    const {ideas, refresh} = useIdeas();
     const [activeKey, setActiveKey] = useState("ideas-tab");
     const newTabIndex = useRef(0);
     const ref = useRef<Map<string, IdeaCreatorRef | null>>(new Map);
@@ -41,11 +41,9 @@ export const DashboardTabs: React.FC = () => {
         setActiveKey(key);
     };
 
-    const defaultPanes = [];
+    const [items, setItems] = useState<NonNullable<TabsProps["items"]>>([]);
 
-    const [items, setItems] = useState(() => defaultPanes);
-
-    const edit = (id: number) => {
+    const edit = useCallback((id: number) => {
         const idea = ideas.find((idea) => idea.id === id)!;
         const newActiveKey = `newTab${newTabIndex.current++}`;
         setItems([...items, {
@@ -53,10 +51,11 @@ export const DashboardTabs: React.FC = () => {
             children: <IdeaCreator initialIdea={idea} ref={(node) => {
                 ref.current.set(newActiveKey, node);
             }} onIdeaSaved={function (): void {
+                refresh();
                 api.open({
                     title: 'Idee gespeichert!',
                     description: 'Sie haben Ihre Idee erfolgreich verändert.',
-                    duration: 5,
+                    duration: 3,
                     showProgress: true,
                     pauseOnHover: true,
                     placement: "top",
@@ -67,21 +66,20 @@ export const DashboardTabs: React.FC = () => {
             forceRender: false,
         }]);
         setActiveKey(newActiveKey);
-    }
+    }, [ideas, items, api, setItems, setActiveKey, refresh]);
 
-    useEffect(() => {
-        setItems([
-            {
-                label: "Ideen",
-                key: "ideas-tab",
-                closable: false,
-                forceRender: true,
-                children: <IdeaListWrapper ideas={ideas} onIdeaEdit={edit}/>,
-            },
-            {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
-            {label: "Umfragen", key: "polls-tab", closable: false, children: <PollCreator/>},
-        ])
-    }, []);
+    const combinedTabs = useMemo(() => [
+        {
+            label: "Ideen",
+            key: "ideas-tab",
+            closable: false,
+            forceRender: true,
+            children: <IdeaListWrapper ideas={ideas} onIdeaEdit={edit}/>,
+        },
+        {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
+        {label: "Umfragen", key: "polls-tab", closable: false, children: <PollCreator/>},
+        ...items
+    ], [ideas, edit, items])
 
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
@@ -90,6 +88,7 @@ export const DashboardTabs: React.FC = () => {
             children: <IdeaCreator ref={(node) => {
                 ref.current.set(newActiveKey, node);
             }} onIdeaSaved={function (): void {
+                refresh();
                 api.open({
                     title: 'Idee gespeichert!',
                     description: 'Sie haben Ihre Idee erfolgreich abgeschickt.',
@@ -198,9 +197,10 @@ export const DashboardTabs: React.FC = () => {
                     type={"editable-card"}
                     defaultActiveKey={"ideas-tab"}
                     onEdit={onEdit}
-                    items={items}
+                    items={combinedTabs}
                 />
             </nav>
         </div>
     );
 };
+export default DashboardTabs

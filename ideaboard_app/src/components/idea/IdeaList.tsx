@@ -3,7 +3,7 @@
 
 import React from "react";
 import {Button, Collapse} from "antd";
-import { EditOutlined, RightOutlined} from "@ant-design/icons";
+import {EditOutlined, LikeOutlined, RightOutlined} from "@ant-design/icons";
 import { LikeButton } from "@/src/components/idea/LikeButton";
 import { IdeaComponent } from "@/src/components/idea/IdeaComponent";
 import { createAuthClient } from "better-auth/react";
@@ -41,8 +41,12 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
                 </div>
                 {idea.authorId === session?.user.id ?
                     <div className={"flex flex-row items-center gap-2"}>
+                        <span className={"p-(--standard-padding-in) border-(--border) rounded-(--border-radius)"}>
+                            {idea._count.likes} <LikeOutlined/>
+                        </span>
                         <Button onClick={() => onIdeaEdit(idea.id)}><EditOutlined/></Button>
-                    </div> :
+                    </div>
+                    :
                     <div className={"flex items-center"}>
                         <LikeButton ideaId={idea.id}/>
                     </div>}

@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 
 export const BestIdea = () => {
-    const ideas = useIdeas();
+    const {ideas} = useIdeas();
 
     const [timeframe, setTimeframe] = useState<string>();
 

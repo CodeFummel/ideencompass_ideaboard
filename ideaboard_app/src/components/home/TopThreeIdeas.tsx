@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 export const TopThreeIdeas = () => {
 
-    const ideas = useIdeas();
+    const {ideas} = useIdeas();
 
     const filteredIdeas = useMemo(() => {
         return ideas
