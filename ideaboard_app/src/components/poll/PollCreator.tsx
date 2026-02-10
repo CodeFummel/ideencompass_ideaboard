@@ -117,15 +117,14 @@ export const PollCreator: React.FC = () => {
                 >
                     {(fields, {add, remove}, {errors}) => (
                         <>
-                            {fields.map((field, index) => (
+                            {fields.map(({ key, ...restField }, index) => (
                                 <Form.Item
-                                    label={index === 0 ? "Antwort 1:" : ["Antwort ", field.key]}
+                                    label={index === 0 ? "Antwort 1:" : ["Antwort ", key]}
                                     required={false}
-                                    key={field.key}
-                                    name={field.name}
+                                    key={key}
                                 >
                                     <Form.Item
-                                        {...field}
+                                        {...restField}
                                         validateTrigger={['onChange', 'onBlur']}
                                         rules={[
                                             {

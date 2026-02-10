@@ -80,6 +80,11 @@ export type Like = Prisma.LikeModel
  */
 export type Comment = Prisma.CommentModel
 /**
+ * Model Reaction
+ * 
+ */
+export type Reaction = Prisma.ReactionModel
+/**
  * Model Project
  * 
  */

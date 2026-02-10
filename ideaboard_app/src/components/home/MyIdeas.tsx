@@ -28,7 +28,7 @@ export const MyIdeas: React.FC = () => {
                 <h2 className={"font-medium"}>Meine Ideen:</h2>
             </div>
             <div className={"flex"}>
-                {(filteredIdeas.length != 0) ? <IdeaList ideas={filteredIdeas}/> : <span className={"flex-1 m-6 font-light justify-self-center"}>Keine Ideen erstellt</span>}
+                {(filteredIdeas.length != 0) ? <IdeaList ideas={filteredIdeas}/> : <span className={"flex-1 m-6 font-light text-center"}>Keine Ideen erstellt</span>}
             </div>
         </div>
     );

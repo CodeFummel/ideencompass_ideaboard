@@ -16,9 +16,6 @@ export const Impress = () => {
                 <Button href={"/"} >Dashboard</Button>
             </div>
             </header>
-
-            <br/>
-            <br/>
             <div className={"flex-2  h-full border-2 rounded-(--border-radius) border-(--border) m-3 p-2"}>
                 <p>Angaben gemäß § 5 Telemediengesetz (TMG) und § 18 Medienstaatsvertrag (MStV)
                     < br/>

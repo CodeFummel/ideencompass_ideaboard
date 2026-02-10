@@ -25,7 +25,7 @@ export const BestIdea = () => {
                 <h2 className={"font-medium"}>Beste Idee</h2>
             </div>
             <div className={"flex"}>
-                <IdeaList ideas={filteredIdeas}/>
+                {(filteredIdeas.length != 0) ? <IdeaList ideas={filteredIdeas}/> : <span className={"flex-1 m-6 font-light text-center"}>Keine Ideen erstellt</span>}
             </div>
         </div>
     );

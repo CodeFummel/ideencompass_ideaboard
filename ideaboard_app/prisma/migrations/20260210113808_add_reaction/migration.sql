@@ -91,13 +91,22 @@ CREATE TABLE "likes" (
 CREATE TABLE "comments" (
     "id" SERIAL NOT NULL,
     "content" TEXT NOT NULL,
-    "reactions" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "commentedId" INTEGER NOT NULL,
     "authorId" TEXT NOT NULL,
     "authorName" TEXT NOT NULL,
 
     CONSTRAINT "comments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "reactions" (
+    "id" SERIAL NOT NULL,
+    "authorId" TEXT NOT NULL,
+    "commentId" INTEGER NOT NULL,
+    "emoji" INTEGER NOT NULL,
+
+    CONSTRAINT "reactions_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -114,13 +123,24 @@ CREATE TABLE "projects" (
 -- CreateTable
 CREATE TABLE "polls" (
     "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "closeDate" TIMESTAMP(3) NOT NULL,
     "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
-    "options" TEXT[],
-    "votes" INTEGER[],
-    "allVotes" INTEGER NOT NULL DEFAULT 0,
+    "authorId" TEXT NOT NULL,
+    "authorName" TEXT NOT NULL,
 
     CONSTRAINT "polls_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "options" (
+    "id" SERIAL NOT NULL,
+    "content" TEXT NOT NULL,
+    "votes" INTEGER NOT NULL DEFAULT 0,
+    "pollId" INTEGER NOT NULL,
+
+    CONSTRAINT "options_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -166,7 +186,19 @@ ALTER TABLE "comments" ADD CONSTRAINT "comments_commentedId_fkey" FOREIGN KEY ("
 ALTER TABLE "comments" ADD CONSTRAINT "comments_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "reactions" ADD CONSTRAINT "reactions_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "comments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "reactions" ADD CONSTRAINT "reactions_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "projects" ADD CONSTRAINT "projects_parentIdea_fkey" FOREIGN KEY ("parentIdea") REFERENCES "ideas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "projects" ADD CONSTRAINT "projects_managerId_fkey" FOREIGN KEY ("managerId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "polls" ADD CONSTRAINT "polls_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "options" ADD CONSTRAINT "options_pollId_fkey" FOREIGN KEY ("pollId") REFERENCES "polls"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

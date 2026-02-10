@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
     const {title, body, closeDate, authorId, authorName} = data;
 
-    console.log("data: ", {data});
+    console.log({data});
 
     if (!title || !body) {
         return new Response("Fill all blanks", {status: 400});

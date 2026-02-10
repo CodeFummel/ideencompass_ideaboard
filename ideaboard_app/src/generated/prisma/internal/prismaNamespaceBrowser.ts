@@ -59,6 +59,7 @@ export const ModelName = {
   Idea: 'Idea',
   Like: 'Like',
   Comment: 'Comment',
+  Reaction: 'Reaction',
   Project: 'Project',
   Poll: 'Poll',
   Option: 'Option'
@@ -169,7 +170,6 @@ export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof Like
 export const CommentScalarFieldEnum = {
   id: 'id',
   content: 'content',
-  reactions: 'reactions',
   createdAt: 'createdAt',
   commentedId: 'commentedId',
   authorId: 'authorId',
@@ -177,6 +177,16 @@ export const CommentScalarFieldEnum = {
 } as const
 
 export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const ReactionScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  commentId: 'commentId',
+  emoji: 'emoji'
+} as const
+
+export type ReactionScalarFieldEnum = (typeof ReactionScalarFieldEnum)[keyof typeof ReactionScalarFieldEnum]
 
 
 export const ProjectScalarFieldEnum = {
