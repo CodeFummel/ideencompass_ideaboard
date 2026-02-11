@@ -8,6 +8,9 @@ import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 import IdeaList from "@/src/components/idea/IdeaList";
 import {Idea, useIdeas} from "@/src/components/idea/useIdeas";
 import {PollCreator} from "@/src/components/poll/PollCreator";
+import {PollList} from "@/src/components/poll/PollList";
+import {ProjectList} from "@/src/components/project/ProjectList";
+import {useProjects} from "@/src/components/project/useProjects";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -31,6 +34,7 @@ const IdeaListWrapper = ({ideas, onIdeaEdit}: {
 
 const DashboardTabs: React.FC = () => {
     const {ideas, refresh} = useIdeas();
+    const {projects, refreshProjects} = useProjects();
     const [activeKey, setActiveKey] = useState("ideas-tab");
     const newTabIndex = useRef(0);
     const ref = useRef<Map<string, IdeaCreatorRef | null>>(new Map);
@@ -47,7 +51,7 @@ const DashboardTabs: React.FC = () => {
         const idea = ideas.find((idea) => idea.id === id)!;
         const newActiveKey = `newTab${newTabIndex.current++}`;
         setItems([...items, {
-            label: 'Neue Idee',
+            label: idea.title,
             children: <IdeaCreator initialIdea={idea} ref={(node) => {
                 ref.current.set(newActiveKey, node);
             }} onIdeaSaved={function (): void {
@@ -68,6 +72,32 @@ const DashboardTabs: React.FC = () => {
         setActiveKey(newActiveKey);
     }, [ideas, items, api, setItems, setActiveKey, refresh]);
 
+    const editProject = useCallback((id: number) => {
+        const project = projects.find((project) => project.id === id)!;
+        const idea = ideas.find((idea) => idea.id === project.parentIdea)!;
+        const newActiveKey = `newTab${newTabIndex.current++}`;
+        setItems([...items, {
+            label: idea.title,
+            children: <IdeaCreator initialIdea={idea} ref={(node) => {
+                ref.current.set(newActiveKey, node);
+            }} onIdeaSaved={function (): void {
+                refreshProjects();
+                api.open({
+                    title: 'Projekt gespeichert!',
+                    description: 'Sie haben das Projekt erfolgreich verändert.',
+                    duration: 3,
+                    showProgress: true,
+                    pauseOnHover: true,
+                    placement: "top",
+                });
+            }}/>,
+            key: newActiveKey,
+            closable: true,
+            forceRender: false,
+        }]);
+        setActiveKey(newActiveKey);
+    }, [projects, ideas, items, api, setItems, setActiveKey, refreshProjects]);
+
     const combinedTabs = useMemo(() => [
         {
             label: "Ideen",
@@ -76,10 +106,22 @@ const DashboardTabs: React.FC = () => {
             forceRender: true,
             children: <IdeaListWrapper ideas={ideas} onIdeaEdit={edit}/>,
         },
-        {label: "Projekte", key: "projects-tab", closable: false, children: "Projekte yippie"},
-        {label: "Umfragen", key: "polls-tab", closable: false, children: <PollCreator/>},
+        {
+            label: "Projekte",
+            key: "projects-tab",
+            closable: false,
+            forceRender: true,
+            children: <ProjectList projects={projects} ideas={ideas} onProjectEdit={editProject}/>
+        },
+        {
+            label: "Umfragen",
+            key: "polls-tab",
+            closable: false,
+            forceRender: true,
+            children: <PollList/>
+        },
         ...items
-    ], [ideas, edit, items])
+    ], [ideas, projects, edit, editProject, items])
 
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;

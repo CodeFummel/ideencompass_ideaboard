@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react";
-import {PollList} from "@/src/components/poll/PollList";
 import {PollCreator} from "@/src/components/poll/PollCreator";
 
 export const MyProjects = () => {
