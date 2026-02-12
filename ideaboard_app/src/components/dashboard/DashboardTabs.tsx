@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useContext, useMemo, useRef, useState} from 'react';
 import {Button, Dropdown, MenuProps, notification, Tabs, TabsProps} from 'antd';
 import {FilterOutlined, SortAscendingOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
@@ -11,6 +11,7 @@ import {PollCreator} from "@/src/components/poll/PollCreator";
 import {PollList} from "@/src/components/poll/PollList";
 import {ProjectList} from "@/src/components/project/ProjectList";
 import {useProjects} from "@/src/components/project/useProjects";
+import {TabsContext} from "@/src/components/TabsProvider";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -35,9 +36,10 @@ const IdeaListWrapper = ({ideas, onIdeaEdit}: {
 const DashboardTabs: React.FC = () => {
     const {ideas, refresh} = useIdeas();
     const {projects, refreshProjects} = useProjects();
-    const [activeKey, setActiveKey] = useState("ideas-tab");
     const newTabIndex = useRef(0);
     const ref = useRef<Map<string, IdeaCreatorRef | null>>(new Map);
+
+    const {activeKey, setActiveKey, items, setItems, removeItem} = useContext(TabsContext);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -45,7 +47,6 @@ const DashboardTabs: React.FC = () => {
         setActiveKey(key);
     };
 
-    const [items, setItems] = useState<NonNullable<TabsProps["items"]>>([]);
 
     const edit = useCallback((id: number) => {
         const idea = ideas.find((idea) => idea.id === id)!;
@@ -147,27 +148,16 @@ const DashboardTabs: React.FC = () => {
         setActiveKey(newActiveKey);
     };
 
-
     const handleSubmit = () => {
         ref.current.get(activeKey)?.submit();
-        remove(activeKey);
-    };
-
-    const remove = (targetKey: TargetKey) => {
-        const targetIndex = items.findIndex((pane) => pane.key === targetKey);
-        const newPanes = items.filter((pane) => pane.key !== targetKey);
-        if (newPanes.length && targetKey === activeKey) {
-            const {key} = newPanes[targetIndex === newPanes.length ? targetIndex - 1 : targetIndex];
-            setActiveKey(key);
-        }
-        setItems(newPanes);
+        removeItem(activeKey);
     };
 
     const onEdit = (targetKey: TargetKey, action: 'add' | 'remove') => {
         if (action === 'add') {
             add();
         } else {
-            remove(targetKey);
+            removeItem(targetKey as string);
         }
     };
 

@@ -1,13 +1,24 @@
 "use client"
 
-import {InboxOutlined} from '@ant-design/icons';
-import type {FormInstance, UploadFile, UploadProps} from 'antd';
-import {Form, Input, notification, Select, Upload} from 'antd';
-import {Ref, useImperativeHandle, useRef, useState} from "react";
+import {DeleteOutlined, DoubleRightOutlined, InboxOutlined} from '@ant-design/icons';
+import {
+    Button,
+    Form,
+    FormInstance,
+    Input,
+    notification,
+    Popconfirm,
+    Select,
+    Upload,
+    UploadFile,
+    UploadProps
+} from 'antd';
+import {Ref, useContext, useImperativeHandle, useRef, useState} from "react";
 
 import {createAuthClient} from "better-auth/react"
 import {Idea} from "@/src/components/idea/useIdeas";
 import {RcFile} from "antd/lib/upload";
+import {TabsContext} from "@/src/components/TabsProvider";
 
 const {useSession} = createAuthClient()
 
@@ -66,6 +77,8 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     })) ?? []);
 
     const formRef = useRef<FormInstance>(null)
+
+    const {activeKey, removeItem} = useContext(TabsContext);
 
     useImperativeHandle(ref, () => ({
         submit: () => {
@@ -159,6 +172,20 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         fileList,
     };
 
+    const confirmDelete = async () => {
+        const result = await fetch(`/ideas/${initialIdea?.id}`, {
+            method: "DELETE",
+        })
+        console.info({result});
+        if (result.ok) {
+            console.info("IdeaCreator successfull idea creation")
+            removeItem(activeKey);
+            onIdeaSaved();
+        } else {
+            console.info("Server IdeaCreator Input Error")
+        }
+    }
+
     return (
         <Form className="flex-1 overflow-y-auto"
               labelCol={{span: 4}}
@@ -212,6 +239,34 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                     </Upload.Dragger>
                 </div>
             </Form.Item>
+            <div className={"flex flex-row flex-1 gap-4"}>
+                <Form.Item className={"m-2"}>
+                    <Popconfirm title={"Idee in ein Projekt umwandeln?"}
+                                description={"Diese Aktion kann nicht rückgängig gemacht werden!\n " +
+                                    "Sie werden das Projekt zusätzlich bearbeiten müssen."}
+                                okText={"Umwandeln"}
+                                cancelText={"Abbrechen"}
+                                icon={<DoubleRightOutlined/>}
+                    >
+                        <Button icon={<DoubleRightOutlined/>} type={"primary"}>
+                            <span>In Projekt umwandeln</span>
+                        </Button>
+                    </Popconfirm>
+                </Form.Item>
+                <Form.Item className={"m-2"}>
+                    <Popconfirm title={"Idee löschen?"}
+                                description={"Diese Aktion kann nicht rückgängig gemacht werden!"}
+                                okText={"Löschen"}
+                                cancelText={"Abbrechen"}
+                                onConfirm={confirmDelete}
+                                icon={<DeleteOutlined style={{color: "red"}}/>}
+                    >
+                        <Button icon={<DeleteOutlined/>} type={"primary"} danger>
+                            <span>Löschen</span>
+                        </Button>
+                    </Popconfirm>
+                </Form.Item>
+            </div>
         </Form>
     );
 };

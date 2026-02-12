@@ -11,6 +11,7 @@ import {Dashboard} from "@/src/components/dashboard/Dashboard";
 import {Statistics} from "@/src/components/statistics/Statistics";
 import {LoginPage} from "@/src/components/user/LoginPage";
 import {authClient} from "@/src/utils/auth-client";
+import {TabsProvider} from "@/src/components/TabsProvider";
 
 const onChange = (key: string) => {
     console.log(key);
@@ -51,11 +52,13 @@ export const Main: React.FC = () => {
             {(() => {
                 if (session) {
                     return (
-                        <Tabs className={"flex flex-1 overflow-y-auto overflow-x-hidden"}
-                              defaultActiveKey="1"
-                              centered
-                              items={items}
-                              onChange={onChange}/>
+                        <TabsProvider>
+                            <Tabs className={"flex flex-1 overflow-y-auto overflow-x-hidden"}
+                                  defaultActiveKey="1"
+                                  centered
+                                  items={items}
+                                  onChange={onChange}/>
+                        </TabsProvider>
                     )
                 } else {
                     return (

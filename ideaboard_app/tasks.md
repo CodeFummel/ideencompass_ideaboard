@@ -1,7 +1,7 @@
-#### [ ] 2.1 Ideen einreichen
+#### [x] 2.1 Ideen einreichen
 [x] − Neue Ideen anlegen (Title, Beschreibung und Kategorie)  
 [x] − Möglichkeit Schlagworte/ Tags hinzuzufügen  
-[ ] − Möglichkeit zur Bearbeitung eigener eingereichten Ideen  
+[x] − Möglichkeit zur Bearbeitung eigener eingereichten Ideen  
 [x] − Option zum Hochladen von Dateien zu Ideen  
 
 #### [ ] 2.2 Ideen fördern & bewerten
@@ -17,7 +17,7 @@
 [ ] − Direkte Kontaktmöglichkeit des Ansprechpartners  
 
 #### [ ] 2.4 Dashboard & Übersicht
-[ ] − Übersicht über neue Ideen, Top-Ideen, Projekte und Umfragen  
+[x] − Übersicht über neue Ideen, Top-Ideen, Projekte und Umfragen  
 [ ] − Möglichkeit an Umfragen teilzunehmen  
 [ ] − Interaktive Filter- und Sortiermöglichkeiten  
 [x] − Hervorhebung der „Top 3 – Ideen der Woche“  
