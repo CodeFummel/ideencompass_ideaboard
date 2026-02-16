@@ -5,7 +5,7 @@ export async function GET(request: Request) {
     const ideas = await prisma.idea.findMany({
         include: {
             _count: {
-                select: { likes: true },
+                select: { likes: true, comments: true },
             },
             files: true,
         },

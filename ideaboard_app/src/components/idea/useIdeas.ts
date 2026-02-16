@@ -10,7 +10,7 @@ export type Idea = {
     authorName: string,
     createdAt: Date,
     files: { id: number, name: string, data: string }[],
-    _count: { likes: number },
+    _count: { likes: number, comments: number },
 }
 
 export type FilterFn = (ideas: Idea[]) => Idea[];

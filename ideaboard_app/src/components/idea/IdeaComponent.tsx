@@ -6,6 +6,7 @@ import {Button, Form, Input, notification, Tag} from "antd";
 import {Comment, CommentComponent} from "@/src/components/idea/CommentComponent";
 
 import {createAuthClient} from "better-auth/react"
+import {useIdeas} from "@/src/components/idea/useIdeas";
 
 const {useSession} = createAuthClient()
 
@@ -23,6 +24,8 @@ type Idea = {
 export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files}) => {
 
     const [comments, setComments] = useState<Comment[]>([]);
+
+    const {ideas, refresh} = useIdeas();
 
     useEffect(() => {
         fetch(`/comments?ideaId=${id}`).then((response) => {
@@ -78,6 +81,7 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                     pauseOnHover: true,
                     placement: "top",
                 });
+                await refresh();
             } else {
                 console.info("Server IdeaCreator Input Error")
             }

@@ -1,36 +1,60 @@
 "use client"
 
 import React, {useCallback, useContext, useMemo, useRef, useState} from 'react';
-import {Button, Dropdown, MenuProps, notification, Tabs, TabsProps} from 'antd';
+import {Button, Dropdown, MenuProps, notification, Tabs} from 'antd';
 import {FilterOutlined, SortAscendingOutlined} from "@ant-design/icons";
 import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
 
 import IdeaList from "@/src/components/idea/IdeaList";
 import {Idea, useIdeas} from "@/src/components/idea/useIdeas";
-import {PollCreator} from "@/src/components/poll/PollCreator";
 import {PollList} from "@/src/components/poll/PollList";
 import {ProjectList} from "@/src/components/project/ProjectList";
 import {useProjects} from "@/src/components/project/useProjects";
 import {TabsContext} from "@/src/components/TabsProvider";
+import {sortByComments, sortByCreatedAt, sortByLikes} from "./useSort";
+import dayjs from "dayjs";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
+type Filter = {
+    type: "category",
+    value: string
+} | {
+    type: "time",
+    value: dayjs.OpUnitType
+}
+type SortFunction = "createdAt" | "likes" | "comments"
 
-const IdeaListWrapper = ({ideas, onIdeaEdit}: {
+const IdeaListWrapper = ({ideas, onIdeaEdit, filter, sort, sortDirection}: {
     ideas: Idea[]
     onIdeaEdit: (id: number) => void
+    filter: Filter
+    sort: SortFunction
+    sortDirection: boolean
 }) => {
 
-    const [filter, setFilter] = useState<keyof Idea>("category");
-    const [filterValue, setFilterValue] = useState<string>("Sonstiges");
-    const [sort, setSort] = useState<keyof Idea>("createdAt");
-    /*
-        const filteredIdeas = useMemo(() => {
-            return ideas
-                .filter(idea => idea[filter] === filterValue)
-                .sort((a, b) => b[sort] - a[sort])
-        }, [ideas, filter, sort]);
-    */
-    return <IdeaList ideas={ideas} onIdeaEdit={onIdeaEdit}/>;
+    const filteredIdeas = useMemo(() => {
+        return ideas
+            .filter(idea => {
+                switch (filter.type) {
+                    case "category":
+                        return (idea.category === filter.value);
+                    case "time":
+                        return (dayjs(idea.createdAt).diff(dayjs(), filter.value) <= 1);
+                }
+            })
+            .sort((a, b) => {
+                switch (sort) {
+                    case "createdAt":
+                        return sortByCreatedAt(a, b, sortDirection);
+                    case "likes":
+                        return sortByLikes(a, b, sortDirection);
+                    case "comments":
+                        return sortByComments(a, b, sortDirection);
+                }
+            })
+    }, [ideas, filter, sort, sortDirection]);
+
+    return <IdeaList ideas={filteredIdeas} onIdeaEdit={onIdeaEdit}/>;
 }
 
 const DashboardTabs: React.FC = () => {
@@ -40,6 +64,10 @@ const DashboardTabs: React.FC = () => {
     const ref = useRef<Map<string, IdeaCreatorRef | null>>(new Map);
 
     const {activeKey, setActiveKey, items, setItems, removeItem} = useContext(TabsContext);
+
+    const [filter, setFilter] = useState<Filter>({type: "category", value: "Sonstiges"});
+    const [sort, setSort] = useState<SortFunction>("createdAt");
+    const [sortDirection, setSortDirection] = useState<boolean>(true);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -105,7 +133,8 @@ const DashboardTabs: React.FC = () => {
             key: "ideas-tab",
             closable: false,
             forceRender: true,
-            children: <IdeaListWrapper ideas={ideas} onIdeaEdit={edit}/>,
+            children: <IdeaListWrapper ideas={ideas} onIdeaEdit={edit} filter={filter} sort={sort}
+                                       sortDirection={sortDirection}/>,
         },
         {
             label: "Projekte",
@@ -122,7 +151,7 @@ const DashboardTabs: React.FC = () => {
             children: <PollList/>
         },
         ...items
-    ], [ideas, projects, edit, editProject, items])
+    ], [ideas, edit, filter, sort, sortDirection, projects, editProject, items])
 
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
@@ -165,51 +194,67 @@ const DashboardTabs: React.FC = () => {
     const filterOptions: MenuItem[] = [
         {
             key: "category", label: "Kategorie", children: [
-                {key: "workplace", label: "Arbeitsplatz"},
-                {key: "cafe", label: "Cafe"},
-                {key: "hr", label: "HR"},
-                {key: "it", label: "IT"},
-                {key: "products", label: "Produkte"},
-                {key: "else", label: "Sonstiges"},
+                {key: "Arbeitsplatz", label: "Arbeitsplatz"},
+                {key: "Cafe", label: "Cafe"},
+                {key: "HR", label: "HR"},
+                {key: "IT", label: "IT"},
+                {key: "Produkte", label: "Produkte"},
+                {key: "Sonstiges", label: "Sonstiges"},
             ]
         },
         {
-            key: "period", label: "Zeitraum", children: [
-                {key: "p_today", label: "Heute"},
-                {key: "p_three", label: "Drei Tage"},
-                {key: "p_week", label: "Woche"},
-                {key: "p_month", label: "Monat"},
-                {key: "p_all", label: "Immer"},
+            key: "time", label: "Zeitraum", children: [
+                {key: "day", label: "Tag"},
+                {key: "week", label: "Woche"},
+                {key: "month", label: "Monat"},
+                {key: "all", label: "Immer"},
             ]
         },
     ];
 
     const sortOptions: MenuItem[] = [
         {
-            key: "time", label: "Erstellzeit", children: [
-                {key: "t_up", label: "Aufsteigend"},
-                {key: "t_down", label: "Absteigend"},
+            key: "createdAt", label: "Erstellzeit", children: [
+                {key: "createdAt_up", label: "Aufsteigend"},
+                {key: "createdAt_down", label: "Absteigend"},
             ]
         },
         {
             key: "likes", label: "Likes", children: [
-                {key: "l_up", label: "Aufsteigend"},
-                {key: "l_down", label: "Absteigend"},
+                {key: "likes_up", label: "Aufsteigend"},
+                {key: "likes_down", label: "Absteigend"},
             ]
         },
         {
             key: "comments", label: "Kommentare", children: [
-                {key: "c_up", label: "Aufsteigend"},
-                {key: "c_down", label: "Absteigend"},
+                {key: "comments_up", label: "Aufsteigend"},
+                {key: "comments_down", label: "Absteigend"},
             ]
         },
     ]
 
-    const filterButton = <div className={"m-2"}>
-        <Dropdown trigger={["click"]} menu={{items: filterOptions}}>
+    const optionsButtons = <div className={"m-2"}>
+        <Dropdown trigger={["click"]} menu={{
+            onClick: ({keyPath}) => {
+                console.log(keyPath);
+                setFilter({
+                    type: keyPath[1],
+                    value: keyPath[0]
+                } as Filter);
+            },
+            items: filterOptions,
+            selectedKeys: [filter.value],
+        }}>
             <FilterOutlined className={"mr-2 p-2 border-2 rounded-(--border-radius) border-(--border)"}/>
         </Dropdown>
-        <Dropdown trigger={["click"]} menu={{items: sortOptions}}>
+        <Dropdown trigger={["click"]} menu={{
+            onClick: ({keyPath}) => {
+                setSort(keyPath[1] as SortFunction);
+                setSortDirection(keyPath[0].split("_")[1] === "down");
+            },
+            items: sortOptions,
+            selectedKeys: [`${sort}_${sortDirection ? "down" : "up"}`],
+        }}>
             <SortAscendingOutlined className={"p-2 border-2 rounded-(--border-radius) border-(--border)"}/>
         </Dropdown>
     </div>
@@ -223,7 +268,7 @@ const DashboardTabs: React.FC = () => {
                 {contextHolder}
                 <Tabs
                     className="flex flex-1"
-                    tabBarExtraContent={{left: filterButton, right: saveIdeaButton}}
+                    tabBarExtraContent={{left: optionsButtons, right: saveIdeaButton}}
                     onChange={onChange}
                     activeKey={activeKey}
                     type={"editable-card"}
