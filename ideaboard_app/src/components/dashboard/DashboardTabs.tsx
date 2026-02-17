@@ -20,7 +20,7 @@ type Filter = {
     value: string
 } | {
     type: "time",
-    value: dayjs.OpUnitType
+    value: dayjs.OpUnitType | "all"
 }
 type SortFunction = "createdAt" | "likes" | "comments"
 
@@ -39,7 +39,7 @@ const IdeaListWrapper = ({ideas, onIdeaEdit, filter, sort, sortDirection}: {
                     case "category":
                         return (idea.category === filter.value);
                     case "time":
-                        return (dayjs(idea.createdAt).diff(dayjs(), filter.value) <= 1);
+                        return (filter.value === "all" ? true : dayjs(idea.createdAt).diff(dayjs(), filter.value) === 0);
                 }
             })
             .sort((a, b) => {
@@ -215,20 +215,20 @@ const DashboardTabs: React.FC = () => {
     const sortOptions: MenuItem[] = [
         {
             key: "createdAt", label: "Erstellzeit", children: [
-                {key: "createdAt_up", label: "Aufsteigend"},
                 {key: "createdAt_down", label: "Absteigend"},
+                {key: "createdAt_up", label: "Aufsteigend"},
             ]
         },
         {
             key: "likes", label: "Likes", children: [
-                {key: "likes_up", label: "Aufsteigend"},
                 {key: "likes_down", label: "Absteigend"},
+                {key: "likes_up", label: "Aufsteigend"},
             ]
         },
         {
             key: "comments", label: "Kommentare", children: [
-                {key: "comments_up", label: "Aufsteigend"},
                 {key: "comments_down", label: "Absteigend"},
+                {key: "comments_up", label: "Aufsteigend"},
             ]
         },
     ]

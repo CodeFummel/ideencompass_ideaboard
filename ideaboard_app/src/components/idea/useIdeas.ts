@@ -14,14 +14,23 @@ export type Idea = {
 }
 
 export type FilterFn = (ideas: Idea[]) => Idea[];
+type ApiIdea = Omit<Idea, "createdAt"> & {
+    createdAt: string;
+}
 
 export const useIdeas = () => {
     const [ideas, setIdeas] = useState<Idea[]>([]);
 
     const refresh = useCallback(async () => {
         const response = await fetch("/ideas")
-            .then(res => res.json());
-        setIdeas(response);
+            .then(res => res.json()) as ApiIdea[];
+        setIdeas(response.map(({
+            createdAt,
+           ...idea
+        }) => ({
+            createdAt: new Date(createdAt),
+            ...idea,
+        })));
     }, [setIdeas])
 
     useEffect(() => {

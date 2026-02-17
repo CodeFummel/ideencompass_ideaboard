@@ -1,4 +1,3 @@
-// @ts-ignore
 "use client"
 
 import React from "react";
@@ -35,7 +34,7 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
                     <h4 className={"font-light ml-1"}>Von {idea.authorName} am {(() => {
                         dayjs.extend(customParseFormat);
                         dayjs.extend(utc);
-                        const date = dayjs(idea.createdAt, 'YYYY-MM-DD HH:mm:ssss', 'de');
+                        const date = dayjs(idea.createdAt).locale("de");
                         return date.local().format("DD.MM.YYYY u[m] HH:mm");
                     })()} {}</h4>
                 </div>
