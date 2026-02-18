@@ -234,6 +234,7 @@ export type PollWhereInput = {
   authorName?: Prisma.StringFilter<"Poll"> | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   options?: Prisma.OptionListRelationFilter
+  votes?: Prisma.VoteListRelationFilter
 }
 
 export type PollOrderByWithRelationInput = {
@@ -246,6 +247,7 @@ export type PollOrderByWithRelationInput = {
   authorName?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
   options?: Prisma.OptionOrderByRelationAggregateInput
+  votes?: Prisma.VoteOrderByRelationAggregateInput
 }
 
 export type PollWhereUniqueInput = Prisma.AtLeast<{
@@ -261,6 +263,7 @@ export type PollWhereUniqueInput = Prisma.AtLeast<{
   authorName?: Prisma.StringFilter<"Poll"> | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   options?: Prisma.OptionListRelationFilter
+  votes?: Prisma.VoteListRelationFilter
 }, "id">
 
 export type PollOrderByWithAggregationInput = {
@@ -299,6 +302,7 @@ export type PollCreateInput = {
   authorName: string
   author: Prisma.UserCreateNestedOneWithoutPollsInput
   options?: Prisma.OptionCreateNestedManyWithoutPollInput
+  votes?: Prisma.VoteCreateNestedManyWithoutPollInput
 }
 
 export type PollUncheckedCreateInput = {
@@ -310,6 +314,7 @@ export type PollUncheckedCreateInput = {
   authorId: string
   authorName: string
   options?: Prisma.OptionUncheckedCreateNestedManyWithoutPollInput
+  votes?: Prisma.VoteUncheckedCreateNestedManyWithoutPollInput
 }
 
 export type PollUpdateInput = {
@@ -320,6 +325,7 @@ export type PollUpdateInput = {
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.UserUpdateOneRequiredWithoutPollsNestedInput
   options?: Prisma.OptionUpdateManyWithoutPollNestedInput
+  votes?: Prisma.VoteUpdateManyWithoutPollNestedInput
 }
 
 export type PollUncheckedUpdateInput = {
@@ -331,6 +337,7 @@ export type PollUncheckedUpdateInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
   options?: Prisma.OptionUncheckedUpdateManyWithoutPollNestedInput
+  votes?: Prisma.VoteUncheckedUpdateManyWithoutPollNestedInput
 }
 
 export type PollCreateManyInput = {
@@ -470,6 +477,20 @@ export type PollUpdateOneRequiredWithoutOptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PollUpdateToOneWithWhereWithoutOptionsInput, Prisma.PollUpdateWithoutOptionsInput>, Prisma.PollUncheckedUpdateWithoutOptionsInput>
 }
 
+export type PollCreateNestedOneWithoutVotesInput = {
+  create?: Prisma.XOR<Prisma.PollCreateWithoutVotesInput, Prisma.PollUncheckedCreateWithoutVotesInput>
+  connectOrCreate?: Prisma.PollCreateOrConnectWithoutVotesInput
+  connect?: Prisma.PollWhereUniqueInput
+}
+
+export type PollUpdateOneRequiredWithoutVotesNestedInput = {
+  create?: Prisma.XOR<Prisma.PollCreateWithoutVotesInput, Prisma.PollUncheckedCreateWithoutVotesInput>
+  connectOrCreate?: Prisma.PollCreateOrConnectWithoutVotesInput
+  upsert?: Prisma.PollUpsertWithoutVotesInput
+  connect?: Prisma.PollWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PollUpdateToOneWithWhereWithoutVotesInput, Prisma.PollUpdateWithoutVotesInput>, Prisma.PollUncheckedUpdateWithoutVotesInput>
+}
+
 export type PollCreateWithoutAuthorInput = {
   createdAt?: Date | string
   closeDate: Date | string
@@ -477,6 +498,7 @@ export type PollCreateWithoutAuthorInput = {
   body: string
   authorName: string
   options?: Prisma.OptionCreateNestedManyWithoutPollInput
+  votes?: Prisma.VoteCreateNestedManyWithoutPollInput
 }
 
 export type PollUncheckedCreateWithoutAuthorInput = {
@@ -487,6 +509,7 @@ export type PollUncheckedCreateWithoutAuthorInput = {
   body: string
   authorName: string
   options?: Prisma.OptionUncheckedCreateNestedManyWithoutPollInput
+  votes?: Prisma.VoteUncheckedCreateNestedManyWithoutPollInput
 }
 
 export type PollCreateOrConnectWithoutAuthorInput = {
@@ -535,6 +558,7 @@ export type PollCreateWithoutOptionsInput = {
   body: string
   authorName: string
   author: Prisma.UserCreateNestedOneWithoutPollsInput
+  votes?: Prisma.VoteCreateNestedManyWithoutPollInput
 }
 
 export type PollUncheckedCreateWithoutOptionsInput = {
@@ -545,6 +569,7 @@ export type PollUncheckedCreateWithoutOptionsInput = {
   body: string
   authorId: string
   authorName: string
+  votes?: Prisma.VoteUncheckedCreateNestedManyWithoutPollInput
 }
 
 export type PollCreateOrConnectWithoutOptionsInput = {
@@ -570,6 +595,7 @@ export type PollUpdateWithoutOptionsInput = {
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.UserUpdateOneRequiredWithoutPollsNestedInput
+  votes?: Prisma.VoteUpdateManyWithoutPollNestedInput
 }
 
 export type PollUncheckedUpdateWithoutOptionsInput = {
@@ -580,6 +606,65 @@ export type PollUncheckedUpdateWithoutOptionsInput = {
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  votes?: Prisma.VoteUncheckedUpdateManyWithoutPollNestedInput
+}
+
+export type PollCreateWithoutVotesInput = {
+  createdAt?: Date | string
+  closeDate: Date | string
+  title: string
+  body: string
+  authorName: string
+  author: Prisma.UserCreateNestedOneWithoutPollsInput
+  options?: Prisma.OptionCreateNestedManyWithoutPollInput
+}
+
+export type PollUncheckedCreateWithoutVotesInput = {
+  id?: number
+  createdAt?: Date | string
+  closeDate: Date | string
+  title: string
+  body: string
+  authorId: string
+  authorName: string
+  options?: Prisma.OptionUncheckedCreateNestedManyWithoutPollInput
+}
+
+export type PollCreateOrConnectWithoutVotesInput = {
+  where: Prisma.PollWhereUniqueInput
+  create: Prisma.XOR<Prisma.PollCreateWithoutVotesInput, Prisma.PollUncheckedCreateWithoutVotesInput>
+}
+
+export type PollUpsertWithoutVotesInput = {
+  update: Prisma.XOR<Prisma.PollUpdateWithoutVotesInput, Prisma.PollUncheckedUpdateWithoutVotesInput>
+  create: Prisma.XOR<Prisma.PollCreateWithoutVotesInput, Prisma.PollUncheckedCreateWithoutVotesInput>
+  where?: Prisma.PollWhereInput
+}
+
+export type PollUpdateToOneWithWhereWithoutVotesInput = {
+  where?: Prisma.PollWhereInput
+  data: Prisma.XOR<Prisma.PollUpdateWithoutVotesInput, Prisma.PollUncheckedUpdateWithoutVotesInput>
+}
+
+export type PollUpdateWithoutVotesInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  author?: Prisma.UserUpdateOneRequiredWithoutPollsNestedInput
+  options?: Prisma.OptionUpdateManyWithoutPollNestedInput
+}
+
+export type PollUncheckedUpdateWithoutVotesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closeDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorName?: Prisma.StringFieldUpdateOperationsInput | string
+  options?: Prisma.OptionUncheckedUpdateManyWithoutPollNestedInput
 }
 
 export type PollCreateManyAuthorInput = {
@@ -598,6 +683,7 @@ export type PollUpdateWithoutAuthorInput = {
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
   options?: Prisma.OptionUpdateManyWithoutPollNestedInput
+  votes?: Prisma.VoteUpdateManyWithoutPollNestedInput
 }
 
 export type PollUncheckedUpdateWithoutAuthorInput = {
@@ -608,6 +694,7 @@ export type PollUncheckedUpdateWithoutAuthorInput = {
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorName?: Prisma.StringFieldUpdateOperationsInput | string
   options?: Prisma.OptionUncheckedUpdateManyWithoutPollNestedInput
+  votes?: Prisma.VoteUncheckedUpdateManyWithoutPollNestedInput
 }
 
 export type PollUncheckedUpdateManyWithoutAuthorInput = {
@@ -626,10 +713,12 @@ export type PollUncheckedUpdateManyWithoutAuthorInput = {
 
 export type PollCountOutputType = {
   options: number
+  votes: number
 }
 
 export type PollCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   options?: boolean | PollCountOutputTypeCountOptionsArgs
+  votes?: boolean | PollCountOutputTypeCountVotesArgs
 }
 
 /**
@@ -649,6 +738,13 @@ export type PollCountOutputTypeCountOptionsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.OptionWhereInput
 }
 
+/**
+ * PollCountOutputType without action
+ */
+export type PollCountOutputTypeCountVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VoteWhereInput
+}
+
 
 export type PollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -660,6 +756,7 @@ export type PollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   authorName?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Poll$optionsArgs<ExtArgs>
+  votes?: boolean | Prisma.Poll$votesArgs<ExtArgs>
   _count?: boolean | Prisma.PollCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["poll"]>
 
@@ -699,6 +796,7 @@ export type PollOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type PollInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Poll$optionsArgs<ExtArgs>
+  votes?: boolean | Prisma.Poll$votesArgs<ExtArgs>
   _count?: boolean | Prisma.PollCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PollIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -713,6 +811,7 @@ export type $PollPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
     options: Prisma.$OptionPayload<ExtArgs>[]
+    votes: Prisma.$VotePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1118,6 +1217,7 @@ export interface Prisma__PollClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   options<T extends Prisma.Poll$optionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Poll$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  votes<T extends Prisma.Poll$votesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Poll$votesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1571,6 +1671,30 @@ export type Poll$optionsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.OptionScalarFieldEnum | Prisma.OptionScalarFieldEnum[]
+}
+
+/**
+ * Poll.votes
+ */
+export type Poll$votesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Vote
+   */
+  select?: Prisma.VoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Vote
+   */
+  omit?: Prisma.VoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VoteInclude<ExtArgs> | null
+  where?: Prisma.VoteWhereInput
+  orderBy?: Prisma.VoteOrderByWithRelationInput | Prisma.VoteOrderByWithRelationInput[]
+  cursor?: Prisma.VoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VoteScalarFieldEnum | Prisma.VoteScalarFieldEnum[]
 }
 
 /**

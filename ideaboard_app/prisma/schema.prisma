@@ -37,6 +37,7 @@ model User {
   projects      Project[]
   polls         Poll[]
   reactions     Reaction[]
+  votes         Vote[]
 
   @@map("users")
 }
@@ -155,6 +156,7 @@ model Poll {
   authorId   String
   authorName String
   options    Option[]
+  votes      Vote[]
 
   @@map("polls")
 }
@@ -162,20 +164,25 @@ model Poll {
 model Option {
   id      Int    @id @default(autoincrement())
   content String
-  votes   Int    @default(0)
   poll    Poll   @relation(fields: [pollId], references: [id])
   pollId  Int
+  votes   Vote[]
 
   @@map("options")
 }
 
-/**
- * model Category {
- * id       Int    @id @default(autoincrement())
- * category String
- * @@map("categorys")
- * }
- */
+model Vote {
+  author      User   @relation(fields: [authorId], references: [id])
+  authorId    String
+  poll        Poll   @relation(fields: [votedPoll], references: [id])
+  votedPoll   Int
+  option      Option @relation(fields: [votedOption], references: [id])
+  votedOption Int
+
+  @@id(name: "voteId", [authorId, votedPoll])
+  @@map("votes")
+}
+
 enum Role {
   USER
   LEAD

@@ -26,15 +26,6 @@ export const PollCreator: React.FC = () => {
 
     const onFinish = async (values) => {
 
-        setOptionsList([values.options]);
-
-        const options = await Promise.all(optionsList.map(async (op) => {
-            console.log("Options: ", op);
-            return ({
-                content: op.content,
-            });
-        }));
-
         const result = await fetch("/polls", {
             method: "POST",
             body: JSON.stringify({
@@ -43,7 +34,7 @@ export const PollCreator: React.FC = () => {
                 closeDate: values.closeDate,
                 authorId: session?.session.userId,
                 authorName: session?.user.name,
-                options,
+                options: values.options,
             }),
         });
         const route = await result.json();
@@ -71,7 +62,7 @@ export const PollCreator: React.FC = () => {
         <div className={"flex flex-col items-center overflow-auto"}>
             {contextHolder}
             <Form
-                className={"w-full"}
+                className={"w-full m-2"}
                 name="poll_form"
                 labelCol={{span: 5}}
                 onFinish={onFinish}
@@ -141,7 +132,7 @@ export const PollCreator: React.FC = () => {
                                     {fields.length > 1 ? (
                                         <MinusCircleOutlined
                                             className="dynamic-delete-button ml-2 text-xl"
-                                            onClick={() => remove(field.name)}
+                                            onClick={() => remove(restField.name)}
                                         />
                                     ) : null}
                                 </Form.Item>

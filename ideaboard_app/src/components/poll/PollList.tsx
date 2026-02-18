@@ -19,8 +19,14 @@ type Poll = {
     closeDate: Date,
     authorName: string,
     options: {
+        id: number;
         content: string,
+        votes: number[],
     }[],
+    votes: {
+        votedOption: number,
+    }[],
+    _count: number,
 }
 
 export const PollList: React.FC = () => {

@@ -1,7 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/src/utils/database";
 
-
 export async function PATCH(request: NextRequest, ctx: RouteContext<"/ideas/[id]">) {
     const {id} = await ctx.params;
 

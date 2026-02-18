@@ -1,8 +1,31 @@
 import {NextResponse} from "next/server";
 import {prisma} from "@/src/utils/database";
+import {auth} from "@/src/utils/auth";
+import {headers} from "next/headers";
 
 export async function GET(request: Request) {
-    const polls = await prisma.poll.findMany();
+
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+
+    if (!session) {
+        return new Response("Session unauthorized", {status: 403});
+    }
+
+    const polls = await prisma.poll.findMany({
+        include: {
+            options: true,
+            _count: {
+                select: { votes: true },
+            },
+            votes: {
+                where: {
+                    authorId: session.user.id
+                }
+            }
+        },
+    });
 
     const result = await Promise.all(polls.map(async poll => {
         return ({...poll});
@@ -17,17 +40,11 @@ export async function POST(request: Request) {
 
     const {title, body, closeDate, authorId, authorName} = data;
 
-    console.log({data});
-
     if (!title || !body) {
         return new Response("Fill all blanks", {status: 400});
     }
 
-    const options = data.options.map(option => ({
-        content: option.content,
-    }));
-
-    console.log("Options in Route: " ,options);
+    const options = data.options.map(content => ({content}));
 
     const poll = await prisma.poll.create({
         data: {
@@ -37,7 +54,9 @@ export async function POST(request: Request) {
             authorId,
             authorName,
             options: {
-                create: options,
+                createMany: {
+                    data: options
+                }
             }
         }
     });

@@ -99,3 +99,8 @@ export type Poll = Prisma.PollModel
  * 
  */
 export type Option = Prisma.OptionModel
+/**
+ * Model Vote
+ * 
+ */
+export type Vote = Prisma.VoteModel

@@ -19,12 +19,12 @@
 #### [ ] 2.4 Dashboard & Übersicht
 [x] − Übersicht über neue Ideen, Top-Ideen, Projekte und Umfragen  
 [ ] − Möglichkeit an Umfragen teilzunehmen  
-[ ] − Interaktive Filter- und Sortiermöglichkeiten  
+[x] − Interaktive Filter- und Sortiermöglichkeiten  
 [x] − Hervorhebung der „Top 3 – Ideen der Woche“  
 
 #### [ ] 2.5 Statistiken & Reporting
 [ ] − Anzeige von Kennzahlen (Anzahl neuer Ideen, Beliebtesten Kategorien, Beliebteste Idee)  
-[ ] − Graphische Darstellung dieser Kennzahlen (z. B. Diagramme)  
+[x] − Graphische Darstellung dieser Kennzahlen (z. B. Diagramme)  
 
 #### [ ] 2.6 Rollenmanagement
 [x] - Nutzersystem implementieren  
