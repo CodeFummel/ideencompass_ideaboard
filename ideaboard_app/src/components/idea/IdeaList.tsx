@@ -54,7 +54,8 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
         }
     ));
 
-    return <div className={"m-2 overflow-y-auto w-full"}>
+    return (
+        <div className={"m-2 overflow-y-auto w-full"}>
         <Collapse className={"p-0"} size={"small"} items={items} expandIcon={({ isActive }) => (
             <RightOutlined
                 rotate={isActive ? 90 : 0}
@@ -62,6 +63,7 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
             />
         )}
         ></Collapse>
-    </div>;
+    </div>
+    )
 }
 export default IdeaList

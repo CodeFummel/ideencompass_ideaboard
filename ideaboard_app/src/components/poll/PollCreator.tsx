@@ -59,7 +59,7 @@ export const PollCreator: React.FC = () => {
     }
 
     return (
-        <div className={"flex flex-col items-center overflow-auto"}>
+        <div className={"flex flex-col items-center overflow-auto m-2"}>
             {contextHolder}
             <Form
                 className={"w-full m-2"}
@@ -110,11 +110,13 @@ export const PollCreator: React.FC = () => {
                         <>
                             {fields.map(({ key, ...restField }, index) => (
                                 <Form.Item
-                                    label={index === 0 ? "Antwort 1:" : ["Antwort ", key]}
+                                    className={""}
+                                    label={index === 0 ? "Antwort 1:" : ["Antwort ", key + 1]}
                                     required={false}
                                     key={key}
                                 >
                                     <Form.Item
+                                        className={""}
                                         {...restField}
                                         validateTrigger={['onChange', 'onBlur']}
                                         rules={[
@@ -127,7 +129,7 @@ export const PollCreator: React.FC = () => {
                                         noStyle
                                     >
                                         <Input placeholder="Hier Antwortmöglichkeit reinschreiben"
-                                               style={{width: '94%'}}/>
+                                               style={{width: '90%'}}/>
                                     </Form.Item>
                                     {fields.length > 1 ? (
                                         <MinusCircleOutlined
@@ -137,7 +139,7 @@ export const PollCreator: React.FC = () => {
                                     ) : null}
                                 </Form.Item>
                             ))}
-                            <Form.Item className={"flex-1 content-center"}>
+                            <Form.Item className={"flex-1 justify-center"}>
                                 <Button
                                     type="dashed"
                                     onClick={() => add()}

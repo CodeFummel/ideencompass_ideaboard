@@ -121,14 +121,14 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                             key={index}
                         >
                             <div
-                                className={"pl-(--standard-padding-in) pr-(--standard-padding-in)  border-2 border-(--border) rounded-(--border-radius)"}>{tag}</div>
+                                className={"pl-(--standard-padding-in) pr-(--standard-padding-in) border-2 border-(--border) rounded-(--border-radius)"}>{tag}</div>
                         </Tag>
                     )}</div>
                 </div>
             </div>
         </div>
         <div className={"flex h-full p-(--standard-padding-in) border-b-2 border-(--border)"}>
-            <p>{body}</p>
+            <span>{body}</span>
         </div>
         <div>
             <div>{files.map(({name, data}, index) => (
