@@ -46,7 +46,7 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
 
     const [value, setValue] = useState<number | null>(votes[0]?.votedOption || 0);
 
-    const pollClosed = true//dayjs(closeDate).diff(dayjs()) <= 0;
+    const pollClosed = false//dayjs(closeDate).diff(dayjs()) <= 0;
 
     const pollClosedTime = formatDate(closeDate)
 
@@ -104,19 +104,19 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
                     </div>
                     :
                     <div>
-                        <div className={"flex flex-row"}>
+                        <div className={"flex"}>
                             <div
-                                className={"relative flex flex-col flex-2 border-2 border-(--border) rounded-(--border-radius"}>
+                                className={"flex flex-col flex-2 min-h-0 border-2 border-(--border) rounded-(--border-radius"}>
                                 <h4 className={"font-medium border-b-2 border-(--border) p-(--standard-padding-in)"}>Beschreibung: </h4>
-                                <span className={"p-(--standard-padding-in)"}>{body}</span>
+                                <span className={"flex-1 p-(--standard-padding-in)"}>{body}</span>
                                 <span
-                                    className={"absolute bottom-0 w-full font-light border-t-2 border-(--border) p-(--standard-padding-in)"}>
+                                    className={"w-full font-light border-t-2 border-(--border) p-(--standard-padding-in)"}>
                                     Umfrage schliesst am {pollClosedTime}
                                 </span>
                             </div>
                             <div className={"flex-1 p-(--standard-padding-in) pl-4"}>
                                 <Radio.Group
-                                    className={""}
+                                    className={"overflow-hidden text-ellipsis text-nowrap whitespace-nowrap"}
                                     buttonStyle={"solid"}
                                     vertical
                                     optionType={"button"}
