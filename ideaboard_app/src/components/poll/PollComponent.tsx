@@ -15,7 +15,7 @@ import {
     Tooltip,
 } from 'chart.js';
 import {formatDate} from "@/src/components/dateUtils";
-import {Vote, voteData} from "@/src/components/votesUtil";
+import {mapOptionsToIds, Vote, voteData} from "@/src/components/votesUtil";
 
 ChartJS.register(
     CategoryScale,
@@ -46,7 +46,7 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
 
     const [value, setValue] = useState<number | null>(votes[0]?.votedOption || 0);
 
-    const pollClosed = false//dayjs(closeDate).diff(dayjs()) <= 0;
+    const pollClosed = true//dayjs(closeDate).diff(dayjs()) <= 0;
 
     const pollClosedTime = formatDate(closeDate)
 
@@ -62,13 +62,13 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
         ).then()
     };
 
-    console.log("VOTES", votes)
+    const optionIds = mapOptionsToIds(options);
 
     const chartData = {
         labels: options.map(({content}) => content),
         datasets: [{
             label: '# anzahl an Stimmen',
-            data: voteData(votes, options.length),
+            data: voteData(votes, optionIds),
             backgroundColor: 'rgba(200, 22, 0, 0.2)',
             borderColor: 'rgba(269, 80, 0, 1)',
             borderWidth: 1

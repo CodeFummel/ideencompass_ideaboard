@@ -8,8 +8,9 @@ describe("votesUtil", () => {
             {votedOption: 6},
             {votedOption: 5}
         ];
-        const expected = [0,0,1,1,0,1,1];
-        const result = voteData(votes, 7);
+        const options = [2,3,5,6];
+        const expected = [1,1,1,1];
+        const result = voteData(votes, options);
         expect(result).toEqual(expected);
     })
     it("accumulates votes", () => {
@@ -19,8 +20,9 @@ describe("votesUtil", () => {
             {votedOption: 2},
             {votedOption: 5}
         ];
-        const expected = [0,0,2,1,0,1,0];
-        const result = voteData(votes, 7);
+        const options = [2,3,5,6];
+        const expected = [2,1,1,0];
+        const result = voteData(votes, options);
         expect(result).toEqual(expected);
     })
 })
