@@ -107,10 +107,10 @@ export const PollCreator: React.FC = () => {
                     ]}
                 >
                     {(fields, {add, remove}, {errors}) => (
-                        <>
+                        <div className={"flex flex-col"}>
                             {fields.map(({ key, ...restField }, index) => (
                                 <Form.Item
-                                    className={""}
+                                    //className={"flex flex-row"}
                                     label={index === 0 ? "Antwort 1:" : ["Antwort ", key + 1]}
                                     required={false}
                                     key={key}
@@ -139,18 +139,19 @@ export const PollCreator: React.FC = () => {
                                     ) : null}
                                 </Form.Item>
                             ))}
-                            <Form.Item className={"flex-1 justify-center"}>
+                            <Form.Item className={"flex flex-row justify-evenly"}>
                                 <Button
+                                    className="flex-1"
                                     type="dashed"
                                     onClick={() => add()}
-                                    style={{width: '60%'}}
+                                    style={{width: '100%'}}
                                     icon={<PlusOutlined/>}
                                 >
                                     Antwort Hinzufügen
                                 </Button>
                                 <Form.ErrorList errors={errors}/>
                             </Form.Item>
-                        </>
+                        </div>
                     )}
                 </Form.List>
                 <Form.Item
@@ -173,7 +174,7 @@ export const PollCreator: React.FC = () => {
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        Speichern
                     </Button>
                 </Form.Item>
             </Form>

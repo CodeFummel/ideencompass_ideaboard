@@ -8,6 +8,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import utc from "dayjs/plugin/utc";
 import {PollComponent} from "@/src/components/poll/PollComponent";
 import {createAuthClient} from "better-auth/react";
+import {formatDate} from "@/src/components/dateUtils";
 
 const {useSession} = createAuthClient()
 
@@ -26,8 +27,18 @@ type Poll = {
     votes: {
         votedOption: number,
     }[],
-    _count: number,
+    allVotes: number,
 }
+
+const Label:React.FC<{poll: Poll}> = ({poll}) => (<div className={"flex justify-between"}>
+    <div className={"flex flex-col"}>
+        <h2 className={"text-[1.2rem] font-medium"}>{poll.title}</h2>
+        <h4 className={"font-light ml-1"}>Von {poll.authorName} am {formatDate(poll.closeDate)}</h4>
+    </div>
+</div>)
+
+const transformPolls = (polls: any[]): Poll[] =>
+    polls.map(p => ({...p, allVotes: p._count.votes}))
 
 export const PollList: React.FC = () => {
 
@@ -37,7 +48,7 @@ export const PollList: React.FC = () => {
         fetch("/polls").then((response) => {
             response.json().then((p) => {
                 console.info(p);
-                setPolls(p);
+                setPolls(transformPolls(p));
             }).catch((error) => console.info(error))
         })
     }, []);
@@ -54,17 +65,7 @@ export const PollList: React.FC = () => {
     const items = polls.map((poll) => (
         {
             key: poll.id,
-            label: <div className={"flex justify-between"}>
-                <div className={"flex flex-col"}>
-                    <h2 className={"text-[1.2rem] font-medium"}>{poll.title}</h2>
-                    <h4 className={"font-light ml-1"}>Von {poll.authorName} am {(() => {
-                        dayjs.extend(customParseFormat);
-                        dayjs.extend(utc);
-                        const date = dayjs(poll.createdAt, 'YYYY-MM-DD HH:mm:ssss', 'de');
-                        return date.local().format("DD.MM.YYYY u[m] HH:mm");
-                    })()} {}</h4>
-                </div>
-            </div>,
+            label: <Label poll={poll}/>,
             children: <PollComponent {...poll}/>
         }
     ));

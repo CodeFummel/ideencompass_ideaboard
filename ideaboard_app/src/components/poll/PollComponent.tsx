@@ -3,9 +3,6 @@
 import React, {useState} from "react";
 
 import {Radio, RadioChangeEvent} from "antd";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import utc from "dayjs/plugin/utc";
 import {Bar} from "react-chartjs-2";
 import {
     BarElement,
@@ -17,6 +14,8 @@ import {
     Title,
     Tooltip,
 } from 'chart.js';
+import {formatDate} from "@/src/components/dateUtils";
+import {Vote, voteData} from "@/src/components/votesUtil";
 
 ChartJS.register(
     CategoryScale,
@@ -37,21 +36,19 @@ type Poll = {
         content: string,
         votes: number[],
     }[],
-    votes: {
-        votedOption: number,
-    }[],
-    _count: number,
+    votes: Vote[],
+    allVotes: number,
 }
 
-export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, votes, _count}) => {
+export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, votes, allVotes}) => {
 
     const data = options.map(({id, content}) => ({value: id, label: content}))
 
     const [value, setValue] = useState<number | null>(votes[0]?.votedOption || 0);
 
-    const pollClosed = true//dayjs(closeDate).diff(dayjs()) <= 0;
+    const pollClosed = false//dayjs(closeDate).diff(dayjs()) <= 0;
 
-    //console.log(options.map(({votes}) => votes))
+    const pollClosedTime = formatDate(closeDate)
 
     const onChange = (e: RadioChangeEvent) => {
         setValue(e.target.value);
@@ -65,11 +62,13 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
         ).then()
     };
 
+    console.log("VOTES", votes)
+
     const chartData = {
         labels: options.map(({content}) => content),
         datasets: [{
             label: '# anzahl an Stimmen',
-            data: [votes.map(votedOption => votedOption)], // or [votes.map(votes => votes.lenght)]
+            data: voteData(votes, options.length),
             backgroundColor: 'rgba(200, 22, 0, 0.2)',
             borderColor: 'rgba(269, 80, 0, 1)',
             borderWidth: 1
@@ -96,42 +95,36 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
                             </div>
                         </div>
                         <div
-                            className={"flex-1 h-full p-(--standard-padding-in) border-2 border-(--border) rounded-(--border-radius)"}>
-                            <span className={"border-b-2 border-(--border)"}>Stimmen insgesamt: {_count}</span>
+                            className={"flex flex-col flex-1 h-full p-(--standard-padding-in) border-2 border-(--border) rounded-(--border-radius)"}>
+                            <span className={"border-b-2 border-(--border)"}>Stimmen insgesamt: {allVotes}</span>
                             <span>
-                                Umfrage wurde am {(() => {
-                                    dayjs.extend(customParseFormat);
-                                    dayjs.extend(utc);
-                                    const date = dayjs(closeDate, 'YYYY-MM-DD HH:mm:ssss', 'de');
-                                    return date.local().format("DD.MM.YYYY u[m] HH:mm");
-                                })()} geschlossen {}
-                        </span>
+                                Umfrage wurde am {pollClosedTime} geschlossen
+                            </span>
                         </div>
                     </div>
                     :
                     <div>
-                        <div
-                            className={"p-(--standard-padding-in) border-2 border-(--border) rounded-(--border-radius)"}>
-                            <span>{body}</span>
-                        </div>
-                        <div className={"p-(--standard-padding-in)"}>
-                            <Radio.Group
-                                buttonStyle={"outline"}
-                                vertical
-                                onChange={onChange}
-                                value={value}
-                                options={data}>
-                            </Radio.Group>
-                        </div>
-                        <div className={"border-t-2 border-(--border)"}>
-                            <span>
-                                Umfrage schliesst am {(() => {
-                                dayjs.extend(customParseFormat);
-                                dayjs.extend(utc);
-                                const date = dayjs(closeDate, 'YYYY-MM-DD HH:mm:ssss', 'de');
-                                return date.local().format("DD.MM.YYYY u[m] HH:mm");
-                            })()} {}
-                            </span>
+                        <div className={"flex flex-row"}>
+                            <div
+                                className={"relative flex flex-col flex-2 border-2 border-(--border) rounded-(--border-radius"}>
+                                <h4 className={"font-medium border-b-2 border-(--border) p-(--standard-padding-in)"}>Beschreibung: </h4>
+                                <span className={"p-(--standard-padding-in)"}>{body}</span>
+                                <span
+                                    className={"absolute bottom-0 w-full font-light border-t-2 border-(--border) p-(--standard-padding-in)"}>
+                                    Umfrage schliesst am {pollClosedTime}
+                                </span>
+                            </div>
+                            <div className={"flex-1 p-(--standard-padding-in) pl-4"}>
+                                <Radio.Group
+                                    className={""}
+                                    buttonStyle={"solid"}
+                                    vertical
+                                    optionType={"button"}
+                                    onChange={onChange}
+                                    value={value}
+                                    options={data}>
+                                </Radio.Group>
+                            </div>
                         </div>
                     </div>
             }

@@ -1,11 +1,28 @@
 "use client"
 
 import React from "react";
-import {Tag} from "antd";
+import {Progress, Tag} from "antd";
 import {Idea} from "@/src/components/idea/useIdeas";
 import {Project} from "@/src/components/project/useProjects";
 
-export const ProjectComponent: React.FC<{projects: Project[], ideas: Idea[]}> = ({projects, ideas}) => {
+type Idea = {
+    id: number,
+    category: string,
+    tags: string[],
+    body: string,
+    files: {
+        name: string,
+        data: string,
+    }[],
+};
+
+type Project = {
+    body: string,
+    managerId: string,
+    parentIdea: number,
+};
+
+export const ProjectComponent: React.FC<{ projects: Project[], ideas: Idea[] }> = ({projects, ideas}) => {
 
     const project = projects[0]; //to fix
 
@@ -37,7 +54,7 @@ export const ProjectComponent: React.FC<{projects: Project[], ideas: Idea[]}> = 
             <span>{project.body}</span>
         </div>
         <div>
-            <span>Progressbar</span>
+            <Progress percent={50} steps={5}/>
         </div>
     </div>
 }

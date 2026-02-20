@@ -127,14 +127,16 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                 </div>
             </div>
         </div>
-        <div className={"flex h-full p-(--standard-padding-in) border-b-2 border-(--border)"}>
+        <div className={"flex flex-row h-full p-(--standard-padding-in) border-b-2 border-(--border)"}>
+            <h4 className={"font-medium"}>Beschreibung: </h4>
             <span>{body}</span>
         </div>
         <div>
-            <div>{files.map(({name, data}, index) => (
-                <a key={index} href={data} download={name}
-                   className={"pl-(--standard-padding-in) pr-(--standard-padding-in)"}><RightOutlined/>{name}</a>
-            ))}</div>
+            {files.length != 0 ?
+                <div>{files.map(({name, data}, index) => (
+                    <a key={index} href={data} download={name}
+                       className={"pl-(--standard-padding-in) pr-(--standard-padding-in)"}><RightOutlined/>{name}</a>
+            ))}</div> : null}
         </div>
         <div className={"flex flex-row p-(--standard-padding-in) border-t-2 border-(--border)"}>
 
