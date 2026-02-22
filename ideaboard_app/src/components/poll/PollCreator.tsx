@@ -129,6 +129,7 @@ export const PollCreator: React.FC = () => {
                                         noStyle
                                     >
                                         <Input placeholder="Hier Antwortmöglichkeit reinschreiben"
+                                               showCount maxLength={30}
                                                style={{width: '90%'}}/>
                                     </Form.Item>
                                     {fields.length > 1 ? (

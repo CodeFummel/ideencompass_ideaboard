@@ -7,6 +7,7 @@ import { LikeButton } from "@/src/components/idea/LikeButton";
 import { IdeaComponent } from "@/src/components/idea/IdeaComponent";
 import { createAuthClient } from "better-auth/react";
 import { Idea } from "@/src/components/idea/useIdeas";
+import {formatDate} from "@/src/components/dateUtils";
 
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -31,12 +32,7 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
             label: <div className={"flex justify-between"}>
                 <div className={"flex flex-col"}>
                     <h2 className={"text-[1.2rem] font-medium"}>{idea.title}</h2>
-                    <h4 className={"font-light ml-1"}>Von {idea.authorName} am {(() => {
-                        dayjs.extend(customParseFormat);
-                        dayjs.extend(utc);
-                        const date = dayjs(idea.createdAt).locale("de");
-                        return date.local().format("DD.MM.YYYY u[m] HH:mm");
-                    })()} {}</h4>
+                    <h4 className={"font-light ml-1"}>Von {idea.authorName} am {formatDate(idea.createdAt)}</h4>
                 </div>
                 {idea.authorId === session?.user.id ?
                     <div className={"flex flex-row items-center gap-2"}>

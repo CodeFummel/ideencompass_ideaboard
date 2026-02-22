@@ -16,6 +16,7 @@ import {
 } from 'chart.js';
 import {formatDate} from "@/src/components/dateUtils";
 import {mapOptionsToIds, Vote, voteData} from "@/src/components/votesUtil";
+import dayjs from "dayjs";
 
 ChartJS.register(
     CategoryScale,
@@ -46,7 +47,7 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
 
     const [value, setValue] = useState<number | null>(votes[0]?.votedOption || 0);
 
-    const pollClosed = false//dayjs(closeDate).diff(dayjs()) <= 0;
+    const pollClosed = dayjs(closeDate).diff(dayjs()) <= 0;
 
     const pollClosedTime = formatDate(closeDate)
 

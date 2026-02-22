@@ -6,14 +6,16 @@ import {EditOutlined, LikeOutlined, RightOutlined} from "@ant-design/icons";
 import {createAuthClient} from "better-auth/react";
 import {Project} from "./useProjects"
 import {Idea} from "@/src/components/idea/useIdeas";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import utc from "dayjs/plugin/utc";
 import {ProjectComponent} from "@/src/components/project/ProjectComponent";
+import {formatDate} from "@/src/components/dateUtils";
 
 const {useSession} = createAuthClient()
 
-export const ProjectList: React.FC<{ projects: Project[], ideas: Idea[], onProjectEdit: (id: number) => void }> = ({projects, ideas, onProjectEdit}) => {
+export const ProjectList: React.FC<{
+    projects: Project[],
+    ideas: Idea[],
+    onProjectEdit: (id: number) => void
+}> = ({projects, ideas, onProjectEdit}) => {
 
     const {
         data: session,
@@ -30,12 +32,7 @@ export const ProjectList: React.FC<{ projects: Project[], ideas: Idea[], onProje
             label: <div className={"flex justify-between"}>
                 <div className={"flex flex-col"}>
                     <h2 className={"text-[1.2rem] font-medium"}>{ideas[project.parentIdea].title}</h2>
-                    <h4 className={"font-light ml-1"}>Projektmanager: {project.managerId} am {(() => {
-                        dayjs.extend(customParseFormat);
-                        dayjs.extend(utc);
-                        const date = dayjs(ideas[project.parentIdea].createdAt, 'YYYY-MM-DD HH:mm:ssss', 'de');
-                        return date.local().format("DD.MM.YYYY u[m] HH:mm");
-                    })()} {}</h4>
+                    <h4 className={"font-light ml-1"}>Projektmanager: {project.managerId} am {formatDate(ideas[project.parentIdea].createdAt)}</h4>
                 </div>
                 {session?.user.role === "LEAD" ?
                     <div className={"flex flex-row items-center gap-2"}>
@@ -51,8 +48,8 @@ export const ProjectList: React.FC<{ projects: Project[], ideas: Idea[], onProje
                         </span>
                         <p>For normal Users</p>
                     </div>}
-                </div>,
-                    children: <ProjectComponent {...project}/>
+            </div>,
+            children: <ProjectComponent {...project}/>
         }
     ));
 

@@ -3,9 +3,6 @@
 import React, {useEffect, useState} from "react";
 import {Collapse} from "antd";
 import {RightOutlined} from "@ant-design/icons";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import utc from "dayjs/plugin/utc";
 import {PollComponent} from "@/src/components/poll/PollComponent";
 import {createAuthClient} from "better-auth/react";
 import {formatDate} from "@/src/components/dateUtils";
@@ -33,7 +30,7 @@ type Poll = {
 const Label:React.FC<{poll: Poll}> = ({poll}) => (<div className={"flex justify-between"}>
     <div className={"flex flex-col"}>
         <h2 className={"text-[1.2rem] font-medium"}>{poll.title}</h2>
-        <h4 className={"font-light ml-1"}>Von {poll.authorName} am {formatDate(poll.closeDate)}</h4>
+        <h4 className={"font-light ml-1"}>Von {poll.authorName} am {formatDate(poll.createdAt)}</h4>
     </div>
 </div>)
 

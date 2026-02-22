@@ -1,11 +1,9 @@
 "use client"
 
 import React from "react";
-import dayjs from "dayjs";
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import utc from "dayjs/plugin/utc.js";
 import {Button} from "antd";
 import {SmileOutlined} from "@ant-design/icons";
+import {formatDate} from "@/src/components/dateUtils";
 
 export type Comment = {
     id: number;
@@ -44,11 +42,6 @@ export const CommentComponent: React.FC<Comment> = ({
                                                         createdAt,
                                                         commentedId
                                                     }) => {
-    dayjs.extend(customParseFormat);
-    dayjs.extend(utc);
-
-    const date = dayjs(createdAt, 'YYYY-MM-DD HH:mm:ssss', 'de');
-    const formatDate = date.local().format("DD.MM.YYYY u[m] HH:mm").toString();
 
     return (
         <div
@@ -56,7 +49,7 @@ export const CommentComponent: React.FC<Comment> = ({
             <div className={"flex flex-row justify-between border-b-2 border-(--border)"}>
                 <div className={"flex flex-row"}>
                     <h2 className={"font-semibold"}>{authorName}</h2>
-                    <h4 className={"font-light ml-1"}>am {formatDate}</h4>
+                    <h4 className={"font-light ml-1"}>am {formatDate(createdAt)}</h4>
                 </div>
                 <Button className={"padding-1"}><SmileOutlined className={"text-base"}/></Button>
             </div>

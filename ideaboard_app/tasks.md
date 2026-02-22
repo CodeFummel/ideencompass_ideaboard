@@ -16,9 +16,9 @@
 [ ] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
 [ ] − Direkte Kontaktmöglichkeit des Ansprechpartners  
 
-#### [ ] 2.4 Dashboard & Übersicht
+#### [x] 2.4 Dashboard & Übersicht
 [x] − Übersicht über neue Ideen, Top-Ideen, Projekte und Umfragen  
-[ ] − Möglichkeit an Umfragen teilzunehmen  
+[x] − Möglichkeit an Umfragen teilzunehmen  
 [x] − Interaktive Filter- und Sortiermöglichkeiten  
 [x] − Hervorhebung der „Top 3 – Ideen der Woche“  
 
@@ -27,7 +27,6 @@
 [x] − Graphische Darstellung dieser Kennzahlen (z. B. Diagramme)  
 
 #### [ ] 2.6 Rollenmanagement
-[x] - Nutzersystem implementieren  
 [ ] − Verwaltung von Nutzerrollen und Berechtigungen (Administratoren, Projektleiter, Mitarbeiter)  
 [ ] − Mitarbeiter können nur Ideen einreichen, bewerten, Kommentare schreiben und an Umfragen teilneh-
 men  
@@ -38,8 +37,8 @@ men
 [ ] − Moderne, intuitive Bedienoberfläche in deutscher Sprache  
 [ ] − Responsive Design für verschiedene Endgeräte  
 
-#### [ ] 2.8 Backend & Datenhaltung
-[ ] - Die Daten werden im Backend verarbeitet und validiert. Zu diesen Daten gehören Benutzerdaten, einge-
+#### [x] 2.8 Backend & Datenhaltung
+[x] - Die Daten werden im Backend verarbeitet und validiert. Zu diesen Daten gehören Benutzerdaten, einge-
 reichte Ideen, Kommentare, Likes, etc.  
 
 #### [ ] 2.9 Optionale Funktionen
