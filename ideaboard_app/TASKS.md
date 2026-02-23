@@ -27,7 +27,7 @@
 [x] − Graphische Darstellung dieser Kennzahlen (z. B. Diagramme)  
 
 #### [ ] 2.6 Rollenmanagement
-[ ] − Verwaltung von Nutzerrollen und Berechtigungen (Administratoren, Projektleiter, Mitarbeiter)  
+[x] − Verwaltung von Nutzerrollen und Berechtigungen (Administratoren, Projektleiter, Mitarbeiter)  
 [ ] − Mitarbeiter können nur Ideen einreichen, bewerten, Kommentare schreiben und an Umfragen teilneh-
 men  
 [ ] − Projektleiter können zusätzlich noch Projekte bearbeiten (z. B. den Status verändern)  

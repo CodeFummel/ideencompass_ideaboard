@@ -1,6 +1,3 @@
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -28,7 +25,10 @@ model User {
   createdAt     DateTime
   updatedAt     DateTime
   userImage     String     @default("none")
-  role          Role       @default(USER)
+  role          String     @default("user")
+  banned        Boolean    @default(false)
+  banReason     String?
+  banExpires    Int?
   sessions      Session[]
   accounts      Account[]
   ideas         Idea[]
@@ -100,9 +100,10 @@ model Idea {
 }
 
 model Like {
-  author    User   @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
   authorId  String
-  idea      Idea   @relation(fields: [likedIdea], references: [id])
+  idea      Idea     @relation(fields: [likedIdea], references: [id])
+  createdAt DateTime @default(now())
   likedIdea Int
 
   @@id(name: "likeId", [authorId, likedIdea])
@@ -181,10 +182,4 @@ model Vote {
 
   @@id(name: "voteId", [authorId, votedPoll])
   @@map("votes")
-}
-
-enum Role {
-  USER
-  LEAD
-  ADMIN
 }

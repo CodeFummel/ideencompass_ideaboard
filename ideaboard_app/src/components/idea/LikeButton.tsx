@@ -1,13 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {LikeFilled, LikeOutlined} from "@ant-design/icons";
-import {Button} from "antd";
+import {Button, notification} from "antd";
 
 export const LikeButton: React.FC<{ ideaId: number }> = ({ideaId}) => {
     const [isLiked, setIsLiked] = useState(false);
 
     const [likes, setLikes] = useState<number | null>(null);
 
-    const fetchLikes = async () => {
+    const [weekLikes, setWeekLikes] = useState<number | null>(null);
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const [api, contextHolder] = notification.useNotification();
+
+    const fetchLikes = useCallback(async () => {
         const response = await fetch(`/likes?ideaId=${ideaId}`, {
             method: "GET",
         });
@@ -16,35 +22,58 @@ export const LikeButton: React.FC<{ ideaId: number }> = ({ideaId}) => {
 
         setLikes(data.count);
         setIsLiked(data.self);
-    }
+        setWeekLikes(data.userWeekLikes);
+    }, [setLikes, setIsLiked, setWeekLikes, ideaId]);
 
     useEffect(() => {
         fetchLikes()
-    }, [])
+    }, [fetchLikes])
+
+    console.log(weekLikes)
 
     const handleLike = async () => {
-        setIsLiked(!isLiked)
+        if(!loading) {
+            setLoading(true);
+            try {
+                if (isLiked || (weekLikes !== null && weekLikes < 3)) {
+                    setIsLiked(!isLiked)
 
-        if (!isLiked) {
-            await fetch("/likes", {
-                method: "POST",
-                body: JSON.stringify({
-                    likedIdea: ideaId,
-                }),
-            });
-        } else {
-            await fetch(`/likes?ideaId=${ideaId}`, {
-                method: "DELETE",
-            })
+                    if (!isLiked) {
+                        await fetch("/likes", {
+                            method: "POST",
+                            body: JSON.stringify({
+                                likedIdea: ideaId,
+                            }),
+                        });
+                    } else {
+                        await fetch(`/likes?ideaId=${ideaId}`, {
+                            method: "DELETE",
+                        })
+                    }
+
+                    fetchLikes();
+                } else {
+                    api.error({
+                        title: 'Alle Likes verbraucht!',
+                        description: 'Sie haben alle ihre Likes aufgebraucht! Alle Nutzer haben drei likes pro Woche.',
+                        duration: 3,
+                        showProgress: true,
+                        pauseOnHover: true,
+                        placement: "top",
+                    });
+                }
+            } finally {
+                setLoading(false);
+            }
         }
-
-        fetchLikes();
     }
 
     return (
-        <Button
-            icon={isLiked ? <LikeFilled/> : <LikeOutlined/>} className={"flex-1"}
-            onClick={handleLike}>{likes}
-        </Button>
+        <>{contextHolder}
+            <Button
+                icon={isLiked ? <LikeFilled/> : <LikeOutlined/>} className={"flex-1"}
+                onClick={handleLike}>{likes}
+            </Button>
+        </>
     )
 }

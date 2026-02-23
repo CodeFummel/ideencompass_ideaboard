@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "users" ALTER COLUMN "banReason" DROP NOT NULL,
+ALTER COLUMN "banReason" DROP DEFAULT;

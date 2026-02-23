@@ -10,30 +10,13 @@ import {Home} from "@/src/components/home/Home";
 import {Dashboard} from "@/src/components/dashboard/Dashboard";
 import {Statistics} from "@/src/components/statistics/Statistics";
 import {LoginPage} from "@/src/components/user/LoginPage";
+import {AdminUserManagment} from "@/src/components/user/AdminUserManagment"
 import {authClient} from "@/src/utils/auth-client";
 import {TabsProvider} from "@/src/components/TabsProvider";
 
 const onChange = (key: string) => {
     console.log(key);
 };
-
-const items: TabsProps["items"] = [
-    {
-        key: "1",
-        label: "Home",
-        children: <Home/>,
-    },
-    {
-        key: "2",
-        label: "Dashboard",
-        children: <Dashboard/>,
-    },
-    {
-        key: "3",
-        label: "Statisken",
-        children: <Statistics/>,
-    },
-]
 
 export const Main: React.FC = () => {
     const {
@@ -45,6 +28,30 @@ export const Main: React.FC = () => {
     if (isPending) {
         return null;
     }
+
+    const items: TabsProps["items"] = [
+        {
+            key: "1",
+            label: "Home",
+            children: <Home/>,
+        },
+        {
+            key: "2",
+            label: "Dashboard",
+            children: <Dashboard/>,
+        },
+        {
+            key: "3",
+            label: "Statisken",
+            children: <Statistics/>,
+        },
+        session?.user.role === "admin" ?
+            {
+                key: "4",
+                label: "Nutzerverwaltung",
+                children: <AdminUserManagment/>
+            } : null
+    ].filter(item => item != null);
 
     return (
         <div className={"flex flex-col h-full"}>
