@@ -1,9 +1,11 @@
 "use client"
 
 import React, {useState} from "react";
-
 import {Radio, RadioChangeEvent} from "antd";
 import {Bar} from "react-chartjs-2";
+import {formatDate} from "@/src/components/dateUtils";
+import {mapOptionsToIds, Vote, voteData} from "@/src/components/votesUtil";
+import dayjs from "dayjs";
 import {
     BarElement,
     CategoryScale,
@@ -14,9 +16,6 @@ import {
     Title,
     Tooltip,
 } from 'chart.js';
-import {formatDate} from "@/src/components/dateUtils";
-import {mapOptionsToIds, Vote, voteData} from "@/src/components/votesUtil";
-import dayjs from "dayjs";
 
 ChartJS.register(
     CategoryScale,
@@ -68,7 +67,7 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
     const chartData = {
         labels: options.map(({content}) => content),
         datasets: [{
-            label: '# anzahl an Stimmen',
+            label: 'Stimmen',
             data: voteData(votes, optionIds),
             backgroundColor: 'rgba(200, 22, 0, 0.2)',
             borderColor: 'rgba(269, 80, 0, 1)',

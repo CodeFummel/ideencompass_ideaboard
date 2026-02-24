@@ -28,10 +28,10 @@
 
 #### [ ] 2.6 Rollenmanagement
 [x] − Verwaltung von Nutzerrollen und Berechtigungen (Administratoren, Projektleiter, Mitarbeiter)  
-[ ] − Mitarbeiter können nur Ideen einreichen, bewerten, Kommentare schreiben und an Umfragen teilneh-
+[x] − Mitarbeiter können nur Ideen einreichen, bewerten, Kommentare schreiben und an Umfragen teilneh-
 men  
 [ ] − Projektleiter können zusätzlich noch Projekte bearbeiten (z. B. den Status verändern)  
-[ ] − Admins können alle Bereiche verwalten (z. B. Ideen löschen)  
+[x] − Admins können alle Bereiche verwalten (z. B. Ideen löschen)  
 
 #### [ ] 2.7 Benutzeroberfläche
 [ ] − Moderne, intuitive Bedienoberfläche in deutscher Sprache  

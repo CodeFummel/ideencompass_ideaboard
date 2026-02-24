@@ -3,6 +3,8 @@
 import React from 'react'
 import {ArcElement, CategoryScale, Chart as ChartJS, Legend, Title, Tooltip,} from 'chart.js';
 import {Pie} from "react-chartjs-2";
+import {categoryData} from "@/src/components/statistics/statUtil";
+import {useIdeas} from "@/src/components/idea/useIdeas";
 
 ChartJS.register(
     CategoryScale,
@@ -12,25 +14,33 @@ ChartJS.register(
     Legend
 );
 
-const data = {
-    labels: [
-        'It',
-        'Cafe',
-        'Pausen'
-    ],
-    datasets: [{
-        label: "Category's by amount",
-        data: [300, 50, 100],
-        backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-        ],
-        hoverOffset: 4
-    }]
-};
-
 export const CategoryStat = () => {
+    const {ideas} = useIdeas();
+
+    const data = {
+        labels: [
+            "Arbeitsplatz",
+            "Cafe",
+            "HR",
+            "IT",
+            "Produkte",
+            "Sonstiges",
+        ],
+        datasets: [{
+            label: "Kategorie nach Menge",
+            data: categoryData(ideas),
+            backgroundColor: [
+                'rgb(255, 50, 255)',
+                'rgb(50, 255, 255)',
+                'rgb(255, 255, 50)',
+                'rgb(255, 50, 0)',
+                'rgb(100, 255, 50)',
+                'rgb(0, 100, 255)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+
     return (
         <div className={"flex-1 h-full border-2 rounded-(--border-radius) border-(--border)"}>
             <div className={"border-b-2 border-(--border) p-2"}>
