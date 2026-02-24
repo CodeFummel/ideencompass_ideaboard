@@ -13,12 +13,9 @@ export async function GET(request: NextRequest) {
     }
 
     const commentedId = request.nextUrl.searchParams.get("ideaId");
-    if (!commentedId) {
-        return NextResponse.json("IdeaId missing (Comment GET)", {status: 400});
-    }
 
     const comments = await prisma.comment.findMany({
-        where: {commentedId: parseInt(commentedId)},
+        where: commentedId !== null ? {commentedId: parseInt(commentedId)} : undefined,
     });
 
     return NextResponse.json(comments);

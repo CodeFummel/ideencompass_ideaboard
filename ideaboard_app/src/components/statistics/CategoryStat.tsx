@@ -3,8 +3,9 @@
 import React from 'react'
 import {ArcElement, CategoryScale, Chart as ChartJS, Legend, Title, Tooltip,} from 'chart.js';
 import {Pie} from "react-chartjs-2";
-import {categoryData} from "@/src/components/statistics/statUtil";
+import {categoryData, Period} from "@/src/components/statistics/statUtil";
 import {useIdeas} from "@/src/components/idea/useIdeas";
+import {Idea} from "@/src/components/idea/useIdeas";
 
 ChartJS.register(
     CategoryScale,
@@ -14,8 +15,10 @@ ChartJS.register(
     Legend
 );
 
-export const CategoryStat = () => {
-    const {ideas} = useIdeas();
+export const CategoryStat = ({ideas, period}: {
+    period: Period;
+    ideas: Idea[];
+}) => {
 
     const data = {
         labels: [
@@ -28,7 +31,7 @@ export const CategoryStat = () => {
         ],
         datasets: [{
             label: "Kategorie nach Menge",
-            data: categoryData(ideas),
+            data: categoryData(ideas, period),
             backgroundColor: [
                 'rgb(255, 50, 255)',
                 'rgb(50, 255, 255)',

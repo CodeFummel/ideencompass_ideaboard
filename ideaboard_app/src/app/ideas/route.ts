@@ -11,8 +11,6 @@ export async function GET(request: Request) {
         },
     });
 
-    //console.info({ideas});
-
     // Get files of the specific idea
     const result = await Promise.all(ideas.map(async idea => {
         const transformFiles = idea.files.map(file => ({

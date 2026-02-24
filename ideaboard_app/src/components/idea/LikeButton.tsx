@@ -20,7 +20,7 @@ export const LikeButton: React.FC<{ ideaId: number }> = ({ideaId}) => {
 
         const data = await response.json();
 
-        setLikes(data.count);
+        setLikes(data.likes.length);
         setIsLiked(data.self);
         setWeekLikes(data.userWeekLikes);
     }, [setLikes, setIsLiked, setWeekLikes, ideaId]);

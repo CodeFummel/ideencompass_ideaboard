@@ -14,12 +14,9 @@ export async function GET(request: NextRequest) {
     }
 
     const ideaId = request.nextUrl.searchParams.get("ideaId");
-    if (!ideaId) {
-        return new Response("IdeaId missing", {status: 400});
-    }
 
     const likes = await prisma.like.findMany({
-        where: {likedIdea: parseInt(ideaId)},
+        where: ideaId !== null ? {likedIdea: parseInt(ideaId)} : undefined,
     });
 
     const self = likes.find((like) => like.authorId === session.user.id);
@@ -28,9 +25,9 @@ export async function GET(request: NextRequest) {
         where: {authorId: session.user.id},
     });
 
-    const userWeekLikes = allUserLikes.filter((like) => dayjs(like.createdAt) >= dayjs().startOf('year'));
+    const userWeekLikes = allUserLikes.filter((like) => dayjs(like.createdAt) >= dayjs().startOf('week'));
 
-    return NextResponse.json({count: likes.length, self: !!self, userWeekLikes: userWeekLikes.length});
+    return NextResponse.json({likes, self: !!self, userWeekLikes: userWeekLikes.length});
 }
 
 export async function POST(request: Request) {

@@ -1,8 +1,9 @@
 "use client"
 
-import React from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Bar} from "react-chartjs-2";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from 'chart.js';
+import {countLabels, countData, Period} from "@/src/components/statistics/statUtil";;
 
 ChartJS.register(
     CategoryScale,
@@ -13,13 +14,32 @@ ChartJS.register(
     Legend
 );
 
-export const LikeCount = () => {
+type Like = {createdAt: string};
+
+export const LikeCount= ({period}: {
+    period: Period;
+}) => {
+
+    const [likes, setLikes] = useState<Like[]>([]);
+
+    useEffect(() => {
+        fetch(`/likes`).then((response) => {
+            if (response.ok) {
+                response.json().then((x) => {
+                    console.info(x);
+                    setLikes(x.likes);
+                }).catch((error) => console.log("Catch in useffect in get likes", error))
+            } else {
+                console.info(response.statusText);
+            }
+        })
+    }, [setLikes]);
 
     const data = {
-        labels: ['Samstag', 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Gestern', 'Heute'],
+        labels: countLabels(period),
         datasets: [{
-            label: '# Anzahl von Likes im Zeitraum',
-            data: [1, 11, 9, 21, 5, 4, 13],
+            label: '# Neue Likes im Zeitraum',
+            data: countData(likes, period),
             backgroundColor: 'rgba(255, 50, 0, 0.2)',
             borderColor: 'rgba(200, 29, 0, 1)',
             borderWidth: 1

@@ -3,6 +3,9 @@
 import React from 'react'
 import {Bar} from "react-chartjs-2";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from 'chart.js';
+import {countLabels, countData, Period} from "@/src/components/statistics/statUtil";
+import {Idea} from "@/src/components/idea/useIdeas";
+
 
 ChartJS.register(
     CategoryScale,
@@ -13,13 +16,16 @@ ChartJS.register(
     Legend
 );
 
-export const IdeaCount = () => {
+export const IdeaCount = ({ideas, period}: {
+    period: Period;
+    ideas: Idea[];
+}) => {
 
     const data = {
-        labels: ['Samstag', 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Gestern', 'Heute'],
+        labels: countLabels(period),
         datasets: [{
-            label: '# Anzahl von Ideen im Zeitraum',
-            data: [12, 19, 3, 5, 2, 3, 15],
+            label: '# Neue Ideen im Zeitraum',
+            data: countData(ideas, period),
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
