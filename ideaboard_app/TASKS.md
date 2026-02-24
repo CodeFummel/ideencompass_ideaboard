@@ -6,7 +6,7 @@
 
 #### [ ] 2.2 Ideen fördern & bewerten
 [x] − Eingereichte Ideen können geliked werden  
-[ ] − Jeder Nutzer hat drei Likes pro Woche  
+[x] − Jeder Nutzer hat drei Likes pro Woche  
 [x] − Ideen können kommentiert werden (max. 200 Zeichen)  
 [ ] − Nutzer können auf Kommentare reagieren (z. B. mit Emojis)  
 

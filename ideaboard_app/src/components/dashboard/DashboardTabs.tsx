@@ -65,7 +65,7 @@ const DashboardTabs: React.FC = () => {
 
     const {activeKey, setActiveKey, items, setItems, removeItem} = useContext(TabsContext);
 
-    const [filter, setFilter] = useState<Filter>({type: "category", value: "Sonstiges"});
+    const [filter, setFilter] = useState<Filter>({type: "time", value: "all"});
     const [sort, setSort] = useState<SortFunction>("createdAt");
     const [sortDirection, setSortDirection] = useState<boolean>(true);
 

@@ -19,6 +19,7 @@ import {createAuthClient} from "better-auth/react"
 import {Idea} from "@/src/components/idea/useIdeas";
 import {RcFile} from "antd/lib/upload";
 import {TabsContext} from "@/src/components/TabsProvider";
+import {authClient} from "@/src/utils/auth-client";
 
 const {useSession} = createAuthClient()
 
@@ -88,8 +89,8 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
 
     const {
         data: session,
-        error,
-    } = useSession()
+    } = authClient.useSession();
+
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -241,30 +242,42 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
             </Form.Item>
             <div className={"flex flex-row flex-1 gap-4"}>
                 <Form.Item className={"m-2"}>
-                    <Popconfirm title={"Idee in ein Projekt umwandeln?"}
-                                description={"Diese Aktion kann nicht rückgängig gemacht werden!\n " +
-                                    "Sie werden das Projekt zusätzlich bearbeiten müssen."}
-                                okText={"Umwandeln"}
-                                cancelText={"Abbrechen"}
-                                icon={<DoubleRightOutlined/>}
-                    >
-                        <Button icon={<DoubleRightOutlined/>} type={"primary"}>
+                    {session?.user.role != "user" ?
+                        <Popconfirm title={"Idee in ein Projekt umwandeln?"}
+                                    description={"Diese Aktion kann nicht rückgängig gemacht werden!\n " +
+                                        "Sie werden das Projekt zusätzlich bearbeiten müssen."}
+                                    okText={"Umwandeln"}
+                                    cancelText={"Abbrechen"}
+                                    icon={<DoubleRightOutlined/>}
+                        >
+                            <Button icon={<DoubleRightOutlined/>} type={"primary"}>
+                                <span>In Projekt umwandeln</span>
+                            </Button>
+                        </Popconfirm>
+                        :
+                        <Button icon={<DoubleRightOutlined/>} type={"primary"} disabled={true}>
                             <span>In Projekt umwandeln</span>
                         </Button>
-                    </Popconfirm>
+                    }
                 </Form.Item>
                 <Form.Item className={"m-2"}>
-                    <Popconfirm title={"Idee löschen?"}
-                                description={"Diese Aktion kann nicht rückgängig gemacht werden!"}
-                                okText={"Löschen"}
-                                cancelText={"Abbrechen"}
-                                onConfirm={confirmDelete}
-                                icon={<DeleteOutlined style={{color: "red"}}/>}
-                    >
-                        <Button icon={<DeleteOutlined/>} type={"primary"} danger>
+                    {session?.user.role != "lead" ?
+                        <Popconfirm title={"Idee löschen?"}
+                                    description={"Diese Aktion kann nicht rückgängig gemacht werden!"}
+                                    okText={"Löschen"}
+                                    cancelText={"Abbrechen"}
+                                    onConfirm={confirmDelete}
+                                    icon={<DeleteOutlined style={{color: "red"}}/>}
+                        >
+                            <Button icon={<DeleteOutlined/>} type={"primary"} danger>
+                                <span>Löschen</span>
+                            </Button>
+                        </Popconfirm>
+                        :
+                        <Button icon={<DeleteOutlined/>} type={"primary"} danger disabled={true}>
                             <span>Löschen</span>
                         </Button>
-                    </Popconfirm>
+                    }
                 </Form.Item>
             </div>
         </Form>
