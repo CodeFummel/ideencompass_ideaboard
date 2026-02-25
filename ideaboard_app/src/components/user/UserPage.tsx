@@ -46,7 +46,7 @@ const UserDashboard = () => {
             <p>Avatar: {session?.user.image}</p>
             <p>Benutzername: {session?.user.name}</p>
             <p>Email: {session?.user.email}</p>
-            <Button onClick={handleSignOut}>Abmelden</Button>
+            <Button onClick={handleSignOut} >Abmelden</Button>
             <Button href={"/"}>Dashboard</Button>
         </div>
     )

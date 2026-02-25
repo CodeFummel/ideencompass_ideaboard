@@ -29,7 +29,7 @@ export const Main: React.FC = () => {
         return null;
     }
 
-    const items: TabsProps["items"] = [
+    const items: TabsProps["items"]= [
         {
             key: "1",
             label: "Home",

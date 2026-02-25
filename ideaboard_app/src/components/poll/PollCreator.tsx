@@ -142,7 +142,7 @@ export const PollCreator: React.FC = () => {
                             ))}
                             <Form.Item className={"flex flex-row justify-evenly"}>
                                 <Button
-                                    className="flex-1"
+                                    className="flex-1 shadow-blue-500/50"
                                     type="dashed"
                                     onClick={() => add()}
                                     style={{width: '100%'}}

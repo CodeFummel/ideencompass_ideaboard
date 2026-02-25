@@ -1,6 +1,3 @@
--- CreateEnum
-CREATE TYPE "Role" AS ENUM ('USER', 'LEAD', 'ADMIN');
-
 -- CreateTable
 CREATE TABLE "files" (
     "id" SERIAL NOT NULL,
@@ -20,7 +17,10 @@ CREATE TABLE "users" (
     "createdAt" TIMESTAMP(3) NOT NULL,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userImage" TEXT NOT NULL DEFAULT 'none',
-    "role" "Role" NOT NULL DEFAULT 'USER',
+    "role" TEXT NOT NULL DEFAULT 'user',
+    "banned" BOOLEAN NOT NULL DEFAULT false,
+    "banReason" TEXT,
+    "banExpires" INTEGER,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -82,6 +82,7 @@ CREATE TABLE "ideas" (
 -- CreateTable
 CREATE TABLE "likes" (
     "authorId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "likedIdea" INTEGER NOT NULL,
 
     CONSTRAINT "likes_pkey" PRIMARY KEY ("authorId","likedIdea")
@@ -137,10 +138,18 @@ CREATE TABLE "polls" (
 CREATE TABLE "options" (
     "id" SERIAL NOT NULL,
     "content" TEXT NOT NULL,
-    "votes" INTEGER NOT NULL DEFAULT 0,
     "pollId" INTEGER NOT NULL,
 
     CONSTRAINT "options_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "votes" (
+    "authorId" TEXT NOT NULL,
+    "votedPoll" INTEGER NOT NULL,
+    "votedOption" INTEGER NOT NULL,
+
+    CONSTRAINT "votes_pkey" PRIMARY KEY ("authorId","votedPoll")
 );
 
 -- CreateIndex
@@ -202,3 +211,12 @@ ALTER TABLE "polls" ADD CONSTRAINT "polls_authorId_fkey" FOREIGN KEY ("authorId"
 
 -- AddForeignKey
 ALTER TABLE "options" ADD CONSTRAINT "options_pollId_fkey" FOREIGN KEY ("pollId") REFERENCES "polls"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "votes" ADD CONSTRAINT "votes_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "votes" ADD CONSTRAINT "votes_votedPoll_fkey" FOREIGN KEY ("votedPoll") REFERENCES "polls"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "votes" ADD CONSTRAINT "votes_votedOption_fkey" FOREIGN KEY ("votedOption") REFERENCES "options"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -245,7 +245,7 @@ const DashboardTabs: React.FC = () => {
             items: filterOptions,
             selectedKeys: [filter.value],
         }}>
-            <FilterOutlined className={"mr-2 p-2 border-2 rounded-(--border-radius) border-(--border)"}/>
+            <FilterOutlined className={"mr-2 p-2 border-2 rounded-(--border-radius) border-(--border) shadow-lg"}/>
         </Dropdown>
         <Dropdown trigger={["click"]} menu={{
             onClick: ({keyPath}) => {
@@ -255,7 +255,7 @@ const DashboardTabs: React.FC = () => {
             items: sortOptions,
             selectedKeys: [`${sort}_${sortDirection ? "down" : "up"}`],
         }}>
-            <SortAscendingOutlined className={"p-2 border-2 rounded-(--border-radius) border-(--border)"}/>
+            <SortAscendingOutlined className={"p-2 border-2 rounded-(--border-radius) border-(--border) shadow-lg"}/>
         </Dropdown>
     </div>
 

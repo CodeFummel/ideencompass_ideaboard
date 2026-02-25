@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react'
+import React from 'react'
 import {CategoryStat} from "@/src/components/statistics/CategoryStat";
 import {BestIdea} from "@/src/components/statistics/BestIdea";
 import {CommentCount} from "@/src/components/statistics/CommentCount";

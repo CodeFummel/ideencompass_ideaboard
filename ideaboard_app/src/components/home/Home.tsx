@@ -7,13 +7,13 @@ import {TopThreeIdeas} from "@/src/components/home/TopThreeIdeas";
 export const Home = () => {
     return (
         <div className={"grid grid-cols-3 gap-4 h-dvh m-4 mt-0"}>
-            <div className={"h-full"}>
+            <div className={"h-full shadow-lg"}>
                 <MyIdeas/>
             </div>
-            <div className={"h-full"}>
+            <div className={"h-full shadow-lg"}>
                 <MyProjects/>
             </div>
-            <div className={"h-full"}>
+            <div className={"h-full shadow-lg"}>
                 <TopThreeIdeas/>
             </div>
         </div>
