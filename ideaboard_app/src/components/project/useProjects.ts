@@ -2,10 +2,13 @@ import {useCallback, useEffect, useState} from "react";
 
 export type Project = {
     id: number,
+    title: string,
     body: string,
     parentIdea: number,
     progress: number,
+    status: string,
     managerId: string,
+    createdAt: Date,
 }
 
 export type FilterFn = (projects: Project[]) => Project[];

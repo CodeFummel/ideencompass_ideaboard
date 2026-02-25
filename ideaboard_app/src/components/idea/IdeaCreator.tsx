@@ -13,15 +13,14 @@ import {
     UploadFile,
     UploadProps
 } from 'antd';
-import {Ref, useContext, useImperativeHandle, useRef, useState} from "react";
+import React, {Ref, useContext, useImperativeHandle, useRef, useState} from "react";
 
-import {createAuthClient} from "better-auth/react"
 import {Idea} from "@/src/components/idea/useIdeas";
+import {Project, useProjects} from "@/src/components/project/useProjects";
 import {RcFile} from "antd/lib/upload";
 import {TabsContext} from "@/src/components/TabsProvider";
 import {authClient} from "@/src/utils/auth-client";
-
-const {useSession} = createAuthClient()
+import {ProjectCreator} from "@/src/components/project/ProjectCreator";
 
 // Categories
 const categoryOptions = [
@@ -78,8 +77,9 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     })) ?? []);
 
     const formRef = useRef<FormInstance>(null)
+    const newTabIndex = useRef(0);
 
-    const {activeKey, removeItem} = useContext(TabsContext);
+    const {activeKey, removeItem, setActiveKey, items, setItems} = useContext(TabsContext);
 
     useImperativeHandle(ref, () => ({
         submit: () => {
@@ -90,7 +90,6 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     const {
         data: session,
     } = authClient.useSession();
-
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -173,6 +172,32 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         fileList,
     };
 
+    const confirmConversion = () => {
+        const previousKey = activeKey;
+        const newActiveKey = `newTab${newTabIndex.current++}`;
+        setItems([...items, {
+            label: initialIdea?.title,
+            children: <ProjectCreator ref={(node) => {
+                ref.current.set(newActiveKey, node);
+            }} onProjectSaved={function (): void {
+                //refreshProjects();
+                api.open({
+                    title: 'Idee gespeichert!',
+                    description: 'Sie haben Ihre Idee erfolgreich abgeschickt.',
+                    duration: 5,
+                    showProgress: true,
+                    pauseOnHover: true,
+                    placement: "top",
+                });
+            }}/>,
+            key: newActiveKey,
+            closable: true,
+            forceRender: false,
+        }]);
+        setActiveKey(newActiveKey);
+        removeItem(previousKey);
+    };
+
     const confirmDelete = async () => {
         const result = await fetch(`/ideas/${initialIdea?.id}`, {
             method: "DELETE",
@@ -185,7 +210,7 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         } else {
             console.info("Server IdeaCreator Input Error")
         }
-    }
+    };
 
     return (
         <Form className="flex-1 overflow-y-auto"
@@ -248,6 +273,7 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                                         "Sie werden das Projekt zusätzlich bearbeiten müssen."}
                                     okText={"Umwandeln"}
                                     cancelText={"Abbrechen"}
+                                    onConfirm={confirmConversion}
                                     icon={<DoubleRightOutlined/>}
                         >
                             <Button icon={<DoubleRightOutlined/>} type={"primary"}>
@@ -283,3 +309,7 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         </Form>
     );
 };
+
+function setItems(arg0: any[]) {
+    throw new Error("Function not implemented.");
+}

@@ -197,9 +197,12 @@ export type ReactionScalarFieldEnum = (typeof ReactionScalarFieldEnum)[keyof typ
 export const ProjectScalarFieldEnum = {
   id: 'id',
   parentIdea: 'parentIdea',
+  title: 'title',
   body: 'body',
   progress: 'progress',
-  managerId: 'managerId'
+  status: 'status',
+  managerId: 'managerId',
+  createdAt: 'createdAt'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]

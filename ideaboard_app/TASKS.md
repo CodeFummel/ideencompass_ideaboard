@@ -22,15 +22,15 @@
 [x] − Interaktive Filter- und Sortiermöglichkeiten  
 [x] − Hervorhebung der „Top 3 – Ideen der Woche“  
 
-#### [ ] 2.5 Statistiken & Reporting
-[ ] − Anzeige von Kennzahlen (Anzahl neuer Ideen, Beliebtesten Kategorien, Beliebteste Idee)  
+#### [x] 2.5 Statistiken & Reporting
+[x] − Anzeige von Kennzahlen (Anzahl neuer Ideen, Beliebtesten Kategorien, Beliebteste Idee)  
 [x] − Graphische Darstellung dieser Kennzahlen (z. B. Diagramme)  
 
-#### [ ] 2.6 Rollenmanagement
+#### [x] 2.6 Rollenmanagement
 [x] − Verwaltung von Nutzerrollen und Berechtigungen (Administratoren, Projektleiter, Mitarbeiter)  
 [x] − Mitarbeiter können nur Ideen einreichen, bewerten, Kommentare schreiben und an Umfragen teilneh-
 men  
-[ ] − Projektleiter können zusätzlich noch Projekte bearbeiten (z. B. den Status verändern)  
+[x] − Projektleiter können zusätzlich noch Projekte bearbeiten (z. B. den Status verändern)  
 [x] − Admins können alle Bereiche verwalten (z. B. Ideen löschen)  
 
 #### [ ] 2.7 Benutzeroberfläche
@@ -43,3 +43,13 @@ reichte Ideen, Kommentare, Likes, etc.
 
 #### [ ] 2.9 Optionale Funktionen
 [ ] - Dark Mode 
+
+### Zum fixen:
+- Nutzerdaten oben rechts werden teilweise beim einloggen vom vorherigen Nutzer angezeigt
+- Änderung von Nutzerdaten
+- Profilbilder
+- Menge an Zeiträumen in Statistiken
+- Beim kommentieren Idee neuladen
+- Pollcreator irgendwo unterbringen
+- Top 3 ideen der woch irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
+- Umfragen nochmal durchchecken

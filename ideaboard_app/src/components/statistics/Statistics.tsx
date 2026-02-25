@@ -8,11 +8,11 @@ import {IdeaCount} from "@/src/components/statistics/IdeaCount";
 import {LikeCount} from "@/src/components/statistics/LikeCount";
 import type {Period} from "@/src/components/statistics/statUtil";
 import {Radio, RadioChangeEvent} from "antd";
-import {useIdeas, Idea} from "@/src/components/idea/useIdeas";
+import {useIdeas} from "@/src/components/idea/useIdeas";
 
 export const Statistics: React.FC = () => {
 
-    const [period, setPeriod] = useState<Period>("all");
+    const [period, setPeriod] = useState<Period>("week");
 
     const {ideas} = useIdeas();
 

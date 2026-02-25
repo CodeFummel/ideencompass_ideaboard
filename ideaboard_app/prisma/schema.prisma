@@ -136,13 +136,16 @@ model Reaction {
 }
 
 model Project {
-  id         Int    @id @default(autoincrement())
-  idea       Idea   @relation(fields: [parentIdea], references: [id])
+  id         Int      @id @default(autoincrement())
+  idea       Idea     @relation(fields: [parentIdea], references: [id])
   parentIdea Int
+  title      String
   body       String
-  progress   Int    @default(0)
-  manager    User   @relation(fields: [managerId], references: [id])
+  progress   Int      @default(0)
+  status     String   @default("concept")
+  manager    User     @relation(fields: [managerId], references: [id])
   managerId  String
+  createdAt  DateTime @default(now())
 
   @@map("projects")
 }
