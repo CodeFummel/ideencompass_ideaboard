@@ -65,7 +65,7 @@ export interface IdeaCreatorRef {
     submit: () => void
 }
 
-export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
+const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     ref?: Ref<IdeaCreatorRef>,
     onIdeaSaved: () => void,
     initialIdea?: Idea,
@@ -101,6 +101,10 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         setPreviousInitialIdea(initialIdea);
         return null;
     }
+
+    const isNewIdea = () => {
+        return initialIdea !== null;
+    };
 
     const encodeFile = async (blob: File): Promise<string> => {
         const reader = new FileReader();
@@ -189,7 +193,8 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                     pauseOnHover: true,
                     placement: "top",
                 });
-            }}/>,
+            }} idea={initialIdea as Idea}
+            />,
             key: newActiveKey,
             closable: true,
             forceRender: false,
@@ -276,7 +281,7 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                                     onConfirm={confirmConversion}
                                     icon={<DoubleRightOutlined/>}
                         >
-                            <Button icon={<DoubleRightOutlined/>} type={"primary"}>
+                            <Button icon={<DoubleRightOutlined/>} type={"primary"} disabled={!isNewIdea()}>
                                 <span>In Projekt umwandeln</span>
                             </Button>
                         </Popconfirm>
@@ -309,6 +314,7 @@ export const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         </Form>
     );
 };
+export default IdeaCreator
 
 function setItems(arg0: any[]) {
     throw new Error("Function not implemented.");

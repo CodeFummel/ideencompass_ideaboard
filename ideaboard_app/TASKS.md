@@ -4,11 +4,11 @@
 [x] − Möglichkeit zur Bearbeitung eigener eingereichten Ideen  
 [x] − Option zum Hochladen von Dateien zu Ideen  
 
-#### [ ] 2.2 Ideen fördern & bewerten
+#### [x] 2.2 Ideen fördern & bewerten
 [x] − Eingereichte Ideen können geliked werden  
 [x] − Jeder Nutzer hat drei Likes pro Woche  
 [x] − Ideen können kommentiert werden (max. 200 Zeichen)  
-[ ] − Nutzer können auf Kommentare reagieren (z. B. mit Emojis)  
+[x] − Nutzer können auf Kommentare reagieren (z. B. mit Emojis)  
 
 #### [ ] 2.3 Projektübersicht
 [ ] − Übersicht über alle aktuell laufenden Projekte  
@@ -51,5 +51,5 @@ reichte Ideen, Kommentare, Likes, etc.
 - Menge an Zeiträumen in Statistiken
 - Beim kommentieren Idee neuladen (eigentlich implementiert)
 - Pollcreator irgendwo unterbringen
-- Top 3 ideen der woch irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
+- Top 3 ideen der woche irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
 - Umfragen nochmal durchchecken

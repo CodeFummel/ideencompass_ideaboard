@@ -3,7 +3,7 @@
 import React, {useCallback, useContext, useMemo, useRef, useState} from 'react';
 import {Button, Dropdown, MenuProps, notification, Tabs} from 'antd';
 import {FilterOutlined, SortAscendingOutlined} from "@ant-design/icons";
-import {IdeaCreator, IdeaCreatorRef} from "../idea/IdeaCreator";
+import IdeaCreator, {IdeaCreatorRef} from "../idea/IdeaCreator";
 
 import IdeaList from "@/src/components/idea/IdeaList";
 import {Idea, useIdeas} from "@/src/components/idea/useIdeas";

@@ -1,11 +1,12 @@
 "use client"
 
-import React, {Ref, useContext, useImperativeHandle, useRef} from "react";
+import React, {Ref, useContext, useImperativeHandle, useMemo, useRef} from "react";
 import {Idea} from "@/src/components/idea/useIdeas";
 import {Form, FormInstance, Input, notification} from "antd";
 import {TabsContext} from "@/src/components/TabsProvider";
 import {authClient} from "@/src/utils/auth-client";
 import IdeaList from "@/src/components/idea/IdeaList";
+import dayjs from "dayjs";
 
 
 export interface ProjectCreatorRef {
@@ -33,6 +34,7 @@ export const ProjectCreator = ({ref, idea, onProjectSaved}: {
     const {
         data: session,
     } = authClient.useSession();
+
 
     const onFormError = () => {
         console.error("IdeaCreator Input Error")
@@ -83,7 +85,9 @@ export const ProjectCreator = ({ref, idea, onProjectSaved}: {
             </Form>
             <div>
                 <h3>Ursprüngliche Idee: </h3>
-                <IdeaList />
+                <IdeaList ideas={[idea]} onIdeaEdit={function(id: number): void {
+                    throw new Error("Function not implemented.");
+                } } />
             </div>
         </>
     )
