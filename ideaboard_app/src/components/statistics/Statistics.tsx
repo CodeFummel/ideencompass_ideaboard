@@ -9,6 +9,7 @@ import {LikeCount} from "@/src/components/statistics/LikeCount";
 import type {Period} from "@/src/components/statistics/statUtil";
 import {Radio, RadioChangeEvent} from "antd";
 import {useIdeas} from "@/src/components/idea/useIdeas";
+import {useState} from "react";
 
 export const Statistics: React.FC = () => {
 

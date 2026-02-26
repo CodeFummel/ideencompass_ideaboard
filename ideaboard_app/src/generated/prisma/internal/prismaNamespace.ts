@@ -1500,8 +1500,8 @@ export type IdeaScalarFieldEnum = (typeof IdeaScalarFieldEnum)[keyof typeof Idea
 
 export const LikeScalarFieldEnum = {
   authorId: 'authorId',
-  createdAt: 'createdAt',
-  likedIdea: 'likedIdea'
+  likedIdea: 'likedIdea',
+  createdAt: 'createdAt'
 } as const
 
 export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]

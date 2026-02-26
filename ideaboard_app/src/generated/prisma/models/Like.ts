@@ -36,20 +36,20 @@ export type LikeSumAggregateOutputType = {
 
 export type LikeMinAggregateOutputType = {
   authorId: string | null
-  createdAt: Date | null
   likedIdea: number | null
+  createdAt: Date | null
 }
 
 export type LikeMaxAggregateOutputType = {
   authorId: string | null
-  createdAt: Date | null
   likedIdea: number | null
+  createdAt: Date | null
 }
 
 export type LikeCountAggregateOutputType = {
   authorId: number
-  createdAt: number
   likedIdea: number
+  createdAt: number
   _all: number
 }
 
@@ -64,20 +64,20 @@ export type LikeSumAggregateInputType = {
 
 export type LikeMinAggregateInputType = {
   authorId?: true
-  createdAt?: true
   likedIdea?: true
+  createdAt?: true
 }
 
 export type LikeMaxAggregateInputType = {
   authorId?: true
-  createdAt?: true
   likedIdea?: true
+  createdAt?: true
 }
 
 export type LikeCountAggregateInputType = {
   authorId?: true
-  createdAt?: true
   likedIdea?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -169,8 +169,8 @@ export type LikeGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type LikeGroupByOutputType = {
   authorId: string
-  createdAt: Date
   likedIdea: number
+  createdAt: Date
   _count: LikeCountAggregateOutputType | null
   _avg: LikeAvgAggregateOutputType | null
   _sum: LikeSumAggregateOutputType | null
@@ -198,16 +198,16 @@ export type LikeWhereInput = {
   OR?: Prisma.LikeWhereInput[]
   NOT?: Prisma.LikeWhereInput | Prisma.LikeWhereInput[]
   authorId?: Prisma.StringFilter<"Like"> | string
-  createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   likedIdea?: Prisma.IntFilter<"Like"> | number
+  createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   idea?: Prisma.XOR<Prisma.IdeaScalarRelationFilter, Prisma.IdeaWhereInput>
 }
 
 export type LikeOrderByWithRelationInput = {
   authorId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   likedIdea?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
   idea?: Prisma.IdeaOrderByWithRelationInput
 }
@@ -218,16 +218,16 @@ export type LikeWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.LikeWhereInput[]
   NOT?: Prisma.LikeWhereInput | Prisma.LikeWhereInput[]
   authorId?: Prisma.StringFilter<"Like"> | string
-  createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   likedIdea?: Prisma.IntFilter<"Like"> | number
+  createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   idea?: Prisma.XOR<Prisma.IdeaScalarRelationFilter, Prisma.IdeaWhereInput>
 }, "likeId">
 
 export type LikeOrderByWithAggregationInput = {
   authorId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   likedIdea?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.LikeCountOrderByAggregateInput
   _avg?: Prisma.LikeAvgOrderByAggregateInput
   _max?: Prisma.LikeMaxOrderByAggregateInput
@@ -240,8 +240,8 @@ export type LikeScalarWhereWithAggregatesInput = {
   OR?: Prisma.LikeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.LikeScalarWhereWithAggregatesInput | Prisma.LikeScalarWhereWithAggregatesInput[]
   authorId?: Prisma.StringWithAggregatesFilter<"Like"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Like"> | Date | string
   likedIdea?: Prisma.IntWithAggregatesFilter<"Like"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Like"> | Date | string
 }
 
 export type LikeCreateInput = {
@@ -252,8 +252,8 @@ export type LikeCreateInput = {
 
 export type LikeUncheckedCreateInput = {
   authorId: string
-  createdAt?: Date | string
   likedIdea: number
+  createdAt?: Date | string
 }
 
 export type LikeUpdateInput = {
@@ -264,14 +264,14 @@ export type LikeUpdateInput = {
 
 export type LikeUncheckedUpdateInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likedIdea?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeCreateManyInput = {
   authorId: string
-  createdAt?: Date | string
   likedIdea: number
+  createdAt?: Date | string
 }
 
 export type LikeUpdateManyMutationInput = {
@@ -280,8 +280,8 @@ export type LikeUpdateManyMutationInput = {
 
 export type LikeUncheckedUpdateManyInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likedIdea?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeListRelationFilter = {
@@ -301,8 +301,8 @@ export type LikeLikeIdCompoundUniqueInput = {
 
 export type LikeCountOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   likedIdea?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type LikeAvgOrderByAggregateInput = {
@@ -311,14 +311,14 @@ export type LikeAvgOrderByAggregateInput = {
 
 export type LikeMaxOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   likedIdea?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type LikeMinOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   likedIdea?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type LikeSumOrderByAggregateInput = {
@@ -415,8 +415,8 @@ export type LikeCreateWithoutAuthorInput = {
 }
 
 export type LikeUncheckedCreateWithoutAuthorInput = {
-  createdAt?: Date | string
   likedIdea: number
+  createdAt?: Date | string
 }
 
 export type LikeCreateOrConnectWithoutAuthorInput = {
@@ -450,8 +450,8 @@ export type LikeScalarWhereInput = {
   OR?: Prisma.LikeScalarWhereInput[]
   NOT?: Prisma.LikeScalarWhereInput | Prisma.LikeScalarWhereInput[]
   authorId?: Prisma.StringFilter<"Like"> | string
-  createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   likedIdea?: Prisma.IntFilter<"Like"> | number
+  createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
 }
 
 export type LikeCreateWithoutIdeaInput = {
@@ -491,8 +491,8 @@ export type LikeUpdateManyWithWhereWithoutIdeaInput = {
 }
 
 export type LikeCreateManyAuthorInput = {
-  createdAt?: Date | string
   likedIdea: number
+  createdAt?: Date | string
 }
 
 export type LikeUpdateWithoutAuthorInput = {
@@ -501,13 +501,13 @@ export type LikeUpdateWithoutAuthorInput = {
 }
 
 export type LikeUncheckedUpdateWithoutAuthorInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likedIdea?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeUncheckedUpdateManyWithoutAuthorInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likedIdea?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeCreateManyIdeaInput = {
@@ -534,35 +534,35 @@ export type LikeUncheckedUpdateManyWithoutIdeaInput = {
 
 export type LikeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   authorId?: boolean
-  createdAt?: boolean
   likedIdea?: boolean
+  createdAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   idea?: boolean | Prisma.IdeaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["like"]>
 
 export type LikeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   authorId?: boolean
-  createdAt?: boolean
   likedIdea?: boolean
+  createdAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   idea?: boolean | Prisma.IdeaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["like"]>
 
 export type LikeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   authorId?: boolean
-  createdAt?: boolean
   likedIdea?: boolean
+  createdAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   idea?: boolean | Prisma.IdeaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["like"]>
 
 export type LikeSelectScalar = {
   authorId?: boolean
-  createdAt?: boolean
   likedIdea?: boolean
+  createdAt?: boolean
 }
 
-export type LikeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"authorId" | "createdAt" | "likedIdea", ExtArgs["result"]["like"]>
+export type LikeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"authorId" | "likedIdea" | "createdAt", ExtArgs["result"]["like"]>
 export type LikeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   idea?: boolean | Prisma.IdeaDefaultArgs<ExtArgs>
@@ -584,8 +584,8 @@ export type $LikePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     authorId: string
-    createdAt: Date
     likedIdea: number
+    createdAt: Date
   }, ExtArgs["result"]["like"]>
   composites: {}
 }
@@ -1012,8 +1012,8 @@ export interface Prisma__LikeClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface LikeFieldRefs {
   readonly authorId: Prisma.FieldRef<"Like", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Like", 'DateTime'>
   readonly likedIdea: Prisma.FieldRef<"Like", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Like", 'DateTime'>
 }
     
 
