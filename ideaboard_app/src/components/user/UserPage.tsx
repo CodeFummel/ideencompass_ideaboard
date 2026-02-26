@@ -4,13 +4,9 @@ import React, {useEffect, useMemo, useState} from "react";
 import type {GetProp, UploadFile, UploadProps} from 'antd';
 import {Button, Form, Image, Input, Tabs, TabsProps, Upload} from "antd";
 
-import {createAuthClient} from "better-auth/react"
 import {authClient} from "@/src/utils/auth-client";
 import {useRouter} from "next/navigation";
 import {PlusOutlined} from '@ant-design/icons';
-import {RcFile} from "antd/lib/upload";
-
-const {useSession} = createAuthClient()
 
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -30,8 +26,8 @@ const UserDashboard = () => {
 
     const {
         data: session,
-        error, //error object
-    } = useSession()
+    } = authClient.useSession()
+
 
     const handleSignOut = async () => {
         await authClient.signOut({
@@ -73,8 +69,7 @@ const UserSettings: React.FC = () => {
 
     const {
         data: session,
-        error,
-    } = useSession()
+    } = authClient.useSession()
 
     useEffect(() => {
         fetch("/users").then((response) => {
@@ -127,8 +122,9 @@ const UserSettings: React.FC = () => {
             image: values.file,
             name: values.name,
         })
+
         await authClient.changeEmail({
-            newEmail: "new-email@email.com",
+            newEmail: values.email,
             callbackURL: "/main",
         });
     };

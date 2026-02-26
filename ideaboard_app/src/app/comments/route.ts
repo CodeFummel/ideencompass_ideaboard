@@ -16,6 +16,13 @@ export async function GET(request: NextRequest) {
 
     const comments = await prisma.comment.findMany({
         where: commentedId !== null ? {commentedId: parseInt(commentedId)} : undefined,
+        include: {
+            reactions: {
+                select: {
+                    emoji: true,
+                }
+            }
+        }
     });
 
     return NextResponse.json(comments);
@@ -32,7 +39,7 @@ export async function POST(request: Request) {
 
     const data = await request.json() as any;
 
-    if (!data.content || !data.commentedId){
+    if (!data.content || !data.commentedId) {
         return new Response("Content or Idea missing", {status: 400});
     }
 

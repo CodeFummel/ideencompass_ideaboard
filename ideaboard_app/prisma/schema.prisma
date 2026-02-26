@@ -101,10 +101,10 @@ model Idea {
 
 model Like {
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
   idea      Idea     @relation(fields: [likedIdea], references: [id])
-  createdAt DateTime @default(now())
+  authorId  String
   likedIdea Int
+  createdAt DateTime @default(now())
 
   @@id(name: "likeId", [authorId, likedIdea])
   @@map("likes")
@@ -125,13 +125,13 @@ model Comment {
 }
 
 model Reaction {
-  id        Int     @id @default(autoincrement())
   comment   Comment @relation(fields: [commentId], references: [id])
   author    User    @relation(fields: [authorId], references: [id])
   authorId  String
   commentId Int
-  emoji     Int
+  emoji     String
 
+  @@id(name: "reactionId", [authorId, commentId])
   @@map("reactions")
 }
 

@@ -12,8 +12,8 @@
 
 #### [ ] 2.3 Projektübersicht
 [ ] − Übersicht über alle aktuell laufenden Projekte  
-[ ] − Anzeige des Status (Konzeption, Umsetzung, Abgeschlossen)  
-[ ] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
+[x] − Anzeige des Status (Konzeption, Umsetzung, Abgeschlossen)  
+[x] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
 [ ] − Direkte Kontaktmöglichkeit des Ansprechpartners  
 
 #### [x] 2.4 Dashboard & Übersicht
@@ -49,7 +49,7 @@ reichte Ideen, Kommentare, Likes, etc.
 - Änderung von Nutzerdaten
 - Profilbilder
 - Menge an Zeiträumen in Statistiken
-- Beim kommentieren Idee neuladen
+- Beim kommentieren Idee neuladen (eigentlich implementiert)
 - Pollcreator irgendwo unterbringen
 - Top 3 ideen der woch irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
 - Umfragen nochmal durchchecken

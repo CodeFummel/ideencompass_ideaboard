@@ -1520,7 +1520,6 @@ export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeo
 
 
 export const ReactionScalarFieldEnum = {
-  id: 'id',
   authorId: 'authorId',
   commentId: 'commentId',
   emoji: 'emoji'

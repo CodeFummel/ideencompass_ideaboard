@@ -6,7 +6,6 @@ import IdeaList from "@/src/components/idea/IdeaList";
 import {useIdeas} from "@/src/components/idea/useIdeas";
 import {authClient} from "@/src/utils/auth-client";
 import {Select} from "antd";
-import {UserWithRole} from "better-auth/plugins";
 
 type Options = "concept"|"progress"|"finished"
 

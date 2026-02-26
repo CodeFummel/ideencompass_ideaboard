@@ -27,33 +27,26 @@ export type AggregateReaction = {
 }
 
 export type ReactionAvgAggregateOutputType = {
-  id: number | null
   commentId: number | null
-  emoji: number | null
 }
 
 export type ReactionSumAggregateOutputType = {
-  id: number | null
   commentId: number | null
-  emoji: number | null
 }
 
 export type ReactionMinAggregateOutputType = {
-  id: number | null
   authorId: string | null
   commentId: number | null
-  emoji: number | null
+  emoji: string | null
 }
 
 export type ReactionMaxAggregateOutputType = {
-  id: number | null
   authorId: string | null
   commentId: number | null
-  emoji: number | null
+  emoji: string | null
 }
 
 export type ReactionCountAggregateOutputType = {
-  id: number
   authorId: number
   commentId: number
   emoji: number
@@ -62,33 +55,26 @@ export type ReactionCountAggregateOutputType = {
 
 
 export type ReactionAvgAggregateInputType = {
-  id?: true
   commentId?: true
-  emoji?: true
 }
 
 export type ReactionSumAggregateInputType = {
-  id?: true
   commentId?: true
-  emoji?: true
 }
 
 export type ReactionMinAggregateInputType = {
-  id?: true
   authorId?: true
   commentId?: true
   emoji?: true
 }
 
 export type ReactionMaxAggregateInputType = {
-  id?: true
   authorId?: true
   commentId?: true
   emoji?: true
 }
 
 export type ReactionCountAggregateInputType = {
-  id?: true
   authorId?: true
   commentId?: true
   emoji?: true
@@ -182,10 +168,9 @@ export type ReactionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 export type ReactionGroupByOutputType = {
-  id: number
   authorId: string
   commentId: number
-  emoji: number
+  emoji: string
   _count: ReactionCountAggregateOutputType | null
   _avg: ReactionAvgAggregateOutputType | null
   _sum: ReactionSumAggregateOutputType | null
@@ -212,16 +197,14 @@ export type ReactionWhereInput = {
   AND?: Prisma.ReactionWhereInput | Prisma.ReactionWhereInput[]
   OR?: Prisma.ReactionWhereInput[]
   NOT?: Prisma.ReactionWhereInput | Prisma.ReactionWhereInput[]
-  id?: Prisma.IntFilter<"Reaction"> | number
   authorId?: Prisma.StringFilter<"Reaction"> | string
   commentId?: Prisma.IntFilter<"Reaction"> | number
-  emoji?: Prisma.IntFilter<"Reaction"> | number
+  emoji?: Prisma.StringFilter<"Reaction"> | string
   comment?: Prisma.XOR<Prisma.CommentScalarRelationFilter, Prisma.CommentWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ReactionOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   emoji?: Prisma.SortOrder
@@ -230,19 +213,18 @@ export type ReactionOrderByWithRelationInput = {
 }
 
 export type ReactionWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  reactionId?: Prisma.ReactionReactionIdCompoundUniqueInput
   AND?: Prisma.ReactionWhereInput | Prisma.ReactionWhereInput[]
   OR?: Prisma.ReactionWhereInput[]
   NOT?: Prisma.ReactionWhereInput | Prisma.ReactionWhereInput[]
   authorId?: Prisma.StringFilter<"Reaction"> | string
   commentId?: Prisma.IntFilter<"Reaction"> | number
-  emoji?: Prisma.IntFilter<"Reaction"> | number
+  emoji?: Prisma.StringFilter<"Reaction"> | string
   comment?: Prisma.XOR<Prisma.CommentScalarRelationFilter, Prisma.CommentWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "reactionId">
 
 export type ReactionOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   emoji?: Prisma.SortOrder
@@ -257,54 +239,49 @@ export type ReactionScalarWhereWithAggregatesInput = {
   AND?: Prisma.ReactionScalarWhereWithAggregatesInput | Prisma.ReactionScalarWhereWithAggregatesInput[]
   OR?: Prisma.ReactionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ReactionScalarWhereWithAggregatesInput | Prisma.ReactionScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Reaction"> | number
   authorId?: Prisma.StringWithAggregatesFilter<"Reaction"> | string
   commentId?: Prisma.IntWithAggregatesFilter<"Reaction"> | number
-  emoji?: Prisma.IntWithAggregatesFilter<"Reaction"> | number
+  emoji?: Prisma.StringWithAggregatesFilter<"Reaction"> | string
 }
 
 export type ReactionCreateInput = {
-  emoji: number
+  emoji: string
   comment: Prisma.CommentCreateNestedOneWithoutReactionsInput
   author: Prisma.UserCreateNestedOneWithoutReactionsInput
 }
 
 export type ReactionUncheckedCreateInput = {
-  id?: number
   authorId: string
   commentId: number
-  emoji: number
+  emoji: string
 }
 
 export type ReactionUpdateInput = {
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.CommentUpdateOneRequiredWithoutReactionsNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutReactionsNestedInput
 }
 
 export type ReactionUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   commentId?: Prisma.IntFieldUpdateOperationsInput | number
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReactionCreateManyInput = {
-  id?: number
   authorId: string
   commentId: number
-  emoji: number
+  emoji: string
 }
 
 export type ReactionUpdateManyMutationInput = {
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReactionUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   commentId?: Prisma.IntFieldUpdateOperationsInput | number
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReactionListRelationFilter = {
@@ -317,37 +294,35 @@ export type ReactionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ReactionReactionIdCompoundUniqueInput = {
+  authorId: string
+  commentId: number
+}
+
 export type ReactionCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   emoji?: Prisma.SortOrder
 }
 
 export type ReactionAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
-  emoji?: Prisma.SortOrder
 }
 
 export type ReactionMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   emoji?: Prisma.SortOrder
 }
 
 export type ReactionMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   emoji?: Prisma.SortOrder
 }
 
 export type ReactionSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
-  emoji?: Prisma.SortOrder
 }
 
 export type ReactionCreateNestedManyWithoutAuthorInput = {
@@ -435,14 +410,13 @@ export type ReactionUncheckedUpdateManyWithoutCommentNestedInput = {
 }
 
 export type ReactionCreateWithoutAuthorInput = {
-  emoji: number
+  emoji: string
   comment: Prisma.CommentCreateNestedOneWithoutReactionsInput
 }
 
 export type ReactionUncheckedCreateWithoutAuthorInput = {
-  id?: number
   commentId: number
-  emoji: number
+  emoji: string
 }
 
 export type ReactionCreateOrConnectWithoutAuthorInput = {
@@ -475,21 +449,19 @@ export type ReactionScalarWhereInput = {
   AND?: Prisma.ReactionScalarWhereInput | Prisma.ReactionScalarWhereInput[]
   OR?: Prisma.ReactionScalarWhereInput[]
   NOT?: Prisma.ReactionScalarWhereInput | Prisma.ReactionScalarWhereInput[]
-  id?: Prisma.IntFilter<"Reaction"> | number
   authorId?: Prisma.StringFilter<"Reaction"> | string
   commentId?: Prisma.IntFilter<"Reaction"> | number
-  emoji?: Prisma.IntFilter<"Reaction"> | number
+  emoji?: Prisma.StringFilter<"Reaction"> | string
 }
 
 export type ReactionCreateWithoutCommentInput = {
-  emoji: number
+  emoji: string
   author: Prisma.UserCreateNestedOneWithoutReactionsInput
 }
 
 export type ReactionUncheckedCreateWithoutCommentInput = {
-  id?: number
   authorId: string
-  emoji: number
+  emoji: string
 }
 
 export type ReactionCreateOrConnectWithoutCommentInput = {
@@ -519,55 +491,48 @@ export type ReactionUpdateManyWithWhereWithoutCommentInput = {
 }
 
 export type ReactionCreateManyAuthorInput = {
-  id?: number
   commentId: number
-  emoji: number
+  emoji: string
 }
 
 export type ReactionUpdateWithoutAuthorInput = {
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.CommentUpdateOneRequiredWithoutReactionsNestedInput
 }
 
 export type ReactionUncheckedUpdateWithoutAuthorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   commentId?: Prisma.IntFieldUpdateOperationsInput | number
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReactionUncheckedUpdateManyWithoutAuthorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   commentId?: Prisma.IntFieldUpdateOperationsInput | number
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReactionCreateManyCommentInput = {
-  id?: number
   authorId: string
-  emoji: number
+  emoji: string
 }
 
 export type ReactionUpdateWithoutCommentInput = {
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.UserUpdateOneRequiredWithoutReactionsNestedInput
 }
 
 export type ReactionUncheckedUpdateWithoutCommentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReactionUncheckedUpdateManyWithoutCommentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.IntFieldUpdateOperationsInput | number
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type ReactionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   authorId?: boolean
   commentId?: boolean
   emoji?: boolean
@@ -576,7 +541,6 @@ export type ReactionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 }, ExtArgs["result"]["reaction"]>
 
 export type ReactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   authorId?: boolean
   commentId?: boolean
   emoji?: boolean
@@ -585,7 +549,6 @@ export type ReactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 }, ExtArgs["result"]["reaction"]>
 
 export type ReactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   authorId?: boolean
   commentId?: boolean
   emoji?: boolean
@@ -594,13 +557,12 @@ export type ReactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 }, ExtArgs["result"]["reaction"]>
 
 export type ReactionSelectScalar = {
-  id?: boolean
   authorId?: boolean
   commentId?: boolean
   emoji?: boolean
 }
 
-export type ReactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "commentId" | "emoji", ExtArgs["result"]["reaction"]>
+export type ReactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"authorId" | "commentId" | "emoji", ExtArgs["result"]["reaction"]>
 export type ReactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   comment?: boolean | Prisma.CommentDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -621,10 +583,9 @@ export type $ReactionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     author: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
     authorId: string
     commentId: number
-    emoji: number
+    emoji: string
   }, ExtArgs["result"]["reaction"]>
   composites: {}
 }
@@ -708,8 +669,8 @@ export interface ReactionDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    * // Get first 10 Reactions
    * const reactions = await prisma.reaction.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const reactionWithIdOnly = await prisma.reaction.findMany({ select: { id: true } })
+   * // Only select the `authorId`
+   * const reactionWithAuthorIdOnly = await prisma.reaction.findMany({ select: { authorId: true } })
    * 
    */
   findMany<T extends ReactionFindManyArgs>(args?: Prisma.SelectSubset<T, ReactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -753,9 +714,9 @@ export interface ReactionDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    *   ]
    * })
    * 
-   * // Create many Reactions and only return the `id`
-   * const reactionWithIdOnly = await prisma.reaction.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many Reactions and only return the `authorId`
+   * const reactionWithAuthorIdOnly = await prisma.reaction.createManyAndReturn({
+   *   select: { authorId: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -844,9 +805,9 @@ export interface ReactionDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    *   ]
    * })
    * 
-   * // Update zero or more Reactions and only return the `id`
-   * const reactionWithIdOnly = await prisma.reaction.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more Reactions and only return the `authorId`
+   * const reactionWithAuthorIdOnly = await prisma.reaction.updateManyAndReturn({
+   *   select: { authorId: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1050,10 +1011,9 @@ export interface Prisma__ReactionClient<T, Null = never, ExtArgs extends runtime
  * Fields of the Reaction model
  */
 export interface ReactionFieldRefs {
-  readonly id: Prisma.FieldRef<"Reaction", 'Int'>
   readonly authorId: Prisma.FieldRef<"Reaction", 'String'>
   readonly commentId: Prisma.FieldRef<"Reaction", 'Int'>
-  readonly emoji: Prisma.FieldRef<"Reaction", 'Int'>
+  readonly emoji: Prisma.FieldRef<"Reaction", 'String'>
 }
     
 
