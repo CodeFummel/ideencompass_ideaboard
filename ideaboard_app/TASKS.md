@@ -12,8 +12,8 @@
 
 #### [ ] 2.3 Projektübersicht
 [ ] − Übersicht über alle aktuell laufenden Projekte  
-[x] − Anzeige des Status (Konzeption, Umsetzung, Abgeschlossen)  
-[x] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
+[ ] − Anzeige des Status (Konzeption, Umsetzung, Abgeschlossen)  
+[ ] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
 [ ] − Direkte Kontaktmöglichkeit des Ansprechpartners  
 
 #### [x] 2.4 Dashboard & Übersicht
@@ -41,8 +41,8 @@ men
 [x] - Die Daten werden im Backend verarbeitet und validiert. Zu diesen Daten gehören Benutzerdaten, einge-
 reichte Ideen, Kommentare, Likes, etc.  
 
-#### [ ] 2.9 Optionale Funktionen
-[ ] - Dark Mode 
+#### [x] 2.9 Optionale Funktionen
+[x] - Dark Mode 
 
 ### Zum fixen:
 - Nutzerdaten oben rechts werden teilweise beim einloggen vom vorherigen Nutzer angezeigt
@@ -53,3 +53,5 @@ reichte Ideen, Kommentare, Likes, etc.
 - Pollcreator irgendwo unterbringen
 - Top 3 ideen der woche irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
 - Umfragen nochmal durchchecken
+- Likes pro Woche manchmal falsch
+- Beim Bearbeiten von Ideen ändert sich der Autor

@@ -16,7 +16,6 @@ import {
 import React, {Ref, useContext, useImperativeHandle, useRef, useState} from "react";
 
 import {Idea} from "@/src/components/idea/useIdeas";
-import {Project, useProjects} from "@/src/components/project/useProjects";
 import {RcFile} from "antd/lib/upload";
 import {TabsContext} from "@/src/components/TabsProvider";
 import {authClient} from "@/src/utils/auth-client";
@@ -103,7 +102,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     }
 
     const isNewIdea = () => {
-        return initialIdea !== null;
+        return initialIdea !== [];
     };
 
     const encodeFile = async (blob: File): Promise<string> => {
@@ -174,12 +173,13 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
             return false;
         },
         fileList,
+
     };
 
     const confirmConversion = () => {
         const previousKey = activeKey;
         const newActiveKey = `newTab${newTabIndex.current++}`;
-        setItems([...items, {
+        setItems(items.map(item => item.key === previousKey ? {
             label: initialIdea?.title,
             children: <ProjectCreator ref={(node) => {
                 ref.current.set(newActiveKey, node);
@@ -198,9 +198,8 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
             key: newActiveKey,
             closable: true,
             forceRender: false,
-        }]);
+        } : item))
         setActiveKey(newActiveKey);
-        removeItem(previousKey);
     };
 
     const confirmDelete = async () => {
