@@ -45,19 +45,19 @@ export const Statistics: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className={"col-span-2 h-full"}>
+            <div className={"col-span-2 h-full card"}>
                 <BestIdea ideas={ideas} period={period}/>
             </div>
-            <div className={"row-span-2 h-full"}>
+            <div className={"row-span-2 h-full card"}>
                 <CategoryStat ideas={ideas} period={period}/>
             </div>
-            <div className={"col-span-1 h-full"}>
+            <div className={"col-span-1 h-full card"}>
                 <IdeaCount ideas={ideas} period={period}/>
             </div>
-            <div className={"col-span-1 h-full"}>
+            <div className={"col-span-1 h-full card"}>
                 <CommentCount ideas={ideas} period={period}/>
             </div>
-            <div className={"col-span-1 h-full"}>
+            <div className={"col-span-1 h-full card"}>
                 <LikeCount ideas={ideas} period={period}/>
             </div>
         </div>
