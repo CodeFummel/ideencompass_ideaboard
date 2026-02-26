@@ -1,38 +1,37 @@
-"use client"
+"use client";
 
-import { ConfigProvider, theme } from "antd"
-import { createContext, useContext, useEffect, useState } from "react"
+import { ConfigProvider, theme } from "antd";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext({
     darkMode: false,
     toggle: () => {}
-})
+});
 
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = () => useContext(ThemeContext);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [darkMode, setDarkMode] = useState(false)
+    const [darkMode, setDarkMode] = useState(false);
 
-    /* 🌗 Initial: localStorage → sonst System */
+    // 🌗 Beim ersten Laden: localStorage prüfen, sonst System Darkmode
     useEffect(() => {
-        const saved = localStorage.getItem("darkMode")
+        const saved = localStorage.getItem("darkMode");
 
         if (saved !== null) {
-            setDarkMode(saved === "true")
+            setDarkMode(saved === "true");
         } else {
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-            setDarkMode(prefersDark)
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            setDarkMode(prefersDark);
         }
-    }, [])
+    }, []);
 
-
+    // 💾 localStorage aktualisieren + .dark Klasse setzen
     useEffect(() => {
-        localStorage.setItem("darkMode", String(darkMode))
+        localStorage.setItem("darkMode", String(darkMode));
+        document.documentElement.classList.toggle("dark", darkMode);
+    }, [darkMode]);
 
-        document.documentElement.classList.toggle("dark", darkMode)
-    }, [darkMode])
-
-    const toggle = () => setDarkMode(prev => !prev)
+    const toggle = () => setDarkMode(prev => !prev);
 
     return (
         <ThemeContext.Provider value={{ darkMode, toggle }}>
@@ -46,5 +45,5 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
                 {children}
             </ConfigProvider>
         </ThemeContext.Provider>
-    )
+    );
 }

@@ -116,7 +116,7 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
                             </div>
                             <div className={"flex-1 p-(--standard-padding-in) pl-4"}>
                                 <Radio.Group
-                                    className={"overflow-hidden text-ellipsis text-nowrap whitespace-nowrap bg-blue-500 shadow-lg shadow-blue-500/50"}
+                                    className={"overflow-hidden text-ellipsis text-nowrap whitespace-nowrap shadow-lg "}
                                     buttonStyle={"solid"}
                                     vertical
                                     optionType={"button"}
