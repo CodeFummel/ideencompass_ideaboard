@@ -82,8 +82,8 @@ CREATE TABLE "ideas" (
 -- CreateTable
 CREATE TABLE "likes" (
     "authorId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "likedIdea" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "likes_pkey" PRIMARY KEY ("authorId","likedIdea")
 );
@@ -102,21 +102,23 @@ CREATE TABLE "comments" (
 
 -- CreateTable
 CREATE TABLE "reactions" (
-    "id" SERIAL NOT NULL,
     "authorId" TEXT NOT NULL,
     "commentId" INTEGER NOT NULL,
-    "emoji" INTEGER NOT NULL,
+    "emoji" TEXT NOT NULL,
 
-    CONSTRAINT "reactions_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "reactions_pkey" PRIMARY KEY ("authorId","commentId")
 );
 
 -- CreateTable
 CREATE TABLE "projects" (
     "id" SERIAL NOT NULL,
     "parentIdea" INTEGER NOT NULL,
+    "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
     "progress" INTEGER NOT NULL DEFAULT 0,
+    "status" TEXT NOT NULL DEFAULT 'concept',
     "managerId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "projects_pkey" PRIMARY KEY ("id")
 );

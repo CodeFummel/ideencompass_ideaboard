@@ -1,0 +1,81 @@
+.
+├── StartUp_Laptop_Justus.sh
+├── TASKS.md
+├── autoSetupArch.sh
+├── autoSetupUbuntu.sh
+├── commands.md
+├── docker-compose.yml
+├── env
+├── eslint.config.mjs
+├── idea.sh
+├── jest.config.ts
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── prisma
+│   ├── migrations
+│   │   ├── 20260227172053_init
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── prisma.config.ts
+├── prisma.config.ts.bak
+├── projektstruktur.txt
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── reset_db.sh
+├── src
+│   ├── app
+│   │   ├── account
+│   │   ├── api
+│   │   ├── app.iml
+│   │   ├── comments
+│   │   ├── favicon.ico
+│   │   ├── generated
+│   │   ├── ideas
+│   │   ├── impress
+│   │   ├── layout.tsx
+│   │   ├── likes
+│   │   ├── page.tsx
+│   │   ├── polls
+│   │   ├── projects
+│   │   ├── reactions
+│   │   ├── register
+│   │   └── votes
+│   ├── components
+│   │   ├── Footer.tsx
+│   │   ├── Impress.tsx
+│   │   ├── Main.tsx
+│   │   ├── TabsProvider.tsx
+│   │   ├── blueprint.tsx
+│   │   ├── dashboard
+│   │   ├── dateUtils.ts
+│   │   ├── head
+│   │   ├── home
+│   │   ├── idea
+│   │   ├── poll
+│   │   ├── project
+│   │   ├── statistics
+│   │   ├── user
+│   │   ├── votesUtil.test.ts
+│   │   └── votesUtil.ts
+│   ├── generated
+│   │   └── prisma
+│   ├── globals.css
+│   ├── pages
+│   │   └── api
+│   ├── theme
+│   │   └── ThemeProvider.tsx
+│   └── utils
+│       ├── auth-client.ts
+│       ├── auth.ts
+│       ├── database.ts
+│       └── permissions.ts
+└── tsconfig.json
+
+34 directories, 45 files
