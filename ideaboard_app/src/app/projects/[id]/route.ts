@@ -6,13 +6,15 @@ export async function PATCH(request: NextRequest, ctx: RouteContext<"/projects/[
 
     const data = await request.json();
 
-    const {status} = data;
+    const {title, body, status} = data;
 
     const project = await prisma.project.update({
         where: {
             id: Number(id),
         },
         data: {
+            title,
+            body,
             status,
         }
     });

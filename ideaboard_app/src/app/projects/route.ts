@@ -2,7 +2,11 @@ import {prisma} from "@/src/utils/database";
 import {NextResponse} from "next/server";
 
 export async function GET(request: Request) {
-    const projects = await prisma.project.findMany({});
+    const projects = await prisma.project.findMany({
+        include: {
+            manager: true,
+        }
+    });
 
     return NextResponse.json(projects);
 }

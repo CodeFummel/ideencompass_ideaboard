@@ -19,9 +19,10 @@ type Idea = {
         name: string,
         data: string,
     }[],
+    editable: boolean,
 }
 
-export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files}) => {
+export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files, editable}) => {
 
     const [comments, setComments] = useState<Comment[]>([]);
 
@@ -136,13 +137,12 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                 <div>{files.map(({name, data}, index) => (
                     <a key={index} href={data} download={name}
                        className={"pl-(--standard-padding-in) pr-(--standard-padding-in)"}><RightOutlined/>{name}</a>
-            ))}</div> : null}
+                ))}</div> : null}
         </div>
         <div className={"flex flex-row p-(--standard-padding-in) border-t-2 border-(--border)"}>
-
-            <Form className={"flex w-full"}
-                  onFinish={handleSubmit}
-                  onFinishFailed={onFormError}
+            {editable ? <Form className={"flex w-full"}
+                              onFinish={handleSubmit}
+                              onFinishFailed={onFormError}
             >
                 <div className="flex flex-row gap-2 items-center w-full">
                     <Form.Item noStyle
@@ -155,7 +155,7 @@ export const IdeaComponent: React.FC<Idea> = ({id, category, tags, body, files})
                         <Button type={"primary"} htmlType="submit"><SendOutlined/></Button>
                     </Form.Item>
                 </div>
-            </Form>
+            </Form> : null}
         </div>
         <div>
             {comments.map(comment => <CommentComponent key={comment.id} {...comment}/>)}

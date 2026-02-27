@@ -24,7 +24,7 @@ export const TopThreeIdeas = () => {
                 <h2 className={"font-medium"}>Top-3 Ideen der Woche</h2>
             </div>
             <div className={"flex"}>
-                {(filteredIdeas.length != 0) ? <IdeaList ideas={filteredIdeas}/> : <span className={"flex-1 m-6 font-light text-center"}>Keine Ideen erstellt</span>}
+                {(filteredIdeas.length != 0) ? <IdeaList ideas={filteredIdeas} editable={true}/> : <span className={"flex-1 m-6 font-light text-center"}>Keine Ideen erstellt</span>}
             </div>
         </div>
     );

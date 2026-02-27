@@ -20,27 +20,40 @@ export const ProjectList: React.FC<{
         data: session,
     } = authClient.useSession();
 
-    const items = projects.map((project) => (
-        {
+    const items = projects.map((project) => {
+        const progress = (() => {
+            switch(project.status) {
+                case "backlog":
+                    return 0;
+                case "concept":
+                    return 30;
+                case "progress":
+                    return 60;
+                case "finished":
+                    return 100;
+            }
+        })()
+
+        return {
             key: project.id,
             label: <div className={"flex justify-between"}>
                 <div className={"flex flex-col"}>
-                    <h2 className={"text-[1.2rem] font-medium"}>{ideas[project.parentIdea].title}</h2>
-                    <h4 className={"font-light ml-1"}>Projektmanager: {project.managerId}, in Arbeit seit {formatDate(project.createdAt)}</h4>
+                    <h2 className={"text-[1.2rem] font-medium"}>{project.title}</h2>
+                    <h4 className={"font-light ml-1"}>Projektmanager: {project.manager.name}, in Arbeit seit {formatDate(project.createdAt)}</h4>
                 </div>
                 {session?.user.role !== "user" ?
                     <div className={"flex flex-row items-center gap-2"}>
-                        <Progress percent={project.progress} steps={5}/>
+                        <Progress percent={progress} steps={3}/>
                         <Button onClick={() => onProjectEdit(project.id)}><EditOutlined/></Button>
                     </div>
                     :
                     <div className={"flex flex-row items-center gap-2"}>
-                        <Progress percent={project.progress} steps={5}/>
+                        <Progress percent={progress} steps={3}/>
                     </div>}
             </div>,
             children: <ProjectComponent {...project}/>
         }
-    ));
+    });
 
     return <div className={"m-2 overflow-y-auto w-full"}>
         <Collapse className={"p-0"} size={"small"} items={items} expandIcon={({isActive}) => (
