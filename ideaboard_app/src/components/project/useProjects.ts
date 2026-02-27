@@ -5,9 +5,11 @@ export type Project = {
     title: string,
     body: string,
     parentIdea: number,
-    progress: number,
     status: string,
     managerId: string,
+    manager: {
+        name: string,
+    },
     createdAt: Date,
 }
 

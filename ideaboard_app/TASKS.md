@@ -10,11 +10,11 @@
 [x] − Ideen können kommentiert werden (max. 200 Zeichen)  
 [x] − Nutzer können auf Kommentare reagieren (z. B. mit Emojis)  
 
-#### [ ] 2.3 Projektübersicht
-[ ] − Übersicht über alle aktuell laufenden Projekte  
-[ ] − Anzeige des Status (Konzeption, Umsetzung, Abgeschlossen)  
-[ ] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
-[ ] − Direkte Kontaktmöglichkeit des Ansprechpartners  
+#### [x] 2.3 Projektübersicht
+[x] − Übersicht über alle aktuell laufenden Projekte  
+[x] − Anzeige des Status (Konzeption, Umsetzung, Abgeschlossen)  
+[x] − Visualisierung des Projektfortschritt (z. B. Fortschrittsbalken)  
+[x] − Direkte Kontaktmöglichkeit des Ansprechpartners  
 
 #### [x] 2.4 Dashboard & Übersicht
 [x] − Übersicht über neue Ideen, Top-Ideen, Projekte und Umfragen  

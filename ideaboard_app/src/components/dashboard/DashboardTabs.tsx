@@ -9,10 +9,11 @@ import IdeaList from "@/src/components/idea/IdeaList";
 import {Idea, useIdeas} from "@/src/components/idea/useIdeas";
 import {PollList} from "@/src/components/poll/PollList";
 import {ProjectList} from "@/src/components/project/ProjectList";
-import {useProjects} from "@/src/components/project/useProjects";
+import {Project, useProjects} from "@/src/components/project/useProjects";
 import {TabsContext} from "@/src/components/TabsProvider";
 import {sortByComments, sortByCreatedAt, sortByLikes} from "./useSort";
 import dayjs from "dayjs";
+import {ProjectCreator} from "@/src/components/project/ProjectCreator";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 type Filter = {
@@ -57,6 +58,39 @@ const IdeaListWrapper = ({ideas, onIdeaEdit, filter, sort, sortDirection}: {
     return <IdeaList ideas={filteredIdeas} onIdeaEdit={onIdeaEdit} editable={true}/>;
 }
 
+const ProjectListWrapper = ({ideas, projects, onProjectEdit, filter, sort, sortDirection}: {
+    ideas: Idea[]
+    projects: Project[],
+    onProjectEdit: (id: number) => void
+    filter: Filter
+    sort: SortFunction
+    sortDirection: boolean
+}) => {
+    const filteredProjects = useMemo(() => {
+        return projects
+            .filter(project => {
+                switch (filter.type) {
+                    case "category":
+                        return (ideas[project.parentIdea].category === filter.value);
+                    case "time":
+                        return (filter.value === "all" ? true : dayjs(project.createdAt).diff(dayjs(), filter.value) === 0);
+                }
+            })
+            .sort((a, b) => {
+                switch (sort) {
+                    case "createdAt":
+                        return sortByCreatedAt(a, b, sortDirection);
+                    case "likes":
+                        return sortByLikes(a, b, sortDirection);
+                    case "comments":
+                        return sortByComments(a, b, sortDirection);
+                }
+            })
+    }, [projects, filter, ideas, sort, sortDirection]);
+
+    return <ProjectList projects={filteredProjects} onProjectEdit={onProjectEdit} ideas={ideas}/>;
+};
+
 const DashboardTabs: React.FC = () => {
     const {ideas, refresh} = useIdeas();
     const {projects, refreshProjects} = useProjects();
@@ -75,8 +109,33 @@ const DashboardTabs: React.FC = () => {
         setActiveKey(key);
     };
 
+    // Callback for converting ideas to projects
+    const onConvertIdea = useCallback((idea: Idea, previousKey: string) => {
+        const newActiveKey = `newTab${newTabIndex.current++}`;
+        setItems((items) => items.map(item => item.key === previousKey ? {
+            label: idea.title,
+            children: <ProjectCreator ref={(node) => {
+                ref.current.set(newActiveKey, node);
+            }} onProjectSaved={function (): void {
+                refreshProjects();
+                api.open({
+                    title: 'Projekt gespeichert!',
+                    description: 'Sie haben das Projekt erfolgreich abgeschickt.',
+                    duration: 5,
+                    showProgress: true,
+                    pauseOnHover: true,
+                    placement: "top",
+                });
+            }} idea={idea}
+            />,
+            key: newActiveKey,
+            closable: true,
+            forceRender: false,
+        } : item))
+        setActiveKey(newActiveKey);
+    }, [api, refreshProjects, setActiveKey, setItems]);
 
-    const edit = useCallback((id: number) => {
+    const editIdea = useCallback((id: number) => {
         const idea = ideas.find((idea) => idea.id === id)!;
         const newActiveKey = `newTab${newTabIndex.current++}`;
         setItems([...items, {
@@ -93,23 +152,23 @@ const DashboardTabs: React.FC = () => {
                     pauseOnHover: true,
                     placement: "top",
                 });
-            }}/>,
+            }} onProjectConvert={() => onConvertIdea(idea, newActiveKey)}/>,
             key: newActiveKey,
             closable: true,
             forceRender: false,
         }]);
         setActiveKey(newActiveKey);
-    }, [ideas, items, api, setItems, setActiveKey, refresh]);
+    }, [ideas, setItems, items, setActiveKey, refresh, api, onConvertIdea]);
 
     const editProject = useCallback((id: number) => {
         const project = projects.find((project) => project.id === id)!;
         const idea = ideas.find((idea) => idea.id === project.parentIdea)!;
         const newActiveKey = `newTab${newTabIndex.current++}`;
         setItems([...items, {
-            label: idea.title,
-            children: <IdeaCreator initialIdea={idea} ref={(node) => {
+            label: project.title,
+            children: <ProjectCreator initialProject={project} idea={idea} ref={(node) => {
                 ref.current.set(newActiveKey, node);
-            }} onIdeaSaved={function (): void {
+            }} onProjectSaved={function (): void {
                 refreshProjects();
                 api.open({
                     title: 'Projekt gespeichert!',
@@ -133,7 +192,7 @@ const DashboardTabs: React.FC = () => {
             key: "ideas-tab",
             closable: false,
             forceRender: true,
-            children: <IdeaListWrapper ideas={ideas} onIdeaEdit={edit} filter={filter} sort={sort}
+            children: <IdeaListWrapper ideas={ideas} onIdeaEdit={editIdea} filter={filter} sort={sort}
                                        sortDirection={sortDirection}/>,
         },
         {
@@ -141,7 +200,8 @@ const DashboardTabs: React.FC = () => {
             key: "projects-tab",
             closable: false,
             forceRender: true,
-            children: <ProjectList projects={projects} ideas={ideas} onProjectEdit={editProject}/>
+            children: <ProjectListWrapper projects={projects} ideas={ideas} onProjectEdit={editProject} filter={filter}
+                                          sort={sort} sortDirection={sortDirection}/>
         },
         {
             label: "Umfragen",
@@ -151,7 +211,7 @@ const DashboardTabs: React.FC = () => {
             children: <PollList/>
         },
         ...items
-    ], [ideas, edit, filter, sort, sortDirection, projects, editProject, items])
+    ], [ideas, editIdea, filter, sort, sortDirection, projects, editProject, items])
 
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
@@ -259,7 +319,7 @@ const DashboardTabs: React.FC = () => {
         </Dropdown>
     </div>
 
-    const saveIdeaButton = <Button type={"primary"} onClick={handleSubmit}>Idee speichern</Button>
+    const saveButton = <Button type={"primary"} onClick={handleSubmit}>Speichern</Button>
 
     return (
         <div
@@ -268,7 +328,7 @@ const DashboardTabs: React.FC = () => {
                 {contextHolder}
                 <Tabs
                     className="flex flex-1"
-                    tabBarExtraContent={{left: optionsButtons, right: saveIdeaButton}}
+                    tabBarExtraContent={{left: optionsButtons, right: saveButton}}
                     onChange={onChange}
                     activeKey={activeKey}
                     type={"editable-card"}

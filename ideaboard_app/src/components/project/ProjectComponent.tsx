@@ -6,17 +6,17 @@ import IdeaList from "@/src/components/idea/IdeaList";
 import {useIdeas} from "@/src/components/idea/useIdeas";
 import {authClient} from "@/src/utils/auth-client";
 import {Select} from "antd";
+import {project} from "effect/Layer";
 
 type Options = "concept"|"progress"|"finished"
 
-export const ProjectComponent: React.FC<Project> = ({body, status, parentIdea, managerId, progress}) => {
+export const ProjectComponent: React.FC<Project> = ({id, body, status, parentIdea, managerId}) => {
 
     const {
         data: session,
     } = authClient.useSession();
 
     const {projects, refreshProjects} = useProjects();
-    const [progressValue, setProgressValue] = useState(progress);
 
     const {ideas} = useIdeas()
 
@@ -29,6 +29,7 @@ export const ProjectComponent: React.FC<Project> = ({body, status, parentIdea, m
     const managerMail = session?.user.email;
 
     const options = [
+        {value: "backlog", label: "Nicht begonnen"},
         {value: 'concept', label: 'Konzeption'},
         {value: 'progress', label: 'Umsetzung'},
         {value: 'finished', label: 'Abgeschlossen'},
@@ -37,22 +38,10 @@ export const ProjectComponent: React.FC<Project> = ({body, status, parentIdea, m
     const handleChange = async (value: "concept"|"progress"|"finished") => {
         console.log(`selected ${value}`);
 
-        switch(value){
-            case "concept":
-                setProgressValue(30);
-                break;
-            case "progress":
-                setProgressValue(60);
-                break;
-            case "finished":
-                setProgressValue(100);
-        }
-
-        const result = await fetch("/projects/[id]", {
+        const result = await fetch(`/projects/${id}`, {
             method: "PATCH",
             body: JSON.stringify({
                 status: value,
-                progress: progressValue,
             }),
         }).then(res => res.json());
         console.info({result});
@@ -63,7 +52,7 @@ export const ProjectComponent: React.FC<Project> = ({body, status, parentIdea, m
             console.info("Server ProjectCreator Input Error")
         }
 
-        refreshProjects();
+        await refreshProjects();
     };
 
     return <div>
@@ -89,7 +78,7 @@ export const ProjectComponent: React.FC<Project> = ({body, status, parentIdea, m
         </div>
         <div>
             <h3>Ursprüngliche Idee:</h3>
-            <IdeaList ideas={filteredIdeas}/>
+            <IdeaList ideas={filteredIdeas} editable={false}/>
         </div>
     </div>
 }

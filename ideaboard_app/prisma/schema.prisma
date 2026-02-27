@@ -141,8 +141,7 @@ model Project {
   parentIdea Int
   title      String
   body       String
-  progress   Int      @default(0)
-  status     String   @default("concept")
+  status     String   @default("backlog")
   manager    User     @relation(fields: [managerId], references: [id])
   managerId  String
   createdAt  DateTime @default(now())

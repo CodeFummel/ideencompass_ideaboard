@@ -9,7 +9,7 @@ import {Idea} from "@/src/components/idea/useIdeas";
 import {formatDate} from "@/src/components/dateUtils";
 import {authClient} from "@/src/utils/auth-client";
 
-const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void, editable: boolean }> = ({ideas, onIdeaEdit, editable}) => {
+const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit?: (id: number) => void, editable: boolean }> = ({ideas, onIdeaEdit, editable}) => {
 
     const {
         data: session,
@@ -47,7 +47,7 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void, edit
                 <RenderLike idea={idea} editable={editable}/>
             </div>)
         }
-    }
+    };
 
     const items = ideas.map((idea) => (
         {

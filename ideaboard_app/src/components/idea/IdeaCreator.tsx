@@ -13,13 +13,12 @@ import {
     UploadFile,
     UploadProps
 } from 'antd';
-import React, {Ref, useContext, useImperativeHandle, useRef, useState} from "react";
-
+import React, {Ref, useCallback, useContext, useImperativeHandle, useRef, useState} from "react";
 import {Idea} from "@/src/components/idea/useIdeas";
 import {RcFile} from "antd/lib/upload";
 import {TabsContext} from "@/src/components/TabsProvider";
 import {authClient} from "@/src/utils/auth-client";
-import {ProjectCreator} from "@/src/components/project/ProjectCreator";
+import {ProjectCreator, ProjectCreatorRef} from "@/src/components/project/ProjectCreator";
 
 // Categories
 const categoryOptions = [
@@ -48,15 +47,12 @@ const categoryOptions = [
         label: "Sonstiges"
     },
 ];
+
 // Tags
 const tagOptions = [
     {
         value: "Dringend",
         label: "Dringend"
-    },
-    {
-        value: "Schnell erledigt",
-        label: "Schnell erledigt"
     },
 ];
 
@@ -64,10 +60,11 @@ export interface IdeaCreatorRef {
     submit: () => void
 }
 
-const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
+const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
     ref?: Ref<IdeaCreatorRef>,
     onIdeaSaved: () => void,
     initialIdea?: Idea,
+    onProjectConvert?: () => void,
 }) => {
     const [previousInitialIdea, setPreviousInitialIdea] = useState<Idea | undefined>(initialIdea);
     const [fileList, setFileList] = useState<(RcFile | UploadFile)[]>(initialIdea?.files.map(({id, name}) => ({
@@ -75,6 +72,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         name,
     })) ?? []);
 
+    const pref = useRef<Map<string, ProjectCreatorRef | null>>(new Map);
     const formRef = useRef<FormInstance>(null)
     const newTabIndex = useRef(0);
 
@@ -90,8 +88,10 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         data: session,
     } = authClient.useSession();
 
+
     const [api, contextHolder] = notification.useNotification();
 
+    // Handle showing initial values if an idea is edited
     if (previousInitialIdea !== initialIdea) {
         setFileList(initialIdea?.files.map(({id, name}) => ({
             uid: id.toString(),
@@ -113,6 +113,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         )
     }
 
+    // POST or PATCH idea on save
     const onFinish = async (values) => {
         const files = await Promise.all(fileList.map(async (f) => {
             if (f instanceof File) {
@@ -173,35 +174,9 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
             return false;
         },
         fileList,
-
     };
 
-    const confirmConversion = () => {
-        const previousKey = activeKey;
-        const newActiveKey = `newTab${newTabIndex.current++}`;
-        setItems(items.map(item => item.key === previousKey ? {
-            label: initialIdea?.title,
-            children: <ProjectCreator ref={(node) => {
-                //ref.current.set(newActiveKey, node);
-            }} onProjectSaved={function (): void {
-                //refreshProjects();
-                api.open({
-                    title: 'Idee gespeichert!',
-                    description: 'Sie haben Ihre Idee erfolgreich abgeschickt.',
-                    duration: 5,
-                    showProgress: true,
-                    pauseOnHover: true,
-                    placement: "top",
-                });
-            }} idea={initialIdea as Idea}
-            />,
-            key: newActiveKey,
-            closable: true,
-            forceRender: false,
-        } : item))
-        setActiveKey(newActiveKey);
-    };
-
+    // Delete idea
     const confirmDelete = async () => {
         const result = await fetch(`/ideas/${initialIdea?.id}`, {
             method: "DELETE",
@@ -248,7 +223,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                         <Form.Item name={"tags"} noStyle rules={[{required: true, message: ""}]}>
                             <Select className={"flex-1"}
                                     mode="tags"
-                                    placeholder="#tags"
+                                    placeholder="Tags hinzufügen"
                                     options={tagOptions}/>
                         </Form.Item>
                     </div>
@@ -277,7 +252,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                                         "Sie werden das Projekt zusätzlich bearbeiten müssen."}
                                     okText={"Umwandeln"}
                                     cancelText={"Abbrechen"}
-                                    onConfirm={confirmConversion}
+                                    onConfirm={onProjectConvert}
                                     icon={<DoubleRightOutlined/>}
                         >
                             <Button icon={<DoubleRightOutlined/>} type={"primary"} disabled={!isNewIdea()}>
