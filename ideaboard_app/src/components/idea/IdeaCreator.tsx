@@ -102,7 +102,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
     }
 
     const isNewIdea = () => {
-        return initialIdea !== [];
+        return initialIdea !== undefined;
     };
 
     const encodeFile = async (blob: File): Promise<string> => {
@@ -182,7 +182,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
         setItems(items.map(item => item.key === previousKey ? {
             label: initialIdea?.title,
             children: <ProjectCreator ref={(node) => {
-                ref.current.set(newActiveKey, node);
+                //ref.current.set(newActiveKey, node);
             }} onProjectSaved={function (): void {
                 //refreshProjects();
                 api.open({
@@ -299,7 +299,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea}: {
                                     onConfirm={confirmDelete}
                                     icon={<DeleteOutlined style={{color: "red"}}/>}
                         >
-                            <Button icon={<DeleteOutlined/>} type={"primary"} danger>
+                            <Button icon={<DeleteOutlined/>} type={"primary"} danger disabled={!isNewIdea()}>
                                 <span>Löschen</span>
                             </Button>
                         </Popconfirm>

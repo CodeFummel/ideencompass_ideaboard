@@ -6,7 +6,6 @@ import {Form, FormInstance, Input, notification} from "antd";
 import {TabsContext} from "@/src/components/TabsProvider";
 import {authClient} from "@/src/utils/auth-client";
 import IdeaList from "@/src/components/idea/IdeaList";
-import dayjs from "dayjs";
 
 
 export interface ProjectCreatorRef {

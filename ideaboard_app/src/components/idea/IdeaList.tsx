@@ -46,7 +46,7 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
                 {idea.authorId === session?.user.id ?
                     <div className={"flex flex-row items-center gap-2"}>
                     <span className={"p-(--standard-padding-in) border-(--border) rounded-(--border-radius) mr-2"}>
-                        {idea._count.likes} <LikeOutlined/>
+                        <LikeOutlined/> {idea._count.likes}
                     </span>
                         <Button onClick={() => onIdeaEdit(idea.id)}><EditOutlined/></Button>
                     </div>
