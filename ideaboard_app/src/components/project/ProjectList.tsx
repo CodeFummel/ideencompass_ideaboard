@@ -39,7 +39,8 @@ export const ProjectList: React.FC<{
             label: <div className={"flex justify-between"}>
                 <div className={"flex flex-col"}>
                     <h2 className={"text-[1.2rem] font-medium"}>{project.title}</h2>
-                    <h4 className={"font-light ml-1"}>Projektmanager: {project.manager.name}, in Arbeit seit {formatDate(project.createdAt)}</h4>
+                    <span className={"font-light ml-1"}>Projektmanager: {project.manager.name}</span>
+                    <span className={"font-light ml-1"}>in Arbeit seit {formatDate(project.createdAt)}</span>
                 </div>
                 {session?.user.role !== "user" ?
                     <div className={"flex flex-row items-center gap-2"}>
