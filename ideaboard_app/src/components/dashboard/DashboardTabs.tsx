@@ -54,7 +54,7 @@ const IdeaListWrapper = ({ideas, onIdeaEdit, filter, sort, sortDirection}: {
             })
     }, [ideas, filter, sort, sortDirection]);
 
-    return <IdeaList ideas={filteredIdeas} onIdeaEdit={onIdeaEdit}/>;
+    return <IdeaList ideas={filteredIdeas} onIdeaEdit={onIdeaEdit} editable={true}/>;
 }
 
 const DashboardTabs: React.FC = () => {

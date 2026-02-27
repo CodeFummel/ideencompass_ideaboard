@@ -36,7 +36,7 @@ export const ProjectCreator = ({ref, idea, onProjectSaved}: {
 
 
     const onFormError = () => {
-        console.error("IdeaCreator Input Error")
+        console.error("ProjectCreator Input Error")
         api.error({
             title: 'Eingabefehler!',
             description: 'Füllen sie alle benötigten Felder aus, bevor sie das Projekt abschicken.',
@@ -59,7 +59,7 @@ export const ProjectCreator = ({ref, idea, onProjectSaved}: {
         }).then(res => res.json());
         console.info({result});
         if (result.ok) {
-            console.info("IdeaCreator successfull project creation")
+            console.info("ProjectCreator successfull project creation")
             onProjectSaved();
         } else {
             console.info("Server ProjectCreator Input Error")
@@ -81,13 +81,13 @@ export const ProjectCreator = ({ref, idea, onProjectSaved}: {
                 <Form.Item name={"body"} label={"Beschreibung:"} rules={[{required: true, message: ""}]}>
                     <Input.TextArea autoSize={{minRows: 9, maxRows: 9}}/>
                 </Form.Item>
+                <div>
+                    <h3>Ursprüngliche Idee: </h3>
+                    <IdeaList ideas={[idea]} editable={false} onIdeaEdit={function(id: number): void {
+                        throw new Error("Function not implemented.");
+                    } } />
+                </div>
             </Form>
-            <div>
-                <h3>Ursprüngliche Idee: </h3>
-                <IdeaList ideas={[idea]} onIdeaEdit={function(id: number): void {
-                    throw new Error("Function not implemented.");
-                } } />
-            </div>
         </>
     )
 }

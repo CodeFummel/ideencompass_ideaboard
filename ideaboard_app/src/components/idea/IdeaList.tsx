@@ -9,7 +9,7 @@ import {Idea} from "@/src/components/idea/useIdeas";
 import {formatDate} from "@/src/components/dateUtils";
 import {authClient} from "@/src/utils/auth-client";
 
-const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = ({ideas, onIdeaEdit}) => {
+const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void, editable: boolean }> = ({ideas, onIdeaEdit, editable}) => {
 
     const {
         data: session,
@@ -18,19 +18,33 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
 
     if (!session) {
         return (error?.statusText);
-    }
+    };
 
-    const RenderComponent = ({idea}) => {
+    const RenderEdit = ({idea, editable, onIdeaEdit}) => {
+        if (editable) {
+            return <Button onClick={() => onIdeaEdit(idea.id)}><EditOutlined/></Button>
+        }
+        return null;
+    };
+
+    const RenderLike = ({idea, editable}) => {
+        if (editable) {
+            return <LikeButton ideaId={idea.id}/>
+        }
+        return <><LikeOutlined/> {idea._count.likes}</>;
+    };
+
+    const RenderComponent = ({idea, editable}) => {
         if (session?.user.role !== "user") {
             return (<div className={"flex flex-row items-center gap-2"}>
                 <div className={"flex items-center"}>
-                    <LikeButton ideaId={idea.id}/>
+                    <RenderLike idea={idea} editable={editable}/>
                 </div>
-                <Button onClick={() => onIdeaEdit(idea.id)}><EditOutlined/></Button>
+                <RenderEdit idea={idea} editable={editable} onIdeaEdit={onIdeaEdit}/>
             </div>)
         } else {
             return (<div className={"flex items-center"}>
-                <LikeButton ideaId={idea.id}/>
+                <RenderLike idea={idea} editable={editable}/>
             </div>)
         }
     }
@@ -48,13 +62,13 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit: (id: number) => void }> = 
                     <span className={"p-(--standard-padding-in) border-(--border) rounded-(--border-radius) mr-2"}>
                         <LikeOutlined/> {idea._count.likes}
                     </span>
-                        <Button onClick={() => onIdeaEdit(idea.id)}><EditOutlined/></Button>
+                        <RenderEdit idea={idea} editable={editable} onIdeaEdit={onIdeaEdit}/>
                     </div>
                     :
-                    <RenderComponent idea={idea}/>
+                    <RenderComponent idea={idea} editable={editable}/>
                 }
             </div>,
-            children: <IdeaComponent {...idea}/>
+            children: <IdeaComponent {...idea} editable={editable}/>
         }
     ));
 
