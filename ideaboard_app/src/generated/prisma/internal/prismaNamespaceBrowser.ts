@@ -198,7 +198,6 @@ export const ProjectScalarFieldEnum = {
   parentIdea: 'parentIdea',
   title: 'title',
   body: 'body',
-  progress: 'progress',
   status: 'status',
   managerId: 'managerId',
   createdAt: 'createdAt'

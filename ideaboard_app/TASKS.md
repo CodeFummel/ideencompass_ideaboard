@@ -45,9 +45,8 @@ reichte Ideen, Kommentare, Likes, etc.
 [x] - Dark Mode 
 
 ### Zum fixen:
-- Menge an Zeiträumen in Statistiken
+- Menge an Zeiträumen in Statistiken1
 - Beim kommentieren Idee neuladen (eigentlich implementiert)
 - Top 3 ideen der woche irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
 - Likes pro Woche manchmal falsch
 - Ideen werden nach Umwandlung immer noch angezeigt
-- Projekt und Umfragen Filter broken

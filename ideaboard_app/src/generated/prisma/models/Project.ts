@@ -29,13 +29,11 @@ export type AggregateProject = {
 export type ProjectAvgAggregateOutputType = {
   id: number | null
   parentIdea: number | null
-  progress: number | null
 }
 
 export type ProjectSumAggregateOutputType = {
   id: number | null
   parentIdea: number | null
-  progress: number | null
 }
 
 export type ProjectMinAggregateOutputType = {
@@ -43,7 +41,6 @@ export type ProjectMinAggregateOutputType = {
   parentIdea: number | null
   title: string | null
   body: string | null
-  progress: number | null
   status: string | null
   managerId: string | null
   createdAt: Date | null
@@ -54,7 +51,6 @@ export type ProjectMaxAggregateOutputType = {
   parentIdea: number | null
   title: string | null
   body: string | null
-  progress: number | null
   status: string | null
   managerId: string | null
   createdAt: Date | null
@@ -65,7 +61,6 @@ export type ProjectCountAggregateOutputType = {
   parentIdea: number
   title: number
   body: number
-  progress: number
   status: number
   managerId: number
   createdAt: number
@@ -76,13 +71,11 @@ export type ProjectCountAggregateOutputType = {
 export type ProjectAvgAggregateInputType = {
   id?: true
   parentIdea?: true
-  progress?: true
 }
 
 export type ProjectSumAggregateInputType = {
   id?: true
   parentIdea?: true
-  progress?: true
 }
 
 export type ProjectMinAggregateInputType = {
@@ -90,7 +83,6 @@ export type ProjectMinAggregateInputType = {
   parentIdea?: true
   title?: true
   body?: true
-  progress?: true
   status?: true
   managerId?: true
   createdAt?: true
@@ -101,7 +93,6 @@ export type ProjectMaxAggregateInputType = {
   parentIdea?: true
   title?: true
   body?: true
-  progress?: true
   status?: true
   managerId?: true
   createdAt?: true
@@ -112,7 +103,6 @@ export type ProjectCountAggregateInputType = {
   parentIdea?: true
   title?: true
   body?: true
-  progress?: true
   status?: true
   managerId?: true
   createdAt?: true
@@ -210,7 +200,6 @@ export type ProjectGroupByOutputType = {
   parentIdea: number
   title: string
   body: string
-  progress: number
   status: string
   managerId: string
   createdAt: Date
@@ -244,7 +233,6 @@ export type ProjectWhereInput = {
   parentIdea?: Prisma.IntFilter<"Project"> | number
   title?: Prisma.StringFilter<"Project"> | string
   body?: Prisma.StringFilter<"Project"> | string
-  progress?: Prisma.IntFilter<"Project"> | number
   status?: Prisma.StringFilter<"Project"> | string
   managerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
@@ -257,7 +245,6 @@ export type ProjectOrderByWithRelationInput = {
   parentIdea?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
-  progress?: Prisma.SortOrder
   status?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -273,7 +260,6 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   parentIdea?: Prisma.IntFilter<"Project"> | number
   title?: Prisma.StringFilter<"Project"> | string
   body?: Prisma.StringFilter<"Project"> | string
-  progress?: Prisma.IntFilter<"Project"> | number
   status?: Prisma.StringFilter<"Project"> | string
   managerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
@@ -286,7 +272,6 @@ export type ProjectOrderByWithAggregationInput = {
   parentIdea?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
-  progress?: Prisma.SortOrder
   status?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -305,7 +290,6 @@ export type ProjectScalarWhereWithAggregatesInput = {
   parentIdea?: Prisma.IntWithAggregatesFilter<"Project"> | number
   title?: Prisma.StringWithAggregatesFilter<"Project"> | string
   body?: Prisma.StringWithAggregatesFilter<"Project"> | string
-  progress?: Prisma.IntWithAggregatesFilter<"Project"> | number
   status?: Prisma.StringWithAggregatesFilter<"Project"> | string
   managerId?: Prisma.StringWithAggregatesFilter<"Project"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
@@ -314,7 +298,6 @@ export type ProjectScalarWhereWithAggregatesInput = {
 export type ProjectCreateInput = {
   title: string
   body: string
-  progress?: number
   status?: string
   createdAt?: Date | string
   idea: Prisma.IdeaCreateNestedOneWithoutProjectsInput
@@ -326,7 +309,6 @@ export type ProjectUncheckedCreateInput = {
   parentIdea: number
   title: string
   body: string
-  progress?: number
   status?: string
   managerId: string
   createdAt?: Date | string
@@ -335,7 +317,6 @@ export type ProjectUncheckedCreateInput = {
 export type ProjectUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   idea?: Prisma.IdeaUpdateOneRequiredWithoutProjectsNestedInput
@@ -347,7 +328,6 @@ export type ProjectUncheckedUpdateInput = {
   parentIdea?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -358,7 +338,6 @@ export type ProjectCreateManyInput = {
   parentIdea: number
   title: string
   body: string
-  progress?: number
   status?: string
   managerId: string
   createdAt?: Date | string
@@ -367,7 +346,6 @@ export type ProjectCreateManyInput = {
 export type ProjectUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -377,7 +355,6 @@ export type ProjectUncheckedUpdateManyInput = {
   parentIdea?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -398,7 +375,6 @@ export type ProjectCountOrderByAggregateInput = {
   parentIdea?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
-  progress?: Prisma.SortOrder
   status?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -407,7 +383,6 @@ export type ProjectCountOrderByAggregateInput = {
 export type ProjectAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   parentIdea?: Prisma.SortOrder
-  progress?: Prisma.SortOrder
 }
 
 export type ProjectMaxOrderByAggregateInput = {
@@ -415,7 +390,6 @@ export type ProjectMaxOrderByAggregateInput = {
   parentIdea?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
-  progress?: Prisma.SortOrder
   status?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -426,7 +400,6 @@ export type ProjectMinOrderByAggregateInput = {
   parentIdea?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
-  progress?: Prisma.SortOrder
   status?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -435,7 +408,6 @@ export type ProjectMinOrderByAggregateInput = {
 export type ProjectSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   parentIdea?: Prisma.SortOrder
-  progress?: Prisma.SortOrder
 }
 
 export type ProjectCreateNestedManyWithoutManagerInput = {
@@ -525,7 +497,6 @@ export type ProjectUncheckedUpdateManyWithoutIdeaNestedInput = {
 export type ProjectCreateWithoutManagerInput = {
   title: string
   body: string
-  progress?: number
   status?: string
   createdAt?: Date | string
   idea: Prisma.IdeaCreateNestedOneWithoutProjectsInput
@@ -536,7 +507,6 @@ export type ProjectUncheckedCreateWithoutManagerInput = {
   parentIdea: number
   title: string
   body: string
-  progress?: number
   status?: string
   createdAt?: Date | string
 }
@@ -575,7 +545,6 @@ export type ProjectScalarWhereInput = {
   parentIdea?: Prisma.IntFilter<"Project"> | number
   title?: Prisma.StringFilter<"Project"> | string
   body?: Prisma.StringFilter<"Project"> | string
-  progress?: Prisma.IntFilter<"Project"> | number
   status?: Prisma.StringFilter<"Project"> | string
   managerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
@@ -584,7 +553,6 @@ export type ProjectScalarWhereInput = {
 export type ProjectCreateWithoutIdeaInput = {
   title: string
   body: string
-  progress?: number
   status?: string
   createdAt?: Date | string
   manager: Prisma.UserCreateNestedOneWithoutProjectsInput
@@ -594,7 +562,6 @@ export type ProjectUncheckedCreateWithoutIdeaInput = {
   id?: number
   title: string
   body: string
-  progress?: number
   status?: string
   managerId: string
   createdAt?: Date | string
@@ -631,7 +598,6 @@ export type ProjectCreateManyManagerInput = {
   parentIdea: number
   title: string
   body: string
-  progress?: number
   status?: string
   createdAt?: Date | string
 }
@@ -639,7 +605,6 @@ export type ProjectCreateManyManagerInput = {
 export type ProjectUpdateWithoutManagerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   idea?: Prisma.IdeaUpdateOneRequiredWithoutProjectsNestedInput
@@ -650,7 +615,6 @@ export type ProjectUncheckedUpdateWithoutManagerInput = {
   parentIdea?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -660,7 +624,6 @@ export type ProjectUncheckedUpdateManyWithoutManagerInput = {
   parentIdea?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -669,7 +632,6 @@ export type ProjectCreateManyIdeaInput = {
   id?: number
   title: string
   body: string
-  progress?: number
   status?: string
   managerId: string
   createdAt?: Date | string
@@ -678,7 +640,6 @@ export type ProjectCreateManyIdeaInput = {
 export type ProjectUpdateWithoutIdeaInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
@@ -688,7 +649,6 @@ export type ProjectUncheckedUpdateWithoutIdeaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -698,7 +658,6 @@ export type ProjectUncheckedUpdateManyWithoutIdeaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -711,7 +670,6 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   parentIdea?: boolean
   title?: boolean
   body?: boolean
-  progress?: boolean
   status?: boolean
   managerId?: boolean
   createdAt?: boolean
@@ -724,7 +682,6 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   parentIdea?: boolean
   title?: boolean
   body?: boolean
-  progress?: boolean
   status?: boolean
   managerId?: boolean
   createdAt?: boolean
@@ -737,7 +694,6 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   parentIdea?: boolean
   title?: boolean
   body?: boolean
-  progress?: boolean
   status?: boolean
   managerId?: boolean
   createdAt?: boolean
@@ -750,13 +706,12 @@ export type ProjectSelectScalar = {
   parentIdea?: boolean
   title?: boolean
   body?: boolean
-  progress?: boolean
   status?: boolean
   managerId?: boolean
   createdAt?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "parentIdea" | "title" | "body" | "progress" | "status" | "managerId" | "createdAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "parentIdea" | "title" | "body" | "status" | "managerId" | "createdAt", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   idea?: boolean | Prisma.IdeaDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -781,7 +736,6 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     parentIdea: number
     title: string
     body: string
-    progress: number
     status: string
     managerId: string
     createdAt: Date
@@ -1214,7 +1168,6 @@ export interface ProjectFieldRefs {
   readonly parentIdea: Prisma.FieldRef<"Project", 'Int'>
   readonly title: Prisma.FieldRef<"Project", 'String'>
   readonly body: Prisma.FieldRef<"Project", 'String'>
-  readonly progress: Prisma.FieldRef<"Project", 'Int'>
   readonly status: Prisma.FieldRef<"Project", 'String'>
   readonly managerId: Prisma.FieldRef<"Project", 'String'>
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
