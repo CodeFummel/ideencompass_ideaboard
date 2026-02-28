@@ -2,6 +2,7 @@
 export type Vote = {
     votedOption: number,
     votedPoll: number,
+    authorId: string,
 }
 
 type Option = {
@@ -14,5 +15,6 @@ export const mapOptionsToIds = (options: Option[]): number[] => options.map(o =>
 export const voteData = (votes: Vote[], options: number[]) => votes.reduce((a, v) => {
     const index = options.indexOf(v.votedOption);
     a[index]+= 1;
+    console.log(index, v.votedOption, a);
     return a;
 }, new Array(options.length).fill(0))

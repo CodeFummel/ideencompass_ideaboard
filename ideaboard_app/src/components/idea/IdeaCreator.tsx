@@ -73,20 +73,26 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
         name,
     })) ?? []);
 
-    const formRef = useRef<FormInstance>(null)
+    const ideaCreatorFormRef = useRef<FormInstance>(null);
+    const pollCreatorFormRef = useRef<FormInstance>(null);
 
-    const {activeKey, removeItem, setActiveKey, items, setItems} = useContext(TabsContext);
+    const {activeKey, removeItem} = useContext(TabsContext);
+
+    const [tabActiveKey, setTabActiveKey] = useState("ideaCreator");
 
     useImperativeHandle(ref, () => ({
         submit: () => {
-            formRef.current?.submit()
+            if (tabActiveKey === "ideaCreator") {
+                ideaCreatorFormRef.current?.submit();
+            } else {
+                pollCreatorFormRef.current?.submit();
+            }
         }
-    }), [formRef]);
+    }), [ideaCreatorFormRef, pollCreatorFormRef, tabActiveKey]);
 
     const {
         data: session,
     } = authClient.useSession();
-
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -202,7 +208,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
                             onFinish={onFinish}
                             onFinishFailed={onFormError}
                             initialValues={initialIdea}
-                            ref={formRef}
+                            ref={ideaCreatorFormRef}
             >
                 {contextHolder}
                 <Form.Item name={"title"} label="Titel:" rules={[{required: true, message: ""}]}>
@@ -302,7 +308,9 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
                     key: "pollCreator",
                     closable: false,
                     forceRender: true,
-                    children: <PollCreator/>,
+                    children: <PollCreator onPollSaved={function (): void {
+                        throw new Error("Function not implemented.");
+                    }} ref={pollCreatorFormRef}/>,
                 }
             )
         }
@@ -311,7 +319,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
     console.log(tabItems);
 
     return (
-        <Tabs items={tabItems} tabPlacement={"start"} className={"h-full"}/>
+        <Tabs items={tabItems} tabPlacement={"start"} className={"h-full"} onChange={setTabActiveKey}/>
     );
 };
 export default IdeaCreator

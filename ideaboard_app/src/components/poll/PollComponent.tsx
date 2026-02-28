@@ -16,6 +16,7 @@ import {
     Title,
     Tooltip,
 } from 'chart.js';
+import {authClient} from "@/src/utils/auth-client";
 
 ChartJS.register(
     CategoryScale,
@@ -42,9 +43,13 @@ type Poll = {
 
 export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, votes, allVotes}) => {
 
+    const {
+        data: session,
+    } = authClient.useSession();
+
     const data = options.map(({id, content}) => ({value: id, label: content}))
 
-    const [value, setValue] = useState<number | null>(votes[0]?.votedOption || 0);
+    const [value, setValue] = useState<number | null>(votes.find((vote) => vote.authorId === session?.user.id)?.votedOption ?? null);
 
     const pollClosed = dayjs(closeDate).diff(dayjs()) <= 0;
 
@@ -74,6 +79,8 @@ export const PollComponent: React.FC<Poll> = ({id, body, closeDate, options, vot
             borderWidth: 1
         }]
     };
+
+    console.log(chartData);
 
     const chartOptions: ChartOptions = {
         scales: {y: {beginAtZero: true}, x: {ticks: {stepSize: 1}}},

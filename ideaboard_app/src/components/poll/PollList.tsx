@@ -23,6 +23,8 @@ type Poll = {
     }[],
     votes: {
         votedOption: number,
+        votedPoll: number,
+        authorId: string,
     }[],
     allVotes: number,
 }
