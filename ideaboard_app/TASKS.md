@@ -33,19 +33,13 @@ men
 [x] − Projektleiter können zusätzlich noch Projekte bearbeiten (z. B. den Status verändern)  
 [x] − Admins können alle Bereiche verwalten (z. B. Ideen löschen)  
 
-#### [ ] 2.7 Benutzeroberfläche
-[ ] − Moderne, intuitive Bedienoberfläche in deutscher Sprache  
-[ ] − Responsive Design für verschiedene Endgeräte  
+#### [x] 2.7 Benutzeroberfläche
+[x] − Moderne, intuitive Bedienoberfläche in deutscher Sprache  
+[x] − Responsive Design für verschiedene Endgeräte  
 
 #### [x] 2.8 Backend & Datenhaltung
 [x] - Die Daten werden im Backend verarbeitet und validiert. Zu diesen Daten gehören Benutzerdaten, einge-
 reichte Ideen, Kommentare, Likes, etc.  
 
 #### [x] 2.9 Optionale Funktionen
-[x] - Dark Mode 
-
-### Zum fixen:
-- Beim kommentieren Idee neuladen (eigentlich implementiert)
-- Top 3 ideen der woche irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
-- Likes pro Woche manchmal falsch
-- Ideen werden nach Umwandlung immer noch angezeigt
+[x] - Dark Mode

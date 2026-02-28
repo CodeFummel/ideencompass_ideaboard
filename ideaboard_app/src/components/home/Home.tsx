@@ -1,7 +1,6 @@
 "use client"
 
 import { MyIdeas } from "@/src/components/home/MyIdeas";
-import { MyProjects } from "@/src/components/home/MyProjects";
 import {TopThreeIdeas} from "@/src/components/home/TopThreeIdeas";
 
 export const Home = () => {
