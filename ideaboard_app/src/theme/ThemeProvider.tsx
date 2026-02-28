@@ -10,26 +10,39 @@ const ThemeContext = createContext({
 
 export const useTheme = () => useContext(ThemeContext);
 
+
+function getInitialTheme() {
+    if (typeof window === "undefined") return false;
+
+    const saved = localStorage.getItem("darkMode");
+    if (saved !== null) return saved === "true";
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(getInitialTheme);
 
-    // 🌗 Beim ersten Laden: localStorage prüfen, sonst System Darkmode
-    useEffect(() => {
-        const saved = localStorage.getItem("darkMode");
 
-        if (saved !== null) {
-            setDarkMode(saved === "true");
-        } else {
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            setDarkMode(prefersDark);
-        }
-    }, []);
-
-    // 💾 localStorage aktualisieren + .dark Klasse setzen
     useEffect(() => {
         localStorage.setItem("darkMode", String(darkMode));
         document.documentElement.classList.toggle("dark", darkMode);
     }, [darkMode]);
+
+
+    useEffect(() => {
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const listener = (e: MediaQueryListEvent) => {
+            const saved = localStorage.getItem("darkMode");
+            if (saved === null) {
+                setDarkMode(e.matches);
+            }
+        };
+
+        media.addEventListener("change", listener);
+        return () => media.removeEventListener("change", listener);
+    }, []);
 
     const toggle = () => setDarkMode(prev => !prev);
 
