@@ -249,58 +249,69 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
                         </Upload.Dragger>
                     </div>
                 </Form.Item>
-                    <Form.Item className={"m-2"} label={"Umwandeln:"}>
-                        {session?.user.role != "user" ?
-                            <Popconfirm title={"Idee in ein Projekt umwandeln?"}
-                                        description={"Diese Aktion kann nicht rückgängig gemacht werden!\n " +
-                                            "Sie werden das Projekt zusätzlich bearbeiten müssen."}
-                                        okText={"Umwandeln"}
-                                        cancelText={"Abbrechen"}
-                                        onConfirm={onProjectConvert}
-                                        icon={<DoubleRightOutlined/>}
-                            >
-                                <Button icon={<DoubleRightOutlined/>} type={"primary"} disabled={!isNewIdea()}>
-                                    <span>In Projekt umwandeln</span>
-                                </Button>
-                            </Popconfirm>
-                            :
-                            <Button icon={<DoubleRightOutlined/>} type={"primary"} disabled={true}>
+                <Form.Item className={"m-2"} label={"Umwandeln:"}>
+                    {session?.user.role != "user" ?
+                        <Popconfirm title={"Idee in ein Projekt umwandeln?"}
+                                    description={"Diese Aktion kann nicht rückgängig gemacht werden!\n " +
+                                        "Sie werden das Projekt zusätzlich bearbeiten müssen."}
+                                    okText={"Umwandeln"}
+                                    cancelText={"Abbrechen"}
+                                    onConfirm={onProjectConvert}
+                                    icon={<DoubleRightOutlined/>}
+                        >
+                            <Button icon={<DoubleRightOutlined/>} type={"primary"} disabled={!isNewIdea()}>
                                 <span>In Projekt umwandeln</span>
                             </Button>
-                        }
-                    </Form.Item>
-                    <Form.Item className={"m-2"} label={"Löschen:"}>
-                        {session?.user.role != "lead" ?
-                            <Popconfirm title={"Idee löschen?"}
-                                        description={"Diese Aktion kann nicht rückgängig gemacht werden!"}
-                                        okText={"Löschen"}
-                                        cancelText={"Abbrechen"}
-                                        onConfirm={confirmDelete}
-                                        icon={<DeleteOutlined style={{color: "red"}}/>}
-                            >
-                                <Button icon={<DeleteOutlined/>} type={"primary"} danger disabled={!isNewIdea()}>
-                                    <span>Löschen</span>
-                                </Button>
-                            </Popconfirm>
-                            :
-                            <Button icon={<DeleteOutlined/>} type={"primary"} danger disabled={true}>
+                        </Popconfirm>
+                        :
+                        <Button icon={<DoubleRightOutlined/>} type={"primary"} disabled={true}>
+                            <span>In Projekt umwandeln</span>
+                        </Button>
+                    }
+                </Form.Item>
+                <Form.Item className={"m-2"} label={"Löschen:"}>
+                    {session?.user.role != "lead" ?
+                        <Popconfirm title={"Idee löschen?"}
+                                    description={"Diese Aktion kann nicht rückgängig gemacht werden!"}
+                                    okText={"Löschen"}
+                                    cancelText={"Abbrechen"}
+                                    onConfirm={confirmDelete}
+                                    icon={<DeleteOutlined style={{color: "red"}}/>}
+                        >
+                            <Button icon={<DeleteOutlined/>} type={"primary"} danger disabled={!isNewIdea()}>
                                 <span>Löschen</span>
                             </Button>
-                        }
-                    </Form.Item>
+                        </Popconfirm>
+                        :
+                        <Button icon={<DeleteOutlined/>} type={"primary"} danger disabled={true}>
+                            <span>Löschen</span>
+                        </Button>
+                    }
+                </Form.Item>
             </Form>
         },
-        {
-            label: "Umfrage erstellen",
-            key: "pollCreator",
-            closable: false,
-            forceRender: true,
-            children: <PollCreator/>,
-        }
     ];
 
+    console.log(isNewIdea());
+    console.log(tabItems);
+
+    if (session?.user.role !== "user") {
+        if (!isNewIdea()) {
+            tabItems.push({
+                    label: "Umfrage erstellen",
+                    key: "pollCreator",
+                    closable: false,
+                    forceRender: true,
+                    children: <PollCreator/>,
+                }
+            )
+        }
+    }
+
+    console.log(tabItems);
+
     return (
-        <Tabs items={tabItems} tabPlacement={"start"}/>
+        <Tabs items={tabItems} tabPlacement={"start"} className={"h-full"}/>
     );
 };
 export default IdeaCreator
