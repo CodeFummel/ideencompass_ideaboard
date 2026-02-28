@@ -1,10 +1,17 @@
 "use client"
 
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useState} from "react";
 import {Button, Form, Input, Tabs, TabsProps} from "antd";
 
 import {authClient} from "@/src/utils/auth-client";
 import {useRouter} from "next/navigation";
+
+type UserChange = {
+    id?: string,
+    name?: string;
+    email?: string;
+    password?: string;
+};
 
 const UserDashboard = () => {
 
@@ -28,45 +35,31 @@ const UserDashboard = () => {
     }
 
     return (
-        <div className={"flex-1 h-full p-(--standard-padding-in) border-2 border-(--border)"}>
-            <p>Avatar: {session?.user.image}</p>
-            <p>Benutzername: {session?.user.name}</p>
-            <p>Email: {session?.user.email}</p>
-            <p>Rolle: {session?.user.role}</p>
-            <Button onClick={handleSignOut} >Abmelden</Button>
-            <Button href={"/"}>Dashboard</Button>
+        <div className="min-h-screen flex justify-center pt-16 p-(--standard-padding-in)">
+            <div className="card border-2 border-(--border) var(--foreground) p-8 w-full max-w-md">
+
+                <div className="text-center space-y-4">
+                    <p className="card p-5">Benutzername: {session?.user.name}</p>
+                    <p className="card p-5">Email: {session?.user.email}</p>
+                    <p className="card p-5">Rolle: {session?.user.role}</p>
+
+                    <div className="flex justify-center gap-2">
+                        <Button type="primary" htmlType="submit" className="var(--foreground)" onClick={handleSignOut}>Abmelden</Button>
+                        <Button type="primary" htmlType="submit" className="var(--foreground)" href={"/"}>Dashboard</Button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     )
-}
 
-type UserChange = {
-    id?: string,
-    name?: string;
-    email?: string;
-    password?: string;
 };
 
 const UserSettings: React.FC = () => {
 
-    const [users, setUsers] = useState<UserChange[]>([]);
-
     const {
         data: session,
     } = authClient.useSession()
-
-    useEffect(() => {
-        fetch("/users").then((response) => {
-            response.json().then((u) => {
-                console.info(u);
-                setUsers(u);
-            }).catch((error) => console.info(error))
-        })
-    }, []);
-
-    const filteredUser = useMemo(() => {
-        return users
-            .filter(user => user.id === session?.user.id)
-    }, [session?.user, users]);
 
     const previousSettings = session.user;
 
@@ -97,7 +90,6 @@ const UserSettings: React.FC = () => {
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
                 onFinish={onFinishForm}
-                //onFinishFailed={onFinishFailed as any}
                 autoComplete="off"
             >
                 <Form.Item
@@ -112,13 +104,6 @@ const UserSettings: React.FC = () => {
                 >
                     <Input/>
                 </Form.Item>
-                <Form.Item<UserChange>
-                    label={"Aktuelles Passwort"}
-                    name="password"
-                    rules={[{required: true, message: 'Bitte geben Sie Ihr Passwort ein!'}]}
-                >
-                    <Input.Password/>
-                </Form.Item>
                 <Form.Item label={null}>
                     <Button type="primary" htmlType="submit">
                         Änderungen speichern
@@ -129,12 +114,18 @@ const UserSettings: React.FC = () => {
     )
 }
 
+/*
+                <Form.Item<UserChange>
+                    label={"Aktuelles Passwort"}
+                    name="password"
+                    rules={[{required: true, message: 'Bitte geben Sie Ihr Passwort ein!'}]}
+                >
+                    <Input.Password/>
+                </Form.Item>
+ */
+
 export const UserPage: React.FC = () => {
     const [activeKey, setActiveKey] = useState<string>("1");
-
-    const onFinish = () => {
-        setActiveKey("1");
-    }
 
     const items: TabsProps['items'] = [
         {

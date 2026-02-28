@@ -49,6 +49,7 @@
 
 html,
 body {
+
   height: 100%;
   background: var(--background);
   color: var(--foreground);
@@ -105,4 +106,35 @@ body {
 .ant-tabs-nav-list,
 .ant-tabs-tab {
   min-width: initial;
+}
+
+/* Inputs */
+.ant-input,
+.ant-input-password,
+.ant-input-affix-wrapper {
+    background-color: var(--background);
+    color: var(--foreground);
+    border-color: var(--border);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Labels */
+.ant-form-item-label > label {
+    color: var(--foreground);
+}
+
+/* Buttons (falls nötig) */
+.ant-btn {
+    color: var(--foreground);
+    border-color: var(--border);
+}
+
+/* Tabs */
+.ant-tabs-tab,
+.ant-tabs-tab-active {
+    color: var(--foreground);
+}
+
+.ant-tabs-ink-bar {
+    background: var(--foreground);
 }

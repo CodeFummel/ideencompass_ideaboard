@@ -14,7 +14,7 @@ import { AdminUserManagment } from "@/src/components/user/AdminUserManagment"
 import { authClient } from "@/src/utils/auth-client";
 import { TabsProvider } from "@/src/components/TabsProvider";
 
-import { ThemeProvider } from "@/src/theme/ThemeProvider"   // ⭐ NEU
+import { ThemeProvider } from "@/src/theme/ThemeProvider"
 
 const onChange = (key: string) => {
     console.log(key);
