@@ -5,6 +5,13 @@ export async function GET(request: Request) {
     const projects = await prisma.project.findMany({
         include: {
             manager: true,
+            idea: {
+                include: {
+                    _count: {
+                        select: {likes: true, comments: true},
+                    },
+                }
+            },
         }
     });
 

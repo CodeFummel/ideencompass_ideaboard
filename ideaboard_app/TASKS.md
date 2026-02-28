@@ -45,13 +45,9 @@ reichte Ideen, Kommentare, Likes, etc.
 [x] - Dark Mode 
 
 ### Zum fixen:
-- Nutzerdaten oben rechts werden teilweise beim einloggen vom vorherigen Nutzer angezeigt
-- Änderung von Nutzerdaten
-- Profilbilder
 - Menge an Zeiträumen in Statistiken
 - Beim kommentieren Idee neuladen (eigentlich implementiert)
 - Top 3 ideen der woche irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
 - Likes pro Woche manchmal falsch
-- Beim Bearbeiten von Ideen ändert sich der Autor (nicht so wichtig ig)
 - Ideen werden nach Umwandlung immer noch angezeigt
 - Projekt und Umfragen Filter broken

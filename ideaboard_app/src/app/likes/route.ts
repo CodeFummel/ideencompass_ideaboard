@@ -2,7 +2,6 @@ import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/src/utils/database";
 import {auth} from "@/src/utils/auth";
 import {headers} from "next/headers";
-import dayjs from "dayjs";
 
 export async function GET(request: NextRequest) {
     const session = await auth.api.getSession({
@@ -21,13 +20,8 @@ export async function GET(request: NextRequest) {
 
     const self = likes.find((like) => like.authorId === session.user.id);
 
-    const allUserLikes = await prisma.like.findMany({
-        where: {authorId: session.user.id},
-    });
 
-    const userWeekLikes = allUserLikes.filter((like) => dayjs(like.createdAt) >= dayjs().startOf('week'));
-
-    return NextResponse.json({likes, self: !!self, userWeekLikes: userWeekLikes.length});
+    return NextResponse.json({likes, self: !!self});
 }
 
 export async function POST(request: Request) {
