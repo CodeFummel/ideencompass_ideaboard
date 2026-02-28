@@ -32,7 +32,7 @@ export const countLabels = (period: Period) => {
     }
 }
 
-type Dateable = {createdAt: string | Date};
+export type Dateable = {createdAt: string | Date};
 
 export const countData = (dateables: Dateable[], period: Period) => {
     const filteredDateables = dateables.filter(dateable => dayjs(dateable.createdAt) >= dayjs().startOf(period));

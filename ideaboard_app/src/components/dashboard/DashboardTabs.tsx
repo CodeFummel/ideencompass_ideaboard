@@ -71,7 +71,7 @@ const ProjectListWrapper = ({ideas, projects, onProjectEdit, filter, sort, sortD
             .filter(project => {
                 switch (filter.type) {
                     case "category":
-                        return (ideas[project.parentIdea].category === filter.value);
+                        return (project.idea.category === filter.value);
                     case "time":
                         return (filter.value === "all" ? true : dayjs(project.createdAt).diff(dayjs(), filter.value) === 0);
                 }
@@ -81,12 +81,12 @@ const ProjectListWrapper = ({ideas, projects, onProjectEdit, filter, sort, sortD
                     case "createdAt":
                         return sortByCreatedAt(a, b, sortDirection);
                     case "likes":
-                        return sortByLikes(a, b, sortDirection);
+                        return sortByLikes(a.idea, b.idea, sortDirection);
                     case "comments":
-                        return sortByComments(a, b, sortDirection);
+                        return sortByComments(a.idea, b.idea, sortDirection);
                 }
             })
-    }, [projects, filter, ideas, sort, sortDirection]);
+    }, [projects, filter, sort, sortDirection]);
 
     return <ProjectList projects={filteredProjects} onProjectEdit={onProjectEdit} ideas={ideas} editable={true}/>;
 };

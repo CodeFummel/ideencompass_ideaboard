@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, Collapse} from "antd";
 import {EditOutlined, LikeOutlined, RightOutlined} from "@ant-design/icons";
 import {LikeButton} from "@/src/components/idea/LikeButton";
@@ -11,6 +11,18 @@ import {authClient} from "@/src/utils/auth-client";
 
 const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit?: (id: number) => void, editable: boolean }> = ({ideas, onIdeaEdit, editable}) => {
 
+    const [userWeekLikes, setUserWeekLikes] = useState(0);
+
+    const fetchUserLikes = useCallback(() => {
+        fetch(`/userLikes`, {
+            method: "GET",
+        }).then((response) => response.json()).then((data) => setUserWeekLikes(data.userWeekLikes));
+    }, [setUserWeekLikes]);
+
+    useEffect(() => {
+        fetchUserLikes();
+    }, [fetchUserLikes]);
+
     const {
         data: session,
         error,
@@ -18,7 +30,14 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit?: (id: number) => void, edi
 
     if (!session) {
         return (error?.statusText);
-    };
+    }
+
+    const onLiked = () => {
+        fetchUserLikes();
+        console.log("Fetching user likes")
+    }
+
+    console.log("WeekLikes ",userWeekLikes);
 
     const RenderEdit = ({idea, editable, onIdeaEdit}) => {
         if (editable) {
@@ -27,24 +46,24 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit?: (id: number) => void, edi
         return null;
     };
 
-    const RenderLike = ({idea, editable}) => {
+    const RenderLike = ({idea, editable, onLiked}) => {
         if (editable) {
-            return <LikeButton ideaId={idea.id}/>
+            return <LikeButton ideaId={idea.id} userWeekLikes={userWeekLikes} onLiked={onLiked}/>
         }
         return <><LikeOutlined/> {idea._count.likes}</>;
     };
 
-    const RenderComponent = ({idea, editable}) => {
+    const RenderComponent = ({idea, editable, onLiked}) => {
         if (session?.user.role !== "user") {
             return (<div className={"flex flex-row items-center gap-2"}>
                 <div className={"flex items-center"}>
-                    <RenderLike idea={idea} editable={editable}/>
+                    <RenderLike idea={idea} editable={editable} onLiked={onLiked}/>
                 </div>
                 <RenderEdit idea={idea} editable={editable} onIdeaEdit={onIdeaEdit}/>
             </div>)
         } else {
             return (<div className={"flex items-center"}>
-                <RenderLike idea={idea} editable={editable}/>
+                <RenderLike idea={idea} editable={editable} onLiked={onLiked}/>
             </div>)
         }
     };
@@ -65,7 +84,7 @@ const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit?: (id: number) => void, edi
                         <RenderEdit idea={idea} editable={editable} onIdeaEdit={onIdeaEdit}/>
                     </div>
                     :
-                    <RenderComponent idea={idea} editable={editable}/>
+                    <RenderComponent idea={idea} editable={editable} onLiked={onLiked}/>
                 }
             </div>,
             children: <IdeaComponent {...idea} editable={editable}/>

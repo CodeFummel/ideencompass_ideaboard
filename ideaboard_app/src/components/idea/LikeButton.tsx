@@ -2,12 +2,10 @@ import React, {useCallback, useEffect, useState} from "react";
 import {LikeFilled, LikeOutlined} from "@ant-design/icons";
 import {Button, notification} from "antd";
 
-export const LikeButton: React.FC<{ ideaId: number }> = ({ideaId}) => {
+export const LikeButton: React.FC<{ ideaId: number, userWeekLikes: number, onLiked: () => void }> = ({ideaId, userWeekLikes, onLiked}) => {
     const [isLiked, setIsLiked] = useState(false);
 
     const [likes, setLikes] = useState<number | null>(null);
-
-    const [weekLikes, setWeekLikes] = useState<number | null>(null);
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -22,22 +20,19 @@ export const LikeButton: React.FC<{ ideaId: number }> = ({ideaId}) => {
 
         setLikes(data.likes.length);
         setIsLiked(data.self);
-        setWeekLikes(data.userWeekLikes);
-    }, [setLikes, setIsLiked, setWeekLikes, ideaId]);
+    }, [setLikes, setIsLiked, ideaId]);
 
     useEffect(() => {
         fetchLikes()
     }, [fetchLikes])
 
-    console.log(weekLikes)
-
     const handleLike = async () => {
         if(!loading) {
             setLoading(true);
             try {
-                if (isLiked || (weekLikes !== null && weekLikes < 3)) {
-                    setIsLiked(!isLiked)
-
+                if (isLiked || (userWeekLikes !== null && userWeekLikes < 3)) {
+                    setIsLiked(!isLiked);
+                    onLiked();
                     if (!isLiked) {
                         await fetch("/likes", {
                             method: "POST",

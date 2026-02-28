@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
+import { Idea } from "../idea/useIdeas";
 
 export type Project = {
     id: number,
@@ -10,6 +11,7 @@ export type Project = {
     manager: {
         name: string,
     },
+    idea: Idea,
     createdAt: Date,
 }
 
