@@ -52,8 +52,6 @@ const UserDashboard = () => {
             </div>
         </div>
     )
-}
-
 };
 
 const UserSettings: React.FC = () => {
@@ -114,16 +112,6 @@ const UserSettings: React.FC = () => {
         </div>
     )
 }
-
-/*
-                <Form.Item<UserChange>
-                    label={"Aktuelles Passwort"}
-                    name="password"
-                    rules={[{required: true, message: 'Bitte geben Sie Ihr Passwort ein!'}]}
-                >
-                    <Input.Password/>
-                </Form.Item>
- */
 
 export const UserPage: React.FC = () => {
     const [activeKey, setActiveKey] = useState<string>("1");
