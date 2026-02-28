@@ -13,7 +13,7 @@ export const Header = () => {
 
             <div className="flex flex-1 justify-end items-center gap-4 h-full">
 
-                {/* 🌙 Dark Mode Toggle */}
+                {/* Dark Mode Toggle */}
                 <Switch
                     checked={darkMode}
                     onChange={toggle}

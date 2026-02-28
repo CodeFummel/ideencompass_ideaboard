@@ -5,7 +5,7 @@ import {Collapse} from "antd";
 import {RightOutlined} from "@ant-design/icons";
 import {PollComponent} from "@/src/components/poll/PollComponent";
 import {createAuthClient} from "better-auth/react";
-import {formatDate} from "@/src/components/dateUtils";
+import {formatDate} from "@/src/components/util/dateUtils";
 
 const {useSession} = createAuthClient()
 
@@ -23,6 +23,8 @@ type Poll = {
     }[],
     votes: {
         votedOption: number,
+        votedPoll: number,
+        authorId: string,
     }[],
     allVotes: number,
 }

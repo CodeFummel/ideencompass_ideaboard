@@ -19,11 +19,7 @@ export async function GET(request: Request) {
             _count: {
                 select: { votes: true },
             },
-            votes: {
-                where: {
-                    authorId: session.user.id
-                }
-            }
+            votes: true,
         },
     });
 

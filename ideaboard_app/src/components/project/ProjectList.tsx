@@ -6,15 +6,16 @@ import {EditOutlined, RightOutlined} from "@ant-design/icons";
 import {Project} from "./useProjects"
 import {Idea} from "@/src/components/idea/useIdeas";
 import {ProjectComponent} from "@/src/components/project/ProjectComponent";
-import {formatDate} from "@/src/components/dateUtils";
+import {formatDate} from "@/src/components/util/dateUtils";
 import {authClient} from "@/src/utils/auth-client";
 
 
 export const ProjectList: React.FC<{
     projects: Project[],
     ideas: Idea[],
-    onProjectEdit: (id: number) => void
-}> = ({projects, ideas, onProjectEdit}) => {
+    onProjectEdit: (id: number) => void,
+    editable: boolean
+}> = ({projects, ideas, onProjectEdit, editable}) => {
 
     const {
         data: session,
@@ -22,7 +23,7 @@ export const ProjectList: React.FC<{
 
     const items = projects.map((project) => {
         const progress = (() => {
-            switch(project.status) {
+            switch (project.status) {
                 case "backlog":
                     return 0;
                 case "concept":
@@ -39,12 +40,13 @@ export const ProjectList: React.FC<{
             label: <div className={"flex justify-between"}>
                 <div className={"flex flex-col"}>
                     <h2 className={"text-[1.2rem] font-medium"}>{project.title}</h2>
-                    <h4 className={"font-light ml-1"}>Projektmanager: {project.manager.name}, in Arbeit seit {formatDate(project.createdAt)}</h4>
+                    <span className={"font-light ml-1"}>Projektmanager: {project.manager.name}</span>
+                    <span className={"font-light ml-1"}>in Arbeit seit {formatDate(project.createdAt)}</span>
                 </div>
                 {session?.user.role !== "user" ?
                     <div className={"flex flex-row items-center gap-2"}>
                         <Progress percent={progress} steps={3}/>
-                        <Button onClick={() => onProjectEdit(project.id)}><EditOutlined/></Button>
+                        {editable ? <Button onClick={() => onProjectEdit(project.id)}><EditOutlined/></Button> : null}
                     </div>
                     :
                     <div className={"flex flex-row items-center gap-2"}>

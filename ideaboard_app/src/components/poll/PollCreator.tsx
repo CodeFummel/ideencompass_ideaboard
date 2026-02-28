@@ -1,13 +1,16 @@
 "use client"
 
-import React, {useState} from "react";
-import {Button, DatePicker, DatePickerProps, Form, Input, notification} from "antd";
+import React, {Ref, useState} from "react";
+import {Button, DatePicker, DatePickerProps, Form, FormInstance, Input, notification} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import {createAuthClient} from "better-auth/react"
 
 const {useSession} = createAuthClient()
 
-export const PollCreator: React.FC = () => {
+export const PollCreator = ({ref, onPollSaved}:{
+    ref?: Ref<FormInstance>,
+    onPollSaved: () => void,
+}) => {
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -41,6 +44,7 @@ export const PollCreator: React.FC = () => {
         console.info({route});
         if (route.ok) {
             console.info("PollCreator successfull poll creation")
+            onPollSaved();
         } else {
             console.info("Server PollCreator Input Error")
         }
@@ -67,6 +71,7 @@ export const PollCreator: React.FC = () => {
                 labelCol={{span: 5}}
                 onFinish={onFinish}
                 onFinishFailed={onFormError}
+                ref={ref}
                 style={{maxWidth: 600}}
             >
                 <Form.Item
@@ -172,11 +177,6 @@ export const PollCreator: React.FC = () => {
                         }}
                         onOk={onOk}
                     />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Speichern
-                    </Button>
                 </Form.Item>
             </Form>
         </div>

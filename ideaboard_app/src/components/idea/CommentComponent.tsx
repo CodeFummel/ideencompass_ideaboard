@@ -3,10 +3,9 @@
 import React, {useEffect, useState} from "react";
 import {Collapse} from "antd";
 import {SmileOutlined} from "@ant-design/icons";
-import {formatDate} from "@/src/components/dateUtils";
+import {formatDate} from "@/src/components/util/dateUtils";
 import EmojiPicker from 'emoji-picker-react';
 import {authClient} from "@/src/utils/auth-client";
-import {useIdeas} from "@/src/components/idea/useIdeas";
 
 export type Comment = {
     id: number;

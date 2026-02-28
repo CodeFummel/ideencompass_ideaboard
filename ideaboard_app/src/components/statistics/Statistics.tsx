@@ -6,7 +6,7 @@ import {BestIdea} from "@/src/components/statistics/BestIdea";
 import {CommentCount} from "@/src/components/statistics/CommentCount";
 import {IdeaCount} from "@/src/components/statistics/IdeaCount";
 import {LikeCount} from "@/src/components/statistics/LikeCount";
-import type {Period} from "@/src/components/statistics/statUtil";
+import type {Period} from "@/src/components/util/statUtil";
 import {Radio, RadioChangeEvent} from "antd";
 import {useIdeas} from "@/src/components/idea/useIdeas";
 import {useState} from "react";

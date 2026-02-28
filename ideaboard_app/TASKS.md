@@ -50,8 +50,8 @@ reichte Ideen, Kommentare, Likes, etc.
 - Profilbilder
 - Menge an Zeiträumen in Statistiken
 - Beim kommentieren Idee neuladen (eigentlich implementiert)
-- Pollcreator irgendwo unterbringen
 - Top 3 ideen der woche irwie kaputt (irgendwie alles was mit ideen sortieren zu tun hat)
-- Umfragen nochmal durchchecken
 - Likes pro Woche manchmal falsch
-- Beim Bearbeiten von Ideen ändert sich der Autor
+- Beim Bearbeiten von Ideen ändert sich der Autor (nicht so wichtig ig)
+- Ideen werden nach Umwandlung immer noch angezeigt
+- Projekt und Umfragen Filter broken

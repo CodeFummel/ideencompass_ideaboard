@@ -6,7 +6,7 @@ import {EditOutlined, LikeOutlined, RightOutlined} from "@ant-design/icons";
 import {LikeButton} from "@/src/components/idea/LikeButton";
 import {IdeaComponent} from "@/src/components/idea/IdeaComponent";
 import {Idea} from "@/src/components/idea/useIdeas";
-import {formatDate} from "@/src/components/dateUtils";
+import {formatDate} from "@/src/components/util/dateUtils";
 import {authClient} from "@/src/utils/auth-client";
 
 const IdeaList: React.FC<{ ideas: Idea[], onIdeaEdit?: (id: number) => void, editable: boolean }> = ({ideas, onIdeaEdit, editable}) => {

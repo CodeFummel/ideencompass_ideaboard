@@ -10,13 +10,13 @@ import {project} from "effect/Layer";
 
 type Options = "concept"|"progress"|"finished"
 
-export const ProjectComponent: React.FC<Project> = ({id, body, status, parentIdea, managerId}) => {
+export const ProjectComponent: React.FC<Project> = ({id, body, status, parentIdea}) => {
 
     const {
         data: session,
     } = authClient.useSession();
 
-    const {projects, refreshProjects} = useProjects();
+    const {refreshProjects} = useProjects();
 
     const {ideas} = useIdeas()
 

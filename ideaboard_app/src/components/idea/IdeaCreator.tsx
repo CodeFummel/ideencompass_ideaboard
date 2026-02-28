@@ -9,16 +9,17 @@ import {
     notification,
     Popconfirm,
     Select,
+    Tabs,
     Upload,
     UploadFile,
     UploadProps
 } from 'antd';
-import React, {Ref, useCallback, useContext, useImperativeHandle, useRef, useState} from "react";
+import React, {Ref, useContext, useImperativeHandle, useRef, useState} from "react";
 import {Idea} from "@/src/components/idea/useIdeas";
 import {RcFile} from "antd/lib/upload";
 import {TabsContext} from "@/src/components/TabsProvider";
 import {authClient} from "@/src/utils/auth-client";
-import {ProjectCreator, ProjectCreatorRef} from "@/src/components/project/ProjectCreator";
+import {PollCreator} from "@/src/components/poll/PollCreator";
 
 // Categories
 const categoryOptions = [
@@ -72,22 +73,26 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
         name,
     })) ?? []);
 
-    const pref = useRef<Map<string, ProjectCreatorRef | null>>(new Map);
-    const formRef = useRef<FormInstance>(null)
-    const newTabIndex = useRef(0);
+    const ideaCreatorFormRef = useRef<FormInstance>(null);
+    const pollCreatorFormRef = useRef<FormInstance>(null);
 
-    const {activeKey, removeItem, setActiveKey, items, setItems} = useContext(TabsContext);
+    const {activeKey, removeItem} = useContext(TabsContext);
+
+    const [tabActiveKey, setTabActiveKey] = useState("ideaCreator");
 
     useImperativeHandle(ref, () => ({
         submit: () => {
-            formRef.current?.submit()
+            if (tabActiveKey === "ideaCreator") {
+                ideaCreatorFormRef.current?.submit();
+            } else {
+                pollCreatorFormRef.current?.submit();
+            }
         }
-    }), [formRef]);
+    }), [ideaCreatorFormRef, pollCreatorFormRef, tabActiveKey]);
 
     const {
         data: session,
     } = authClient.useSession();
-
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -191,61 +196,66 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
         }
     };
 
-    return (
-        <Form className="flex-1 overflow-y-auto"
-              labelCol={{span: 4}}
-              onFinish={onFinish}
-              onFinishFailed={onFormError}
-              initialValues={initialIdea}
-              ref={formRef}
-        >
-            {contextHolder}
-            <Form.Item name={"title"} label="Titel:" rules={[{required: true, message: ""}]}>
-                <Input/>
-            </Form.Item>
-            <Form.Item label={"Kategorie:"}>
-                <div className="flex flex-1 gap-4">
-                    <Form.Item className="flex-3" noStyle name={"category"} rules={[{required: true, message: ""}]}>
-                        <Select className={"flex-1"}
-                                showSearch={{
-                                    optionFilterProp: 'label',
-                                    filterSort: (optionA, optionB) =>
-                                        (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase()),
-                                }}
-                                placeholder="Kategorie Auswählen"
-                                options={categoryOptions}
-                        />
-                    </Form.Item>
-                    <div className={"flex flex-2 items-center gap-2"}>
-                        <label>
-                            Tags:
-                        </label>
-                        <Form.Item name={"tags"} noStyle rules={[{required: true, message: ""}]}>
+    // Differ between IdeaCreator and PollCreator
+    const tabItems = [
+        {
+            label: "Idee erstellen",
+            key: "ideaCreator",
+            closable: false,
+            forceRender: true,
+            children: <Form className="flex-1 overflow-y-auto"
+                            labelCol={{span: 4}}
+                            onFinish={onFinish}
+                            onFinishFailed={onFormError}
+                            initialValues={initialIdea}
+                            ref={ideaCreatorFormRef}
+            >
+                {contextHolder}
+                <Form.Item name={"title"} label="Titel:" rules={[{required: true, message: ""}]}>
+                    <Input/>
+                </Form.Item>
+                <Form.Item label={"Kategorie:"}>
+                    <div className="flex flex-1 gap-4">
+                        <Form.Item className="flex-3" noStyle name={"category"} rules={[{required: true, message: ""}]}>
                             <Select className={"flex-1"}
-                                    mode="tags"
-                                    placeholder="Tags hinzufügen"
-                                    options={tagOptions}/>
+                                    showSearch={{
+                                        optionFilterProp: 'label',
+                                        filterSort: (optionA, optionB) =>
+                                            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase()),
+                                    }}
+                                    placeholder="Kategorie Auswählen"
+                                    options={categoryOptions}
+                            />
                         </Form.Item>
+                        <div className={"flex flex-2 items-center gap-2"}>
+                            <label>
+                                Tags:
+                            </label>
+                            <Form.Item name={"tags"} noStyle rules={[{required: true, message: ""}]}>
+                                <Select className={"flex-1"}
+                                        mode="tags"
+                                        placeholder="Tags hinzufügen"
+                                        options={tagOptions}/>
+                            </Form.Item>
+                        </div>
                     </div>
-                </div>
-            </Form.Item>
-            <Form.Item name={"body"} label={"Beschreibung:"} rules={[{required: true, message: ""}]}>
-                <Input.TextArea autoSize={{minRows: 9, maxRows: 9}}/>
-            </Form.Item>
-            <Form.Item name={"files"} label={"Anhänge:"}>
-                <div
-                    className=" flex content-center align-center border-(--border) border-2 border-inherited border-dotted rounded-(--border-radius) text-center h-30">
-                    <Upload.Dragger {...uploadProps} className="flex flex-1 justify-center align-center">
-                        <p className="ant-upload-drag-icon flex justify-center">
-                            <InboxOutlined className="flex self-center justify-center"/>
-                        </p>
-                        <p className="ant-upload-text align-center">Klicken oder ziehen Sie Dateien in diesen
-                            Bereich</p>
-                    </Upload.Dragger>
-                </div>
-            </Form.Item>
-            <div className={"flex flex-row flex-1 gap-4"}>
-                <Form.Item className={"m-2"}>
+                </Form.Item>
+                <Form.Item name={"body"} label={"Beschreibung:"} rules={[{required: true, message: ""}]}>
+                    <Input.TextArea autoSize={{minRows: 3, maxRows: 9}}/>
+                </Form.Item>
+                <Form.Item name={"files"} label={"Anhänge:"}>
+                    <div
+                        className=" flex content-center align-center border-(--border) border-2 border-inherited border-dotted rounded-(--border-radius) text-center h-30">
+                        <Upload.Dragger {...uploadProps} className="flex flex-1 justify-center align-center">
+                            <p className="ant-upload-drag-icon flex justify-center">
+                                <InboxOutlined className="flex self-center justify-center"/>
+                            </p>
+                            <p className="ant-upload-text align-center">Klicken oder ziehen Sie Dateien in diesen
+                                Bereich</p>
+                        </Upload.Dragger>
+                    </div>
+                </Form.Item>
+                <Form.Item className={"m-2"} label={"Umwandeln:"}>
                     {session?.user.role != "user" ?
                         <Popconfirm title={"Idee in ein Projekt umwandeln?"}
                                     description={"Diese Aktion kann nicht rückgängig gemacht werden!\n " +
@@ -265,7 +275,7 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
                         </Button>
                     }
                 </Form.Item>
-                <Form.Item className={"m-2"}>
+                <Form.Item className={"m-2"} label={"Löschen:"}>
                     {session?.user.role != "lead" ?
                         <Popconfirm title={"Idee löschen?"}
                                     description={"Diese Aktion kann nicht rückgängig gemacht werden!"}
@@ -284,8 +294,32 @@ const IdeaCreator = ({ref, onIdeaSaved, initialIdea, onProjectConvert}: {
                         </Button>
                     }
                 </Form.Item>
-            </div>
-        </Form>
+            </Form>
+        },
+    ];
+
+    console.log(isNewIdea());
+    console.log(tabItems);
+
+    if (session?.user.role !== "user") {
+        if (!isNewIdea()) {
+            tabItems.push({
+                    label: "Umfrage erstellen",
+                    key: "pollCreator",
+                    closable: false,
+                    forceRender: true,
+                    children: <PollCreator onPollSaved={function (): void {
+                        throw new Error("Function not implemented.");
+                    }} ref={pollCreatorFormRef}/>,
+                }
+            )
+        }
+    }
+
+    console.log(tabItems);
+
+    return (
+        <Tabs items={tabItems} tabPlacement={"start"} className={"h-full"} onChange={setTabActiveKey}/>
     );
 };
 export default IdeaCreator
