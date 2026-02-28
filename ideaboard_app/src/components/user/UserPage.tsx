@@ -35,15 +35,25 @@ const UserDashboard = () => {
     }
 
     return (
-        <div className={"flex-1 h-full p-(--standard-padding-in) border-2 border-(--border)"}>
-            <p>Avatar: {session?.user.image}</p>
-            <p>Benutzername: {session?.user.name}</p>
-            <p>Email: {session?.user.email}</p>
-            <p>Rolle: {session?.user.role}</p>
-            <Button onClick={handleSignOut}>Abmelden</Button>
-            <Button href={"/"}>Dashboard</Button>
+        <div className="min-h-screen flex justify-center pt-16 p-(--standard-padding-in)">
+            <div className="card border-2 border-(--border) var(--foreground) p-8 w-full max-w-md">
+
+                <div className="text-center space-y-4">
+                    <p className="card p-5">Benutzername: {session?.user.name}</p>
+                    <p className="card p-5">Email: {session?.user.email}</p>
+                    <p className="card p-5">Rolle: {session?.user.role}</p>
+
+                    <div className="flex justify-center gap-2">
+                        <Button type="primary" htmlType="submit" className="var(--foreground)" onClick={handleSignOut}>Abmelden</Button>
+                        <Button type="primary" htmlType="submit" className="var(--foreground)" href={"/"}>Dashboard</Button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     )
+}
+
 };
 
 const UserSettings: React.FC = () => {
