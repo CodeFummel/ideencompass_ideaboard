@@ -28,8 +28,8 @@ export const Statistics: React.FC = () => {
     ]
 
     return (
-        <div className={"flex-1 grid grid-cols-4 grid-rows-2 gap-4 h-dvh m-4 mt-0"}>
-            <div className={"col-span-1 h-full"}>
+        <div className={"flex-1 xl:grid xl:grid-cols-4 xl:grid-rows-2 gap-4 h-dvh m-4 mt-0"}>
+            <div className={"col-span-1 xl:h-full mb-2"}>
                 <div className={"flex-1 h-full border-2 rounded-(--border-radius) border-(--border)"}>
                     <div className={"border-b-2 border-(--border) p-2"}>
                         <h2 className={"font-medium"}>Zeitspanne</h2>
@@ -44,19 +44,19 @@ export const Statistics: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className={"col-span-2 h-full card"}>
+            <div className={"xl:col-span-2 xl:h-full mb-2 card"}>
                 <BestIdea ideas={ideas} period={period}/>
             </div>
-            <div className={"row-span-2 h-full card"}>
+            <div className={"xl:row-span-2 xl:h-full mb-2 card"}>
                 <CategoryStat ideas={ideas} period={period}/>
             </div>
-            <div className={"col-span-1 h-full card"}>
+            <div className={"xl:col-span-1 xl:h-full mb-2 card"}>
                 <IdeaCount ideas={ideas} period={period}/>
             </div>
-            <div className={"col-span-1 h-full card"}>
+            <div className={"xl:col-span-1 xl:h-full mb-2 card"}>
                 <CommentCount ideas={ideas} period={period}/>
             </div>
-            <div className={"col-span-1 h-full card"}>
+            <div className={"xl:col-span-1 xl:h-full mb-2 card"}>
                 <LikeCount ideas={ideas} period={period}/>
             </div>
         </div>
