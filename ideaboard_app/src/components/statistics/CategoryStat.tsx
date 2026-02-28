@@ -4,7 +4,6 @@ import React from 'react'
 import {ArcElement, CategoryScale, Chart as ChartJS, Legend, Title, Tooltip,} from 'chart.js';
 import {Pie} from "react-chartjs-2";
 import {categoryData, Period} from "@/src/components/util/statUtil";
-import {useIdeas} from "@/src/components/idea/useIdeas";
 import {Idea} from "@/src/components/idea/useIdeas";
 
 ChartJS.register(

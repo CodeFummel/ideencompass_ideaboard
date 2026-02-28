@@ -25,7 +25,6 @@ export const Statistics: React.FC = () => {
         {value: "week", label: 'Woche'},
         {value: "month", label: 'Monat'},
         {value: "year", label: 'Jahr'},
-        {value: "all", label: 'Insgesamt'},
     ]
 
     return (

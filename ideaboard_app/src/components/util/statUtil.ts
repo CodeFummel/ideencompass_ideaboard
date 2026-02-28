@@ -27,6 +27,8 @@ export const countLabels = (period: Period) => {
     switch (period) {
         case "week":
             return ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+        case "month":
+            return ['1. Woche', '2. Woche', '3. Woche', '4. Woche'];
         case "year":
             return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     }
@@ -42,6 +44,13 @@ export const countData = (dateables: Dateable[], period: Period) => {
             const data = Array(7).fill(0);
             for (const dateable of filteredDateables) {
                 data[(dayjs(dateable.createdAt).day() + 6) % 7]++;
+            }
+            return data;
+        }
+        case "month": {
+            const data = Array(4).fill(0);
+            for (const dateable of filteredDateables) {
+                data[(dayjs(dateable.createdAt).weekday() +1) % 4]++;
             }
             return data;
         }
