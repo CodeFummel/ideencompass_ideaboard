@@ -3,8 +3,8 @@
 import React, {useState} from "react";
 import {Radio, RadioChangeEvent} from "antd";
 import {Bar} from "react-chartjs-2";
-import {formatDate} from "@/src/components/dateUtils";
-import {mapOptionsToIds, Vote, voteData} from "@/src/components/votesUtil";
+import {formatDate} from "@/src/components/util/dateUtils";
+import {mapOptionsToIds, Vote, voteData} from "@/src/components/util/votesUtil";
 import dayjs from "dayjs";
 import {
     BarElement,

@@ -4,7 +4,7 @@ import React, {useMemo} from "react";
 import IdeaList from "@/src/components/idea/IdeaList";
 import {useIdeas} from "@/src/components/idea/useIdeas";
 import dayjs from "dayjs";
-import {Period} from "@/src/components/statistics/statUtil";
+import {Period} from "@/src/components/util/statUtil";
 import {Idea} from "@/src/components/idea/useIdeas";
 
 

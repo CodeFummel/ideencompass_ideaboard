@@ -88,7 +88,7 @@ const ProjectListWrapper = ({ideas, projects, onProjectEdit, filter, sort, sortD
             })
     }, [projects, filter, ideas, sort, sortDirection]);
 
-    return <ProjectList projects={filteredProjects} onProjectEdit={onProjectEdit} ideas={ideas}/>;
+    return <ProjectList projects={filteredProjects} onProjectEdit={onProjectEdit} ideas={ideas} editable={true}/>;
 };
 
 const DashboardTabs: React.FC = () => {

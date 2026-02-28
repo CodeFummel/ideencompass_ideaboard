@@ -3,7 +3,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {Bar} from "react-chartjs-2";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from 'chart.js';
-import {countLabels, countData, Period} from "@/src/components/statistics/statUtil";;
+import {countLabels, countData, Period} from "@/src/components/util/statUtil";;
 
 ChartJS.register(
     CategoryScale,

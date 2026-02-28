@@ -4,7 +4,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {authClient} from "@/src/utils/auth-client";
 import {UserWithRole} from "better-auth/plugins";
 import {Button, List, Popconfirm, Select} from "antd";
-import {formatDate} from "@/src/components/dateUtils";
+import {formatDate} from "@/src/components/util/dateUtils";
 import {CheckSquareOutlined, CloseSquareOutlined} from "@ant-design/icons";
 
 
@@ -65,10 +65,7 @@ export const AdminUserManagment = () => {
 
     const items = (user) => (
         <div className="flex flex-row m-2 h-full border-(--border) border rounded-(--border-radius)">
-            <div className={"grid grid-cols-5 grid-rows-2 w-full"}>
-                <div className={"row-span-2 border-(--border) border p-2 rounded-l-(--border-radius)"}>
-                    <img/>
-                </div>
+            <div className={"grid grid-cols-4 grid-rows-2 w-full"}>
                 <span className={"border-(--border) border p-2"}>Benutzename:</span>
                 <span className={"border-(--border) border p-2"}>Email:</span>
                 <span className={"border-(--border) border p-2"}>Erstelldatum:</span>

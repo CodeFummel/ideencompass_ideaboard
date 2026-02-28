@@ -14,8 +14,8 @@ export const MyProjects = () => {
             <div className={"border-b-2 border-(--border) p-2"}>
                 <h2 className={"font-medium"}>Meine Projekte:</h2>
             </div>
-            <div>
-                <ProjectList projects={projects} ideas={ideas}/>
+            <div className={"mr-2"}>
+                <ProjectList projects={projects} ideas={ideas} editable={false}/>
             </div>
         </div>
     );
